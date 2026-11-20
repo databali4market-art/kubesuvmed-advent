@@ -77,7 +77,6 @@ export default function App() {
   // přihlášení
   useEffect(() => {
     let off: (() => void) | undefined;
-    backend.completeEmailLink().then((ok) => ok && notify('Jste přihlášeni. Krásný advent!')).catch((e) => notify((e as Error).message));
     backend.watch((u) => { setUser(u); setAuthReady(true); }).then((f) => { off = f; });
     return () => off?.();
   }, [notify]);
@@ -350,7 +349,7 @@ export default function App() {
           </div>
           <div id="soukromi" className="privacy">
             <h3>Soukromí</h3>
-            <p>Pro přihlášení používáme službu Firebase (Google). Ukládáme váš e-mail, případně jméno z účtu Google, která okénka jste otevřeli, soutěžní odpovědi a to, zda chcete dostávat novinky (včetně data a znění souhlasu). Údaje slouží jen k provozu adventního kalendáře, vyhodnocení soutěže a – pokud jste o to požádali – k zasílání novinek. Souhlas s novinkami můžete kdykoli odvolat v sekci Moje dárky nebo odkazem v každém e-mailu. Podrobnosti o zpracování osobních údajů najdete na <a href={SHOP + 'gdpr/'} target="_blank" rel="noreferrer">kubesuvmed.cz</a>.</p>
+            <p>Pro přihlášení účtem Google používáme službu Firebase (Google). Ukládáme váš e-mail, případně jméno z účtu Google, která okénka jste otevřeli, soutěžní odpovědi a to, zda chcete dostávat novinky (včetně data a znění souhlasu). Údaje slouží jen k provozu adventního kalendáře, vyhodnocení soutěže a – pokud jste o to požádali – k zasílání novinek. Souhlas s novinkami můžete kdykoli odvolat v sekci Moje dárky nebo odkazem v každém e-mailu. Podrobnosti o zpracování osobních údajů najdete na <a href={SHOP + 'gdpr/'} target="_blank" rel="noreferrer">kubesuvmed.cz</a>.</p>
           </div>
           <small>© 2026 Kubešova medová manufaktura · Okénka se otevírají o půlnoci (Europe/Prague) · Hudba: vlastní aranžmá lidových koled</small>
         </div>

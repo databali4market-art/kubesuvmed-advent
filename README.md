@@ -1,6 +1,6 @@
 # Medový advent 2026 – Kubešova medová manufaktura
 
-Statický web (Vite + React + TypeScript): 24 buněk medové plástve, které se odemykají každý den o půlnoci (Europe/Prague). Přihlášení přes **Google** nebo **odkazem do e-mailu** (Firebase Authentication), data (otevřená okénka, soutěžní odpovědi, souhlas s newsletterem) ve **Firestore**. Web běží na **Firebase Hosting** (`advent.kubesuvmed.cz`). Obsah vychází z tabulky „Kubeš advent“. Postup nasazení je stejný jako u kalendáře Mobil Maják.
+Statický web (Vite + React + TypeScript): 24 buněk medové plástve, které se odemykají každý den o půlnoci (Europe/Prague). Přihlášení jen přes **Google** (Firebase Authentication), data (otevřená okénka, soutěžní odpovědi, souhlas s newsletterem) ve **Firestore**. Web běží na **Firebase Hosting** (`advent.kubesuvmed.cz`). Obsah vychází z tabulky „Kubeš advent“. Postup nasazení je stejný jako u kalendáře Mobil Maják.
 
 ## Co kde je
 
@@ -43,7 +43,7 @@ npm run build    # výstup v dist/
 ## Jak to celé funguje
 
 - **Web** běží na Firebase Hosting (doména `advent.kubesuvmed.cz`), nasazuje se automaticky po každém pushi do `main`.
-- **Přihlášení** přes Google nebo odkazem do e-mailu. Bez přihlášení se okénka neotevřou (`DEMO_MODE = false`).
+- **Přihlášení** jen přes Google. Bez přihlášení se okénka neotevřou (`DEMO_MODE = false`).
 - **Data** ve Firestore: `users/{uid}` (e-mail, jméno, otevřená okénka, souhlas s newsletterem vč. data a znění), `entries` (soutěžní odpovědi).
 - **E-maily** stahuje správce na `https://advent.kubesuvmed.cz/?admin` jako CSV (newsletter / všichni přihlášení / soutěžní odpovědi).
 
@@ -52,13 +52,9 @@ Stačí bezplatný tarif Firebase (Spark). Projekt: `kubesuvmed-advent`.
 ## Nastavení Firebase (jednorázově, cca 15 minut)
 
 1. **Projekt** (hotovo: `kubesuvmed-advent`) a **webová aplikace** (hotovo – konfigurace je v `src/config.ts`).
-2. **Přihlášení**: Build → *Authentication* → Sign-in method:
-   - *Google* → Enable → vyplnit e-mail podpory → Save,
-   - *Email/Password* → Enable **a** zapnout *Email link (passwordless sign-in)*.
-
+2. **Přihlášení**: Build → *Authentication* → Get started → *Google* → Enable → vyplnit e-mail podpory → Save.
    *Settings → Authorized domains*: přidat `advent.kubesuvmed.cz`.
    Na stránce souhlasu Googlu (Google Cloud Console → APIs & Services → OAuth consent screen / Branding) nastavit název „Kubešova medová manufaktura“, logo a odkaz na zásady ochrany osobních údajů.
-   Volitelně: *Authentication → Templates → Email address sign-in* – přeložit e-mail s přihlašovacím odkazem do češtiny (Template language: Czech).
 3. **Databáze**: Build → *Firestore Database* → Create database → lokace `eur3 (europe-west)` → *production mode*.
 4. **Správci**: Google e-mail (malými písmeny) zapsat do `ADMIN_EMAILS` v `src/config.ts` **a** do funkce `isAdmin()` ve `firestore.rules`.
 5. **Hosting**: Build → *Hosting* → Get started (stačí proklikat). Pak *Add custom domain* → `advent.kubesuvmed.cz` → u správce DNS přidat záznamy, které Firebase ukáže. Po ověření domény přepsat v `src/config.ts` `authDomain` na `advent.kubesuvmed.cz` (spolehlivé přihlášení v Safari / na iPhonu).
@@ -83,7 +79,9 @@ Ruční nasazení z počítače: `npm run build && npx firebase-tools deploy --o
 
 ## Před spuštěním (1. 12.)
 
-- [ ] Firebase nastavený (viz výše), vyzkoušené přihlášení (Google i e-mail) a export na `/?admin`.
+Podrobný seznam otevřených bodů je v [DORESIT.md](DORESIT.md).
+
+- [ ] Firebase nastavený (viz výše), vyzkoušené přihlášení přes Google a export na `/?admin`.
 - [ ] Ve Shoptetu založit kódy **ADVENT15** (2.–4. 12., nad 1 500 Kč), **MIKULAS** (One Box, nad 500 Kč), **ADVENT10** (11.–13. 12., nad 1 000 Kč) a nastavit dárek k nákupu nad 800 Kč (8. 12.).
 - [ ] Vyřešit všechny poznámky `confirm` v `src/content.ts` (vidíte je v náhledu jako žluté rámečky), pak `CONTENT_MODE = 'live'`.
 - [ ] 15. 12.: nahradit pracovní otázky typového kvízu zněním z Google Docu.

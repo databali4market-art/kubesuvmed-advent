@@ -1,12 +1,11 @@
 /**
  * Přihlášení a ukládání postupu.
- *  - S Firebase: Google / odkaz do e-mailu + Firestore (users/{uid}, entries/{uid}_{den}).
+ *  - S Firebase: přihlášení přes Google + Firestore (users/{uid}, entries/{uid}_{den}).
  *  - Bez Firebase (ukázkový režim): přihlášení e-mailem bez ověření, data v localStorage.
  */
 import { FIREBASE, NEWSLETTER_CONSENT, firebaseEnabled } from './config';
 import type { Progress, User } from './types';
 
-const EMAIL_KEY = 'kmed-email-for-signin';
 const NEWSLETTER_KEY = 'kmed-newsletter-optin';
 const LOCAL_USER = 'kmed-local-user';
 const localKey = (uid: string, preview: boolean) => `kmed-progress-${preview ? 'nahled' : 'live'}-${uid}`;
@@ -15,11 +14,9 @@ export interface Backend {
   mode: 'firebase' | 'local';
   /** spustí sledování přihlášení; vrací funkci pro odhlášení odběru */
   watch(cb: (u: User | null) => void): Promise<() => void>;
-  /** dokončí přihlášení odkazem z e-mailu (pokud stránka byla otevřena z odkazu) */
-  completeEmailLink(): Promise<boolean>;
   signInGoogle(newsletter: boolean): Promise<void>;
-  /** firebase: pošle odkaz; local: rovnou přihlásí */
-  signInEmail(email: string, newsletter: boolean): Promise<'sent' | 'signed-in'>;
+  /** jen ukázkový režim bez Firebase: přihlášení e-mailem bez ověření */
+  signInEmail(email: string, newsletter: boolean): Promise<void>;
   signOut(): Promise<void>;
   load(u: User, preview: boolean): Promise<Progress>;
   markOpened(u: User, day: number, preview: boolean): Promise<void>;
@@ -45,14 +42,12 @@ function localBackend(): Backend {
   return {
     mode: 'local',
     async watch(cb) { listener = cb; cb(read()); return () => { listener = null; }; },
-    async completeEmailLink() { return false; },
     async signInGoogle() { throw new Error('Přihlášení přes Google zatím není nastavené.'); },
     async signInEmail(email, newsletter) {
       const u: User = { uid: 'local:' + email.toLowerCase(), email: email.toLowerCase(), name: null };
       try { localStorage.setItem(LOCAL_USER, JSON.stringify(u)); } catch { /* */ }
       const p = getP(u, false); p.newsletter = p.newsletter || newsletter; setP(u, false, p);
       listener?.(u);
-      return 'signed-in';
     },
     async signOut() { try { localStorage.removeItem(LOCAL_USER); } catch { /* */ } listener?.(null); },
     async load(u, preview) { return getP(u, preview); },
@@ -109,24 +104,6 @@ function firebaseBackend(): Backend {
       auth.getRedirectResult(a).then((r) => r?.user && ensureProfile(toUser(r.user), pendingNewsletter())).catch(() => {});
       return auth.onAuthStateChanged(a, (u) => cb(u ? toUser(u) : null));
     },
-    async completeEmailLink() {
-      const { a, auth } = await sdk;
-      const href = location.href;
-      if (!auth.isSignInWithEmailLink(a, href)) return false;
-      let email: string | null = null;
-      try { email = localStorage.getItem(EMAIL_KEY); } catch { /* */ }
-      if (!email) email = window.prompt('Pro dokončení přihlášení zadejte prosím svůj e-mail:');
-      const clean = new URL(href);
-      ['apiKey', 'oobCode', 'mode', 'lang', 'continueUrl', 'prihlaseni', 'tenantId'].forEach((k) => clean.searchParams.delete(k));
-      history.replaceState(null, '', clean);
-      if (!email) return false;
-      try {
-        const res = await auth.signInWithEmailLink(a, email, href);
-        await ensureProfile(toUser(res.user), pendingNewsletter());
-        try { localStorage.removeItem(EMAIL_KEY); } catch { /* */ }
-        return true;
-      } catch (e) { throw new Error(humanError((e as { code?: string }).code || '')); }
-    },
     async signInGoogle(newsletter) {
       const { a, auth } = await sdk;
       const provider = new auth.GoogleAuthProvider();
@@ -145,15 +122,7 @@ function firebaseBackend(): Backend {
         throw new Error(humanError(code));
       }
     },
-    async signInEmail(email, newsletter) {
-      const { a, auth } = await sdk;
-      const url = new URL(location.origin + import.meta.env.BASE_URL);
-      url.searchParams.set('prihlaseni', '1');
-      try { await auth.sendSignInLinkToEmail(a, email, { url: url.href, handleCodeInApp: true }); }
-      catch (e) { throw new Error(humanError((e as { code?: string }).code || '')); }
-      try { localStorage.setItem(EMAIL_KEY, email); localStorage.setItem(NEWSLETTER_KEY, newsletter ? '1' : '0'); } catch { /* */ }
-      return 'sent';
-    },
+    async signInEmail() { throw new Error('Přihlásit se jde jen přes Google.'); },
     async signOut() { const { a, auth } = await sdk; await auth.signOut(a); },
     async load(u, preview) {
       const { db, fs } = await sdk;
@@ -208,14 +177,10 @@ function firebaseBackend(): Backend {
 
 function humanError(code: string) {
   switch (code) {
-    case 'auth/invalid-email': return 'Tahle e-mailová adresa nevypadá správně.';
-    case 'auth/invalid-action-code':
-    case 'auth/expired-action-code': return 'Odkaz pro přihlášení už vypršel nebo byl použit. Pošlete si prosím nový.';
     case 'auth/network-request-failed': return 'Nepodařilo se připojit. Zkontrolujte připojení k internetu.';
     case 'auth/too-many-requests':
     case 'auth/quota-exceeded': return 'Příliš mnoho pokusů. Zkuste to prosím za chvíli.';
-    case 'auth/unauthorized-domain':
-    case 'auth/unauthorized-continue-uri': return 'Tato doména zatím není ve Firebase povolená (Authentication → Settings → Authorized domains).';
+    case 'auth/unauthorized-domain': return 'Tato doména zatím není ve Firebase povolená (Authentication → Settings → Authorized domains).';
     case 'auth/operation-not-allowed': return 'Tento způsob přihlášení není ve Firebase zapnutý.';
     default: return 'Přihlášení se nepodařilo. Zkuste to prosím znovu.';
   }
