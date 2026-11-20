@@ -1,4 +1,22 @@
-export type DoorType = 'tip' | 'recipe' | 'gift' | 'discount' | 'contest' | 'story';
+export type DoorType = 'tip' | 'recipe' | 'gift' | 'discount' | 'contest' | 'story' | 'quiz' | 'download';
+
+export interface QuizQuestion { q: string; options: string[]; answer: number; right?: string; wrong?: string; explain?: string }
+export interface PersonaQuestion { q: string; options: { t: string; r: string }[] }
+export interface PersonaResult { title: string; text: string; product?: { label: string; url: string } }
+
+export type Game =
+  | { kind: 'quiz'; questions: QuizQuestion[] }
+  | { kind: 'persona'; questions: PersonaQuestion[]; results: Record<string, PersonaResult> };
+
+export interface Contest {
+  question: string;
+  prize: string;
+  rules: string;
+  /** poslední den (prosinec), kdy lze odpovídat */
+  until: number;
+  placeholder?: string;
+  adult?: boolean;
+}
 
 export interface Door {
   day: number;
@@ -11,9 +29,23 @@ export interface Door {
   product?: boolean;
   url?: string;
   urlLabel?: string;
+  /** slevový kód do e-shopu */
   code?: string;
+  /** podmínky kódu (výše slevy, na co platí) */
   codeNote?: string;
+  /** poslední den platnosti kódu (prosinec) – po něm se kód ukáže jako neplatný */
+  codeUntil?: number;
+  /** heslo pro stánek (místo slevového kódu) */
+  password?: string;
+  /** zvýrazněná odměna bez kódu (např. dárek k nákupu) */
+  reward?: string;
+  /** soubor ke stažení (PDF) */
+  download?: { url: string; label: string };
+  game?: Game;
+  contest?: Contest;
   adult?: boolean;
+  /** poznámka k potvrzení – zobrazí se jen v náhledu při CONTENT_MODE = 'draft' */
+  confirm?: string;
 }
 
 export interface User {

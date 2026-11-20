@@ -3,7 +3,7 @@
  *  - S Firebase: Google / odkaz do e-mailu + Firestore (users/{uid}, entries/{uid}_{den}).
  *  - Bez Firebase (ukázkový režim): přihlášení e-mailem bez ověření, data v localStorage.
  */
-import { FIREBASE, firebaseEnabled } from './config';
+import { FIREBASE, NEWSLETTER_CONSENT, firebaseEnabled } from './config';
 import type { Progress, User } from './types';
 
 const EMAIL_KEY = 'kmed-email-for-signin';
@@ -25,7 +25,13 @@ export interface Backend {
   markOpened(u: User, day: number, preview: boolean): Promise<void>;
   submitEntry(u: User, day: number, answer: string, preview: boolean): Promise<void>;
   setNewsletter(u: User, v: boolean): Promise<void>;
+  /** jen pro správce (ADMIN_EMAILS + firestore.rules): všechny kontakty a soutěžní odpovědi */
+  exportData(): Promise<ExportData>;
 }
+
+export interface ContactRow { email: string; name: string; newsletter: boolean; newsletterAt: string; newsletterConsent: string; createdAt: string; lastSeenAt: string; opened: number }
+export interface EntryRow { day: number; email: string; name: string; answer: string; createdAt: string }
+export interface ExportData { contacts: ContactRow[]; entries: EntryRow[] }
 
 /* ------------------------------------------------------------------ local */
 function localBackend(): Backend {
@@ -57,6 +63,7 @@ function localBackend(): Backend {
       p.entries.push(day); setP(u, preview, p);
     },
     async setNewsletter(u, v) { const p = getP(u, false); p.newsletter = v; setP(u, false, p); },
+    async exportData() { throw new Error('Export funguje až s nastaveným Firebase.'); },
   };
 }
 
@@ -75,13 +82,22 @@ function firebaseBackend(): Backend {
   const userField = (preview: boolean) => (preview ? 'openedPreview' : 'opened');
   const entriesField = (preview: boolean) => (preview ? 'entriesPreview' : 'entries');
 
+  /** pole, která se uloží při udělení / odvolání souhlasu s newsletterem */
+  async function consentFields(v: boolean) {
+    const { fs } = await sdk;
+    return v
+      ? { newsletter: true, newsletterAt: fs.serverTimestamp(), newsletterConsent: `${NEWSLETTER_CONSENT.version}: ${NEWSLETTER_CONSENT.text}` }
+      : { newsletter: false, newsletterRevokedAt: fs.serverTimestamp() };
+  }
+
   async function ensureProfile(u: User, newsletter: boolean) {
     const { db, fs } = await sdk;
     const ref = fs.doc(db, 'users', u.uid);
     const snap = await fs.getDoc(ref);
     const now = fs.serverTimestamp();
-    if (!snap.exists()) await fs.setDoc(ref, { email: u.email, name: u.name, newsletter, createdAt: now, lastSeenAt: now, opened: {}, entries: [] });
-    else await fs.updateDoc(ref, { email: u.email, lastSeenAt: now, ...(newsletter ? { newsletter: true } : {}) });
+    const consent = newsletter ? await consentFields(true) : {};
+    if (!snap.exists()) await fs.setDoc(ref, { email: u.email, name: u.name, newsletter: false, createdAt: now, lastSeenAt: now, opened: {}, entries: [], ...consent });
+    else await fs.updateDoc(ref, { email: u.email, name: u.name, lastSeenAt: now, ...consent });
   }
   const pendingNewsletter = () => { try { return localStorage.getItem(NEWSLETTER_KEY) === '1'; } catch { return false; } };
 
@@ -167,7 +183,25 @@ function firebaseBackend(): Backend {
     },
     async setNewsletter(u, v) {
       const { db, fs } = await sdk;
-      await fs.setDoc(fs.doc(db, 'users', u.uid), { newsletter: v }, { merge: true });
+      await fs.setDoc(fs.doc(db, 'users', u.uid), await consentFields(v), { merge: true });
+    },
+    async exportData() {
+      const { db, fs } = await sdk;
+      const iso = (v: unknown) => (v && typeof (v as { toDate?: () => Date }).toDate === 'function' ? (v as { toDate: () => Date }).toDate().toISOString() : typeof v === 'string' ? v : '');
+      let users, entries;
+      try { [users, entries] = await Promise.all([fs.getDocs(fs.collection(db, 'users')), fs.getDocs(fs.collection(db, 'entries'))]); }
+      catch (e) {
+        if ((e as { code?: string }).code === 'permission-denied') throw new Error('Tento účet nemá přístup ke kontaktům. Přidejte ho do ADMIN_EMAILS v config.ts i ve firestore.rules.');
+        throw new Error('Data se nepodařilo načíst.');
+      }
+      const contacts: ContactRow[] = users.docs.map((d) => {
+        const x = d.data();
+        return { email: x.email || '', name: x.name || '', newsletter: !!x.newsletter, newsletterAt: x.newsletter ? iso(x.newsletterAt) : '', newsletterConsent: x.newsletter ? x.newsletterConsent || '' : '', createdAt: iso(x.createdAt), lastSeenAt: iso(x.lastSeenAt), opened: Object.keys(x.opened || {}).length };
+      }).sort((p, q) => p.createdAt.localeCompare(q.createdAt));
+      const rows: EntryRow[] = entries.docs.map((d) => d.data()).filter((x) => !x.preview)
+        .map((x) => ({ day: x.day, email: x.email || '', name: x.name || '', answer: x.answer || '', createdAt: iso(x.createdAt) }))
+        .sort((p, q) => p.day - q.day || p.createdAt.localeCompare(q.createdAt));
+      return { contacts, entries: rows };
     },
   };
 }

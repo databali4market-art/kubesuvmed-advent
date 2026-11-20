@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, Mail, MailCheck, X } from 'lucide-react';
 import { backend } from '../backend';
 import { BASE } from '../content';
+import { NEWSLETTER_CONSENT } from '../config';
 import { Pine } from './Decor';
 
 interface Props {
@@ -94,7 +95,7 @@ export function LoginDialog({ open, reason, onClose, onSignedIn }: Props) {
 
             <label className="check small">
               <input type="checkbox" checked={newsletter} onChange={(e) => setNewsletter(e.target.checked)} />
-              <span>Chci občas dostat e-mail s medovými novinkami a nabídkami. (Nepovinné, odhlásit se jde kdykoli.)</span>
+              <span>{NEWSLETTER_CONSENT.text} (Nepovinné.)</span>
             </label>
             {error && <div className="form-error" role="alert">{error}</div>}
             {!fb && <p className="legal demo">Ukázkový režim: přihlášení bez ověření, postup se ukládá jen v tomto prohlížeči.</p>}

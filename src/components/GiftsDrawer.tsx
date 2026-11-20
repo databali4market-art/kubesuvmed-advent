@@ -3,6 +3,8 @@ import { Copy, X } from 'lucide-react';
 import type { Door, User } from '../types';
 import { typeIcon } from './Honeycomb';
 import { LABELS } from './DoorModal';
+import { NEWSLETTER_CONSENT } from '../config';
+import { availableDay } from '../content';
 
 interface Props {
   open: boolean;
@@ -24,7 +26,8 @@ export function GiftsDrawer({ open, user, newsletter, doors, onClose, onPick, on
     if (!open && d.open) d.close();
   }, [open]);
   const sorted = [...doors].sort((a, b) => a.day - b.day);
-  const codes = sorted.filter((d) => d.code);
+  const codes = sorted.filter((d) => d.code || d.password);
+  const today = availableDay();
 
   return (
     <dialog ref={ref} className="drawer" aria-labelledby="gifts-title" onCancel={(e) => { e.preventDefault(); onClose(); }} onClick={(e) => { if (e.target === ref.current) onClose(); }}>
@@ -40,13 +43,17 @@ export function GiftsDrawer({ open, user, newsletter, doors, onClose, onPick, on
 
         {codes.length > 0 && (
           <section className="drawer-codes">
-            <h3>Slevové kódy</h3>
-            {codes.map((d) => (
-              <div className="mini-coupon" key={d.day}>
-                <div><span>{d.day}. prosince</span><code>{d.code}</code></div>
-                <button aria-label={`Kopírovat kód ${d.code}`} onClick={() => onCopy(d.code!)}><Copy size={16} /></button>
-              </div>
-            ))}
+            <h3>Kódy a hesla</h3>
+            {codes.map((d) => {
+              const value = d.code || `„${d.password}“`;
+              const expired = !!d.codeUntil && today > d.codeUntil;
+              return (
+                <div className={'mini-coupon' + (expired ? ' expired' : '')} key={d.day}>
+                  <div><span>{d.day}. prosince{expired ? ' · platnost skončila' : d.codeUntil ? ` · platí do ${d.codeUntil}. 12.` : d.password ? ' · heslo pro stánek' : ''}</span><code>{value}</code></div>
+                  {!expired && <button aria-label={`Kopírovat ${value}`} onClick={() => onCopy(d.code || d.password!)}><Copy size={16} /></button>}
+                </div>
+              );
+            })}
           </section>
         )}
 
@@ -72,7 +79,7 @@ export function GiftsDrawer({ open, user, newsletter, doors, onClose, onPick, on
           <footer>
             <label className="check small">
               <input type="checkbox" checked={newsletter} onChange={(e) => onNewsletter(e.target.checked)} />
-              <span>Posílat mi medové novinky e-mailem</span>
+              <span>{NEWSLETTER_CONSENT.text}</span>
             </label>
             <button className="link" onClick={onLogout}>Odhlásit se</button>
           </footer>

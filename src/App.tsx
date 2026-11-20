@@ -193,7 +193,7 @@ export default function App() {
     <>
       {preview && (
         <div className="preview-bar">
-          <Eye size={15} /> {DEMO_MODE ? 'Ukázková verze pro prezentaci – všechna okénka lze proklikat bez přihlášení' : 'Náhled: všechna okénka odemčená'}{draft && !DEMO_MODE ? ' · obsah je ukázkový' : ''}
+          <Eye size={15} /> {DEMO_MODE ? 'Ukázková verze pro prezentaci – všechna okénka lze proklikat bez přihlášení' : 'Náhled: všechna okénka odemčená'}{draft && !DEMO_MODE ? ' · žluté poznámky „K potvrzení“ vidí jen náhled' : ''}
           {!DEMO_MODE && <button onClick={() => { try { sessionStorage.removeItem('kmed-nahled'); } catch { /* */ } setPreview(false); }}>Ukončit</button>}
         </div>
       )}
@@ -225,7 +225,7 @@ export default function App() {
           <div className="hero-copy">
             <div className="eyebrow light"><span className="line" /> Adventní kalendář 2026</div>
             <h1>Vánoce, které<br /><em>chutnají po medu.</em></h1>
-            <p>24 dní, 24 malých radostí z naší rodinné včelí farmy. Recepty, tipy, slevy i soutěže – každý den o půlnoci se odemkne jedna buňka medové plástve.</p>
+            <p>24 dní, 24 malých radostí z naší rodinné včelí farmy. Recepty, slevy, kvízy i soutěž o medoviny – každý den o půlnoci se odemkne jedna buňka medové plástve.</p>
             <div className="hero-cta">
               <a href="#kalendar" className="btn primary big">{user ? 'Otevřít kalendář' : 'Vstoupit do kalendáře'} <ArrowRight size={18} /></a>
               {!user && <button className="btn ghost" onClick={() => setLogin({ open: true })}><LogIn size={17} /> Přihlásit se</button>}
@@ -264,7 +264,7 @@ export default function App() {
               <div className="eyebrow">Malé radosti, den za dnem</div>
               <h2>Medová plástev <em>plná překvapení</em></h2>
             </div>
-            <p>Za každou buňkou se skrývá recept, tip na dárek, příběh ze včelína nebo sleva do e-shopu. Vše, co otevřete, si pamatujeme u vašeho účtu.</p>
+            <p>Za každou buňkou se skrývá recept, tip na dárek, kvíz, dárek ke stažení nebo sleva do e-shopu. Vše, co otevřete, si pamatujeme u vašeho účtu.</p>
           </div>
           <div className="cal-bar">
             <div className="progress">
@@ -350,7 +350,7 @@ export default function App() {
           </div>
           <div id="soukromi" className="privacy">
             <h3>Soukromí</h3>
-            <p>Pro přihlášení používáme službu Firebase (Google). Ukládáme váš e-mail, případně jméno z účtu Google, která okénka jste otevřeli, soutěžní odpovědi a to, zda chcete dostávat novinky. Údaje slouží jen k provozu adventního kalendáře, vyhodnocení soutěží a – pokud jste o to požádali – k zasílání novinek. Podrobnosti o zpracování osobních údajů najdete na <a href={SHOP + 'gdpr/'} target="_blank" rel="noreferrer">kubesuvmed.cz</a>.</p>
+            <p>Pro přihlášení používáme službu Firebase (Google). Ukládáme váš e-mail, případně jméno z účtu Google, která okénka jste otevřeli, soutěžní odpovědi a to, zda chcete dostávat novinky (včetně data a znění souhlasu). Údaje slouží jen k provozu adventního kalendáře, vyhodnocení soutěže a – pokud jste o to požádali – k zasílání novinek. Souhlas s novinkami můžete kdykoli odvolat v sekci Moje dárky nebo odkazem v každém e-mailu. Podrobnosti o zpracování osobních údajů najdete na <a href={SHOP + 'gdpr/'} target="_blank" rel="noreferrer">kubesuvmed.cz</a>.</p>
           </div>
           <small>© 2026 Kubešova medová manufaktura · Okénka se otevírají o půlnoci (Europe/Prague) · Hudba: vlastní aranžmá lidových koled</small>
         </div>
@@ -374,7 +374,8 @@ export default function App() {
 
       <DoorModal
         door={door}
-        draft={draft}
+        showConfirm={draft && preview && !DEMO_MODE}
+        today={today}
         entered={!!door && progress.entries.includes(door.day)}
         canPrev={!!door && door.day > 1}
         canNext={!!door && door.day < max}
@@ -383,9 +384,12 @@ export default function App() {
         onClose={closeModal}
         onShare={share}
         onCopy={copy}
+        onWin={() => setBurst((b) => b + 1)}
         onEnter={async (day, answer) => {
           if (!user && !DEMO_MODE) throw new Error('Nejste přihlášeni.');
           if (!CONTEST_DAYS.includes(day)) throw new Error('Soutěž v tomto okénku neprobíhá.');
+          const until = ALL_DOORS[day - 1]?.contest?.until ?? 0;
+          if (!preview && today > until) throw new Error('Soutěž už skončila.');
           const a = answer.trim();
           if (a.length < 3) throw new Error('Odpověď prosím napište alespoň třemi znaky.');
           if (user) await backend.submitEntry(user, day, a, preview);

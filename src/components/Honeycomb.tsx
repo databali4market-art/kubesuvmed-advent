@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BookOpen, Check, Gift, Leaf, Lock, Percent, Sparkles, Trophy, Heart } from 'lucide-react';
+import { BookOpen, Check, Download, Gift, Leaf, Lock, Percent, Puzzle, Sparkles, Trophy, Heart } from 'lucide-react';
 import type { DoorType } from '../types';
 
 /** Pořadí okének v plástvi – rozházené jako u opravdového adventního kalendáře. */
@@ -12,6 +12,8 @@ export const typeIcon = (t?: DoorType, size = 20) => {
     case 'discount': return <Percent size={size} />;
     case 'contest': return <Trophy size={size} />;
     case 'story': return <Heart size={size} />;
+    case 'quiz': return <Puzzle size={size} />;
+    case 'download': return <Download size={size} />;
     default: return <Leaf size={size} />;
   }
 };
