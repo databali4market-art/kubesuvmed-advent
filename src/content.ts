@@ -38,7 +38,7 @@ export const doors: Door[] = [
   {
     day: 3, type: 'recipe', title: 'Pečená hruška s medem a skořicí',
     text: 'Jednoduchý dezert, který provoní celý domov dřív, než stihnete prostřít.',
-    image: A + 'plastve.jpg',
+    image: F + 'ig_med.webp',
     more: 'Na 2 porce: 2 hrušky, 2 lžičky medu, hrst vlašských ořechů, špetka skořice, kousek másla.\n\nHrušky rozpulte a zbavte jádřinců. Vložte do pekáčku, na každou půlku dejte kousek másla a pečte asi 20 minut při 180 °C. Ještě teplé zakápněte medem, posypte ořechy a skořicí. Podávejte s bílým jogurtem.',
   },
   {
@@ -240,7 +240,7 @@ export const doors: Door[] = [
   {
     day: 23, type: 'recipe', title: 'Pečené ořechy v medu a skořici',
     text: 'Med, skořice a křupavé oříšky. Někdy stačí jen pár surovin, aby se celým domem rozvoněly Vánoce.',
-    image: A + 'plastve.jpg',
+    image: A + 'med-pastovany-cut.webp', product: true,
     more: 'Skvěle se hodí na sváteční stůl, k večernímu mlsání nebo jako vlastnoručně vyrobený dárek pro někoho blízkého.\n\nCo budete potřebovat\n• 250 g oblíbených ořechů (mandle, lískové nebo vlašské)\n• 2 lžíce Kubešova medu\n• 1 lžíci rozpuštěného másla\n• 1 lžičku mleté skořice\n• špetku soli\n\nMed smíchejte s máslem, skořicí a solí. Přidejte ořechy a důkladně promíchejte, aby se všechny krásně obalily.\n\nRozprostřete je na plech vyložený pečicím papírem a pečte při 150 °C přibližně 15–20 minut. Během pečení je několikrát promíchejte a hlídejte, aby se nepřipálily. Poté je nechte úplně vychladnout.\n\nMalý tip od Kubešů: Nasypte oříšky do pěkné skleničky, přidejte mašli a některou z našich vánočních jmenovek. A sladký dárek pod stromeček je na světě!\n\nDobrou chuť a krásný advent',
   },
   {

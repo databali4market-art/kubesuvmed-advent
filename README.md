@@ -15,7 +15,7 @@ Statický web (Vite + React + TypeScript): 24 buněk medové plástve, které se
 | `firebase.json`, `.firebaserc`, `.github/workflows/deploy.yml` | testovací hosting a automatické nasazení |
 | `functions/__/[[path]].js`, `public/_headers` | Cloudflare Pages: proxy přihlášení Google a mezipaměť |
 | `src/fonts.css` | písma (jen latinka + čeština) |
-| `public/assets/botanika/`, `public/assets/vcelka.svg` | brandové kresby (z `kubes_vektory.ai`) a včelka; včelka je i v `src/components/Decor.tsx` |
+| `public/assets/botanika/`, `public/assets/vcelka.svg` | brandové vektorové kresby (SVG z `kubes_vektory.ai`) a včelka; včelka je i v `src/components/Decor.tsx` |
 
 ## Odměny v kalendáři
 
