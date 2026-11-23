@@ -124,13 +124,13 @@ export const doors: Door[] = [
     contest: {
       question: 'Které tři medoviny najdete v sadě Malé vánoční pohlazení?',
       prize: 'Set Malé vánoční pohlazení (3 × 0,75 l, hodnota 883 Kč)',
-      rules: 'Soutěž probíhá do pondělí 14. 12. 2026 do 23:59. Zapojit se mohou jen osoby starší 18 let s doručovací adresou v ČR, každý jednou. Ze správných odpovědí vylosujeme v úterý 15. 12. jednoho výherce, kterého kontaktujeme e-mailem, a výhru hned odešleme. Výhru nelze vyměnit za peníze. Pořadatel: Kubešova medová manufaktura.',
+      rules: 'Zapojit se lze do pondělí 14. 12. 2026 23:59, jen jednou, od 18 let a s doručovací adresou v ČR. Ze správných odpovědí vylosujeme v úterý 15. 12. jednoho výherce, napíšeme mu e-mailem a výhru hned odešleme.',
       until: 14,
       placeholder: 'Např. medovina…, medovina…, medovina…',
       adult: true,
     },
     url: SHOP + 'set-medovin-3x-0-75-l:kubesuv-med-e-shop/', urlLabel: 'Nápověda v e-shopu',
-    confirm: 'Je odkaz „Nápověda“ na správný set (Malé vánoční pohlazení)? Doplnit IČO/adresu pořadatele do pravidel.',
+    confirm: 'Je odkaz „Nápověda“ na správný set (Malé vánoční pohlazení)? Doplnit údaje pořadatele (OPERATOR v src/config.ts) – ukazují se v pravidlech /?pravidla.',
   },
   {
     day: 14, type: 'gift', title: 'Přípitek na společné chvíle',

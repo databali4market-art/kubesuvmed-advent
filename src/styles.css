@@ -540,3 +540,23 @@ details.rules p { margin: 6px 0 0; }
   .modal-art, .modal-close, .modal-nav, .more-btn, .cta-row, .toast, .celebrate { display: none !important; }
   .modal-card, .modal-body { overflow: visible !important; max-height: none !important; display: block !important; }
 }
+
+/* ------------------------------------------- nabídka newsletteru v okénku */
+.nl-offer { display: flex; gap: 14px; margin: 18px 0 4px; padding: 16px 18px; border-radius: 16px; background: linear-gradient(135deg, #fff6e4, #fffdf8 70%); border: 1px solid var(--gold-soft); animation: pop .35s; }
+.nl-offer-icon { flex: none; width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; background: var(--honey); color: #fffaf1; }
+.nl-offer strong { font-family: var(--serif); font-weight: 600; font-size: 18px; line-height: 1.3; color: var(--honey-deep); }
+.nl-offer p { margin: 4px 0 10px; font-size: 14px; color: var(--ink-soft); }
+.nl-offer-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+.nl-offer-actions .btn { min-height: 40px; padding: 0 18px; font-size: 14px; }
+.nl-offer small { color: var(--ink-soft); font-size: 12px; }
+
+/* ----------------------------------------------- pravidla soutěže (/?pravidla) */
+.rules-page { padding-block: 40px; }
+.rules-card { max-width: 760px; margin: 0 auto; background: #fff; border: 1px solid var(--cream-2); border-radius: 20px; padding: 32px; box-shadow: 0 20px 50px -40px rgba(110, 74, 34, .5); }
+.rules-logo img { height: 56px; width: auto; }
+.rules-card h1 { font-size: 30px; color: var(--honey-deep); margin: 18px 0 8px; line-height: 1.25; }
+.rules-card h2 { font-family: var(--sans); font-size: 16px; font-weight: 700; color: var(--ink); margin: 24px 0 6px; }
+.rules-card h2::before { content: ''; display: inline-block; width: 18px; height: 2px; background: var(--gold); vertical-align: middle; margin-right: 8px; }
+.rules-card p, .rules-card li { font-size: 15px; }
+.rules-card .btn { margin-top: 18px; }
+@media (max-width: 560px) { .rules-card { padding: 22px 16px; } .rules-card h1 { font-size: 24px; } }

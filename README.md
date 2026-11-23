@@ -9,7 +9,8 @@ Statický web (Vite + React + TypeScript): 24 buněk medové plástve, které se
 | `src/content.ts` | **obsah všech 24 okének** (texty, kódy, kvízy, soutěž, PDF, odkazy); `confirm` = co je ještě potřeba potvrdit |
 | `src/config.ts` | Firebase, `DEMO_MODE`, `CONTENT_MODE`, `PREVIEW_KEY`, `ADMIN_EMAILS`, znění souhlasu `NEWSLETTER_CONSENT` |
 | `src/components/Games.tsx` | kvíz (6. 12.) a typový kvíz „Jaký med je vám nejbližší“ (15. 12.) |
-| `src/components/Admin.tsx` | stránka `/?admin` – stažení e-mailů a soutěžních odpovědí do CSV |
+| `src/components/Admin.tsx` | stránka `/?admin` – stažení e-mailů (vč. stavu souhlasu) a soutěžních odpovědí do CSV |
+| `src/components/Rules.tsx` | stránka `/?pravidla` – pravidla soutěže (pořadatel = `OPERATOR` v `src/config.ts`) |
 | `public/pdf/` | PDF ke stažení: recept na perníčky (7.), jmenovky (10.), přání (19.) |
 | `firestore.rules` | pravidla Firestore (soutěž ve dni 13, přístup správců) |
 | `firebase.json`, `.firebaserc`, `.github/workflows/deploy.yml` | testovací hosting a automatické nasazení |

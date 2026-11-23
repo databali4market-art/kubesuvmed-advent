@@ -12,6 +12,8 @@ Poznámky k obsahu jsou i přímo v okénkách – v náhledu `?nahled=medovyadv
 
 ## Obsah – otázky k potvrzení
 
+- [ ] **Provozovatel / pořadatel soutěže / správce údajů**: doplnit název firmy (nebo jméno podnikatele), sídlo a IČO do `OPERATOR` v `src/config.ts`. Ukazuje se v pravidlech soutěže (`/?pravidla`) a v patičce. Bez toho kalendář nespouštět.
+
 - [ ] **5. 12. – MIKULAS**: do kdy kód platí? Na webu je nastaveno do neděle 6. 12. (`codeUntil` v `src/content.ts`).
 - [ ] **8. 12. – malá medovina zdarma nad 800 Kč**: jak se dárek uplatní (automaticky v Shoptetu / kódem / poznámkou k objednávce) a jak dlouho platí?
 - [ ] **13. 12. – soutěž**: je odkaz „Nápověda v e-shopu“ na správný set (Malé vánoční pohlazení)? Doplnit do pravidel IČO a adresu pořadatele.
