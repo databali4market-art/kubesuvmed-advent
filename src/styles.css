@@ -293,16 +293,19 @@ main { position: relative; overflow-x: clip; }
 .footer small { grid-column: 1 / -1; color: #8d7b6c; }
 
 /* ---------------------------------------------------------------- modal */
+/* dokud je otevřené okno, stránka pod ním se nehýbe */
+html:has(dialog[open]) { overflow: hidden; }
 dialog { border: 0; padding: 0; background: transparent; color: var(--ink); max-width: none; max-height: none; }
 dialog::backdrop { background: rgba(61, 50, 45, .38); backdrop-filter: blur(6px); animation: fade .3s; }
 @keyframes fade { from { opacity: 0; } }
 .modal { width: min(940px, 100% - 24px); margin: auto; }
 .modal[open] .modal-card { animation: pop .5s cubic-bezier(.2,.9,.3,1.15); }
 @keyframes pop { from { transform: translateY(30px) scale(.94); opacity: 0; } }
-.modal-card { position: relative; display: grid; grid-template-columns: 1fr 1.1fr; background: var(--paper); border-radius: 28px; overflow: hidden; box-shadow: 0 40px 90px -40px rgba(61, 50, 45, .55); max-height: min(720px, calc(100dvh - 32px)); }
+/* výška okna je omezená, scrolluje se jen textová část – nikdy stránka pod ním */
+.modal-card { --modal-max: min(720px, calc(100dvh - 32px)); position: relative; display: grid; grid-template-columns: 1fr 1.1fr; align-items: start; background: var(--paper); border-radius: 28px; overflow: hidden; box-shadow: 0 40px 90px -40px rgba(61, 50, 45, .55); max-height: var(--modal-max); }
 .modal-close { position: absolute; z-index: 5; top: 14px; right: 14px; width: 42px; height: 42px; border-radius: 50%; border: 0; display: grid; place-items: center; background: rgba(255,255,255,.92); box-shadow: 0 4px 14px rgba(0,0,0,.15); }
 .modal-close.static { position: static; flex: none; }
-.modal-art { position: relative; min-height: 100%; background: var(--cream); overflow: hidden; }
+.modal-art { position: relative; height: 100%; min-height: 100%; align-self: stretch; background: var(--cream); overflow: hidden; }
 .modal-art img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
 .modal-art.product { background: radial-gradient(circle at 50% 58%, #fffaf0 0, var(--cream) 45%, var(--cream-2) 100%); }
 .modal-art.product img { object-fit: contain; padding: 40px 30px 30px; mix-blend-mode: multiply; animation: bob 6s ease-in-out infinite; }
@@ -312,7 +315,7 @@ dialog::backdrop { background: rgba(61, 50, 45, .38); backdrop-filter: blur(6px)
 .modal-day strong { font-family: var(--serif); font-size: 40px; line-height: 1; }
 .modal-day span { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; }
 .modal-bee { position: absolute; right: 18%; bottom: 14%; width: 46px; animation: hover 2.6s ease-in-out infinite; }
-.modal-body { padding: 42px 40px 26px; overflow-y: auto; }
+.modal-body { padding: 42px 40px 26px; max-height: var(--modal-max); overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
 .modal-body .eyebrow svg { flex: none; }
 .modal-body h2 { font-size: clamp(28px, 3.2vw, 38px); margin: 12px 0 14px; }
 .modal-body .lead { font-size: 18px; margin: 0 0 18px; }
@@ -345,7 +348,7 @@ textarea:focus, input[type='email']:focus { outline: none; border-color: var(--h
 .modal-nav button:disabled { opacity: .35; cursor: default; }
 
 /* ---------------------------------------------------------------- login */
-.login { width: min(470px, 100% - 24px); margin: auto; }
+.login { width: min(470px, 100% - 24px); margin: auto; max-height: calc(100dvh - 24px); overflow-y: auto; overscroll-behavior: contain; border-radius: 28px; }
 .login-card { position: relative; overflow: hidden; background: var(--paper); border-radius: 28px; padding: 40px 34px 30px; box-shadow: 0 40px 100px -30px rgba(0,0,0,.6); text-align: center; }
 .login[open] .login-card { animation: pop .45s cubic-bezier(.2,.9,.3,1.15); }
 .login-pine { position: absolute; width: 240px; top: -20px; left: -40px; color: var(--pine); opacity: .22; transform: rotate(18deg); }
@@ -370,7 +373,7 @@ textarea:focus, input[type='email']:focus { outline: none; border-color: var(--h
 .drawer { margin: 0 0 0 auto; height: 100dvh; width: min(440px, 100%); }
 .drawer[open] .drawer-card { animation: slide .4s cubic-bezier(.2,.8,.2,1); }
 @keyframes slide { from { transform: translateX(100%); } }
-.drawer-card { height: 100%; overflow-y: auto; background: var(--paper); padding: 28px 26px; display: flex; flex-direction: column; gap: 24px; box-shadow: -20px 0 60px rgba(0,0,0,.3); }
+.drawer-card { height: 100%; overflow-y: auto; overscroll-behavior: contain; background: var(--paper); padding: 28px 26px; display: flex; flex-direction: column; gap: 24px; box-shadow: -20px 0 60px rgba(0,0,0,.3); }
 .drawer-card header { display: flex; justify-content: space-between; gap: 16px; }
 .drawer-card h2 { font-size: 34px; margin-top: 4px; }
 .drawer-user { color: var(--ink-soft); font-size: 15px; word-break: break-all; }
@@ -434,9 +437,9 @@ textarea:focus, input[type='email']:focus { outline: none; border-color: var(--h
   .story { grid-template-columns: 1fr; gap: 40px; }
   .story-photos { height: 380px; }
   .products { grid-template-columns: repeat(2, 1fr); }
-  .modal-card { grid-template-columns: 1fr; overflow-y: auto; }
-  .modal-art { min-height: 260px; height: 34vh; }
-  .modal-body { overflow: visible; padding: 28px 22px 20px; }
+  .modal-card { grid-template-columns: 1fr; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+  .modal-art { min-height: 220px; height: 30vh; }
+  .modal-body { max-height: none; overflow: visible; padding: 28px 22px 20px; }
 }
 @media (max-width: 600px) {
   body { font-size: 16px; }
@@ -467,7 +470,8 @@ textarea:focus, input[type='email']:focus { outline: none; border-color: var(--h
   .footer .wrap { grid-template-columns: 1fr; }
   .footer-links { justify-self: start; }
   .modal { width: 100%; margin: auto 0 0; }
-  .modal-card { border-radius: 24px 24px 0 0; max-height: 92dvh; }
+  .modal-card { --modal-max: 92dvh; border-radius: 24px 24px 0 0; }
+  .modal-art { min-height: 190px; height: 26vh; }
   .login-card { padding: 34px 22px 24px; }
   .closing-bee { margin-left: 90px; }
 }
