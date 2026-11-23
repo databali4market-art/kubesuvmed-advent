@@ -358,7 +358,7 @@ export default function App() {
             <a href={LEGAL.terms} target="_blank" rel="noreferrer">Obchodní podmínky ↗</a>
             <a href={RULES_URL} target="_blank" rel="noreferrer">Pravidla soutěže</a>
           </nav>
-          <small>© 2026 Kubešova medová manufaktura · Provozovatel: {OPERATOR.name}, IČ {OPERATOR.ico} · Okénka se otevírají o půlnoci (Europe/Prague) · Hudba: vlastní aranžmá lidových koled</small>
+          <small>© 2026 Kubešova medová manufaktura · Provozovatel: {OPERATOR.name}, IČ {OPERATOR.ico} · Okénka se otevírají o půlnoci (Europe/Prague) · Hudba: vlastní aranžmá koledy Rolničky</small>
         </div>
       </footer>
 
