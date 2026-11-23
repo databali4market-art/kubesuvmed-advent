@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, Mail, X } from 'lucide-react';
 import { backend } from '../backend';
-import { NEWSLETTER_CONSENT } from '../config';
+import { LEGAL, NEWSLETTER_CONSENT } from '../config';
 import { BASE } from '../content';
 import { Botany } from './Decor';
 
@@ -85,7 +85,7 @@ export function LoginDialog({ open, reason, onClose, onSignedIn }: Props) {
         </label>
         {error && <div className="form-error" role="alert">{error}</div>}
         {!fb && <p className="legal demo">Ukázkový režim: přihlášení bez ověření, postup se ukládá jen v tomto prohlížeči. Na ostrém webu bude jen tlačítko Google.</p>}
-        <p className="legal">Přihlášením souhlasíte se zpracováním e-mailu za účelem provozu adventního kalendáře. <a href="#soukromi" onClick={onClose}>Více o soukromí</a></p>
+        <p className="legal">Přihlášením souhlasíte se zpracováním e-mailu za účelem provozu adventního kalendáře. <a href={LEGAL.privacy} target="_blank" rel="noreferrer">Ochrana osobních údajů</a></p>
       </div>
     </dialog>
   );

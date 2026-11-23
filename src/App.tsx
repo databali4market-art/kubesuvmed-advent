@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowRight, ArrowUpRight, Eye, Gift, Music, Share2, Sparkles, Volume2, VolumeX, LogIn, Heart, Leaf, Truck, Award } from 'lucide-react';
 import { availableDay, BASE, CONTEST_DAYS, doors as ALL_DOORS } from './content';
-import { CONTENT_MODE, DEMO_MODE, NAHLED_BUILD, PREVIEW_KEY } from './config';
+import { CONTENT_MODE, DEMO_MODE, LEGAL, NAHLED_BUILD, PREVIEW_KEY } from './config';
 import { backend } from './backend';
 import type { Door, Progress, User } from './types';
 import { Honeycomb } from './components/Honeycomb';
@@ -351,10 +351,10 @@ export default function App() {
             <a href="https://www.instagram.com/kubesuvmed/" target="_blank" rel="noreferrer">Instagram ↗</a>
             <a href="https://www.facebook.com/Kubesuvmed/" target="_blank" rel="noreferrer">Facebook ↗</a>
           </div>
-          <div id="soukromi" className="privacy">
-            <h3>Soukromí</h3>
-            <p>Pro přihlášení účtem Google používáme službu Firebase (Google). Ukládáme váš e-mail, případně jméno z účtu Google, která okénka jste otevřeli, soutěžní odpovědi a to, zda chcete dostávat novinky (včetně data a znění souhlasu). Údaje slouží jen k provozu adventního kalendáře, vyhodnocení soutěže a – pokud jste o to požádali – k zasílání novinek. Souhlas s novinkami můžete kdykoli odvolat v sekci Moje dárky nebo odkazem v každém e-mailu. Podrobnosti o zpracování osobních údajů najdete na <a href={SHOP + 'gdpr/'} target="_blank" rel="noreferrer">kubesuvmed.cz</a>.</p>
-          </div>
+          <nav id="soukromi" className="legal-links" aria-label="Právní informace">
+            <a href={LEGAL.privacy} target="_blank" rel="noreferrer">Ochrana osobních údajů a cookies ↗</a>
+            <a href={LEGAL.terms} target="_blank" rel="noreferrer">Obchodní podmínky ↗</a>
+          </nav>
           <small>© 2026 Kubešova medová manufaktura · Okénka se otevírají o půlnoci (Europe/Prague) · Hudba: vlastní aranžmá lidových koled</small>
         </div>
       </footer>

@@ -286,10 +286,8 @@ main { position: relative; overflow-x: clip; }
 .footer img { height: 58px; width: auto; }
 .footer-links { display: flex; gap: 24px; justify-self: end; flex-wrap: wrap; }
 .footer-links a { text-decoration: none; font-weight: 600; color: var(--honey-deep); }
-.privacy { grid-column: 1 / -1; max-width: 860px; }
-.privacy h3 { font-size: 20px; color: var(--ink); margin-bottom: 6px; }
-.privacy p { margin: 0; }
-.privacy a { color: var(--honey-deep); }
+.legal-links { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 8px 24px; }
+.legal-links a { color: var(--honey-deep); font-weight: 600; text-underline-offset: 3px; }
 .footer small { grid-column: 1 / -1; color: #8d7b6c; }
 
 /* ---------------------------------------------------------------- modal */

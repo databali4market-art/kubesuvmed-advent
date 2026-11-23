@@ -17,7 +17,7 @@ Poznámky k obsahu jsou i přímo v okénkách – v náhledu `?nahled=medovyadv
 - [ ] **13. 12. – soutěž**: je odkaz „Nápověda v e-shopu“ na správný set (Malé vánoční pohlazení)? Doplnit do pravidel IČO a adresu pořadatele.
 - [ ] **14. 12. – frizzante**: přímý odkaz na produkt v e-shopu (teď vede na kategorii medovin).
 - [ ] **18. 12. – heslo na trzích**: kde a kdy je stánek (trhy, adresa, dny/hodiny) a do kdy heslo platí.
-- [ ] Odkaz na zásady ochrany osobních údajů ve footeru (`src/App.tsx`, sekce `#soukromi`) – teď `kubesuvmed.cz/gdpr/`, ověřit, že stránka existuje.
+- [ ] Ověřit adresu „Podmínky ochrany osobních údajů“ na kubesuvmed.cz (v patičce e-shopu) – kalendář na ni odkazuje z patičky i z přihlášení, teď `/podminky-ochrany-osobnich-udaju/` (`LEGAL` v `src/config.ts`). Ideálně do ní doplnit i adventní kalendář (přihlášení Googlem, soutěž, newsletter).
 
 ## Shoptet
 
