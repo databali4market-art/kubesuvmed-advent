@@ -3,7 +3,7 @@ import { ArrowRight, Mail, X } from 'lucide-react';
 import { backend } from '../backend';
 import { NEWSLETTER_CONSENT } from '../config';
 import { BASE } from '../content';
-import { Pine } from './Decor';
+import { Botany } from './Decor';
 
 interface Props {
   open: boolean;
@@ -58,7 +58,7 @@ export function LoginDialog({ open, reason, onClose, onSignedIn }: Props) {
     <dialog ref={ref} className="login" aria-labelledby="login-title" onCancel={(e) => { e.preventDefault(); onClose(); }} onClick={(e) => { if (e.target === ref.current) onClose(); }}>
       <div className="login-card">
         <button className="modal-close" aria-label="Zavřít" onClick={onClose}><X size={20} /></button>
-        <Pine className="login-pine" />
+        <Botany plant="borovice" className="login-pine" />
         <img className="login-logo" src={BASE + 'assets/foto/logo.webp'} alt="Kubešova medová manufaktura" />
         <div className="eyebrow center">Váš medový advent</div>
         <h2 id="login-title">{reason || 'Přihlaste se a otevírejte okénka'}</h2>

@@ -1,9 +1,10 @@
-# Po každém pushi do main se web sestaví a nasadí na Firebase Hosting (včetně firestore.rules).
-# Potřebuje v GitHubu (Settings → Secrets and variables → Actions):
-#   - (volitelně) proměnnou FIREBASE_PROJECT_ID, výchozí je kubesuvmed-advent
-#   - secret     FIREBASE_SERVICE_ACCOUNT  = JSON klíč servisního účtu (role „Firebase Admin“)
-# Postup je v README v sekci Nasazení.
-name: Nasazení na Firebase
+# Po každém pushi do main:
+#  1) NÁHLED ke kontrole na GitHub Pages (https://databali4market-art.github.io/kubesuvmed-advent/)
+#     – vše odemčené, bez přihlášení, bez Firebase, se žlutými poznámkami „K potvrzení“ (VITE_NAHLED=1).
+#  2) TESTOVACÍ web na Firebase Hosting (kubesuvmed-advent.web.app) včetně firestore.rules – jen když je nastavený
+#     secret FIREBASE_SERVICE_ACCOUNT (JSON klíč servisního účtu). Postup je v README v sekci Nasazení.
+# Ostrý web (advent.kubesuvmed.cz) nasazuje Cloudflare Pages z větve produkce – viz README.
+name: Nasazení
 
 on:
   push:
@@ -15,13 +16,40 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  nahled:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Sestavení náhledu
+        run: npm run build
+        env:
+          VITE_NAHLED: '1'
+          BASE_PATH: /kubesuvmed-advent/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - id: deployment
+        uses: actions/deploy-pages@v4
+
+  firebase:
     runs-on: ubuntu-latest
     env:
       HAS_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT != '' }}
     steps:
       - if: env.HAS_KEY != 'true'
-        run: echo "::warning::Chybí secret FIREBASE_SERVICE_ACCOUNT – nasazení se přeskakuje (viz README)."
+        run: echo "::warning::Chybí secret FIREBASE_SERVICE_ACCOUNT – nasazení na Firebase se přeskakuje (viz README)."
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
@@ -37,7 +65,6 @@ jobs:
         if: env.HAS_KEY == 'true'
         run: npx --yes firebase-tools@15 deploy --only hosting --project "${{ vars.FIREBASE_PROJECT_ID || 'kubesuvmed-advent' }}" --non-interactive
       # Pravidla databáze: servisní účet potřebuje navíc roli „Service Usage Consumer“ (viz README).
-      # Když ji nemá, web se přesto nasadí a pravidla lze vložit ručně v konzoli.
       - name: Nasazení pravidel databáze (firestore.rules)
         if: env.HAS_KEY == 'true'
         continue-on-error: true

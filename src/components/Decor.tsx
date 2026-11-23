@@ -1,90 +1,22 @@
 import { useEffect, useRef } from 'react';
 
-/** Malá včelka (SVG) s mávajícími křidélky. */
+/** Brandová včelka Kubešovy medové manufaktury (kresba z vcelka.svg). */
+const BEE_PATH = 'M910.3,268.9c12.7,103.6-101.1,198.1-219,235.9,12,9,22.8,22,32.8,37.8,22.5-.7,45.5-3.4,73.4-22.1,20.3,28.6-40.8,48.3-59.2,48.6-5.7,6.6,6.2,18.6.6,25.1,30.3,7.3,67.1-7.4,85.1,39.8-30.2,8.2-49.3-20.4-79.3-13,10.4,35.5,3.1,55.4-15.7,82.1,8,10,64.1,67.4,55.4,67.6-1,0-1.9,0-2.9,0-26.9-7.5-49.8-34.9-83.4-34.2-34.8.6-74.5,28.4-106.3,12.8-6.2,15.8-12.5,43.8-29.2,56.1-5.1,1.4-10,3.1-15.2,4.2-2.7.5-5.2.7-7.6,1.1-.1-26.7,32.4-43.4,30-70.8-8.6-11.3-21.2-9.6-29.2-22.8-10.8,22.4-22.9,85.2-63.8,63.8,26.6-37.6,53.1-81,0-127.7-43.5,82.4-63.2,209.2-207.4,233.9,2.3.9,4.7,1.4,6.9,2-30.2,1.9-58-9.1-80-46-28.6-47.8-32.7-85.5-22-119.4,0,.4.2.8.2,1.2,11.9-3.3,18.8-27.3,33.9-48,51.7-69.9,167.9-106,241.4-90.2-3-9.3-3.4-17.7-.6-25.2-41.5,12-64.9-38.6-45.5-69.4-14.9-8.9-33.2-6.9-50.7-7.1-15.7,6.3-8.5,19.6-19.4,27.4-66.6-42.8,64-74.9,88.2-34.2,15-10.2,24.5-22.2,37.9-32.9-34.2-32.7-11.9-131,34.2-103.4-1.6,9.6-22.6,13.4-26.3,22.5-2.4,19.6-4.7,39.3,13.3,65.2,29-14.2,49.3-17.4,63.9,0,13.5,16.3-1.8,47.6,21.4,48.2-.5-109.3,66-198.3,177.8-273.5,0,0,27.9-11.7,43.6-12.6,36.7-2.1,48.2-2.5,88.5,29,14.5,11.4,34.3,48.2,34.3,48.2ZM362.5,790.5c-.9-14.1-6.2-34.9-19.6-44.8-19,10.6-2.3,52.2,19.6,44.8ZM286.7,847.9c-.1-10.5-2.3-34.5-17.6-33.2-10.3,10.3-3.1,44.1,17.6,33.2ZM256.7,663.9c18,38.1,95.7-15.7,82.9-44.1-21.3,25.5-50.7,29.7-82.9,44.1ZM312.8,689.3c-35.1,19.7-73.9,14.6-100.2,27.8,5.7,11.4,16.3,7.1,25.5,7.8-16.3,24.8-41.5,84.6,2.6,100.8,21.3-33.1-13.2-104.1,49.3-107.1.8,36.1-5.3,109,35.3,130.2,12.6-37.8-27.7-93.8-8.6-135.9,12-11.1,32.8-19.6,37.8-32.9,6.6,22.6,7.2,86,44.2,82.9-26.7-50.8-21.1-103.2-12.4-150.9-17.6,27.3-37.4,57.1-73.6,77.5ZM414.1,703.5c11.1-17.9,2.8-41.7,0-63.9-17.4,15.4-20.2,45.7,0,63.9ZM438.8,622.2c-20,9.4-7.8,25.1,4.2,31.8,14.6-5.6,7.4-26.9-4.2-31.8ZM871,306.8c-1.3-23.2-32.1-20.2-52.4-10.4,15.9,8.2,32.2,15.9,52.4,10.4ZM817.7,390.6c-15-14.6-32.7-20.1-55.7-8.7,14.9,11,43.3,19.6,55.7,8.7ZM723.5,453.5c-11.5-10.5-33.6,12.8-50,18.1,15.9,6.4,41.9-1.9,50-18.1ZM716.8,648.6c5.4-10.7,4.5-25.9,7.6-33.7,2-9.5-2.5-4.1-7.1-13.3-2.3,1.2-4.5,2.4-6.7,3.5-16.3,43.1-70.1,74.9-91.1,116.7,32.1,10.6,84.5-47.7,97.2-73.1ZM646.1,643.7c25.4-30.7,41.7-64.9,44.7-91.9-2.3-7.7-6.9-7.5-10.3-11.4-3.3,1.7-6.7,3.5-10,5.2-9.9,39-40.5,85-79.4,114.7-12.9,9.8-36.7,6.3-36.3,27.8,33.2,33.9,73.9-23.2,91.3-44.4ZM436.2,521.4c24.3,11.7,74.3-53,82.1-77.8-34.6,23.8-74.4,45.9-82.1,77.8ZM562,509.8c-4.2,38.5-87.5,52.9-71.5,97.6,41.9-18.3,93.8-56.1,78-101.1-2.2,1.2-4.4,2.4-6.6,3.5ZM567.9,608.8c-17.2,16.2-57.2,15.1-55.9,46.8,49.8-1.8,140-81.6,114.1-137.3-29.4,21.3-30.8,65-58.2,90.5ZM600.9,455c15.4,30,65.1-8.5,85.1-24.1-26.8,7.7-64.6,6.8-85.1,24.1ZM638.3,341.4c28.7,15.4,60.1-33.5,50.7-56.7-24.7,6-35.2,38.8-50.7,56.7ZM757.4,269.4c-12.1-2,.8-19.9-12.5-31.5-23.9,42.3-36,100.6-85.7,135-15.9,11-42.2,13.3-51.2,31.6,19.3,29.9,41.7-4.4,63.6-8.4,38.1-6.8,56.3,33.4,81.5,33.2,16.9-31.2-37.2-41.6-53.4-52.4,54.1-47,109.6-19.7,159.1-21-34.1-30.8-76.2-35.4-123.2-23.7,7.3-46,80.3-62.1,122.4-73.7-23.1-30.8-60.7-13.7-100.6,10.9Z';
 export function Bee({ className = '', style }: { className?: string; style?: React.CSSProperties }) {
   return (
-    <svg className={'bee ' + className} style={style} viewBox="0 0 64 48" aria-hidden="true">
-      <g className="bee-wings">
-        <ellipse className="wing w1" cx="27" cy="13" rx="10" ry="13" />
-        <ellipse className="wing w2" cx="38" cy="14" rx="8" ry="11" />
-      </g>
-      <g className="bee-body">
-        <ellipse cx="32" cy="30" rx="17" ry="12" fill="#E8B23A" />
-        <path d="M24 19.5c-2.3 6.6-2.3 14.4 0 21M32 18c-2 7.6-2 16.6 0 24M40 19.5c2 6.6 2 14.4 0 21" stroke="#3D322D" strokeWidth="4.2" fill="none" strokeLinecap="round" />
-        <circle cx="49" cy="27" r="7.5" fill="#3D322D" />
-        <circle cx="51.5" cy="25.5" r="1.6" fill="#FBF7EF" />
-        <path d="M52 20q4-7 8-6M48 20q1-7 5-9" stroke="#3D322D" strokeWidth="1.6" fill="none" strokeLinecap="round" />
-        <path d="M15 30l-5 1.5 5 1.5" fill="#3D322D" />
-      </g>
+    <svg className={'bee ' + className} style={style} viewBox="120 220 810 680" aria-hidden="true">
+      <path d={BEE_PATH} fill="currentColor" fillRule="evenodd" />
     </svg>
   );
 }
 
-/** Větvička jedličky (line-art jako botanické kresby kubesuvmed.cz). */
-export function Pine({ className = '' }: { className?: string }) {
-  return (
-    <svg className={'pine ' + className} viewBox="0 0 320 120" fill="none" aria-hidden="true">
-      <g stroke="currentColor" strokeLinecap="round">
-        <path d="M4 60C90 48 190 50 316 62" strokeWidth="2.6" />
-        {Array.from({ length: 22 }, (_, i) => {
-          const x = 14 + i * 13.5;
-          const y = 58 - Math.sin(i / 3.4) * 2;
-          return (
-            <g key={i} strokeWidth="1.4">
-              <path d={`M${x} ${y}q10 -16 22 -24`} />
-              <path d={`M${x} ${y + 2}q10 16 22 24`} />
-            </g>
-          );
-        })}
-      </g>
-    </svg>
-  );
+/** Botanická kresba z brandových vektorů (public/assets/botanika). */
+export type Plant = 'lipa' | 'javor' | 'louka' | 'rebricek' | 'akat' | 'borovice' | 'malina';
+export function Botany({ plant, className = '' }: { plant: Plant; className?: string }) {
+  return <img className={'botany ' + className} src={`${import.meta.env.BASE_URL}assets/botanika/${plant}.webp`} alt="" aria-hidden="true" loading="lazy" decoding="async" />;
 }
 
-/** Girlanda: jedlová větev s medovými baňkami, které se jemně houpou. */
-export function Garland() {
-  const baubles = [
-    { x: 9, c: 'var(--berry)', d: 0 }, { x: 22, c: 'var(--gold)', d: 0.6 }, { x: 37, c: 'var(--pine)', d: 1.2 },
-    { x: 52, c: 'var(--gold)', d: 0.3 }, { x: 66, c: 'var(--berry)', d: 0.9 }, { x: 80, c: 'var(--gold)', d: 1.5 }, { x: 92, c: 'var(--pine)', d: 0.4 },
-  ];
-  return (
-    <div className="garland" aria-hidden="true">
-      <svg className="garland-branch" viewBox="0 0 1200 60" preserveAspectRatio="none">
-        <path d="M0 18 Q300 52 600 26 T1200 22" stroke="#4E6B53" strokeWidth="3" fill="none" />
-        {Array.from({ length: 90 }, (_, i) => {
-          const x = i * 13.5;
-          const y = 18 + Math.sin((x / 1200) * Math.PI * 2.2) * 12 + 6;
-          return <path key={i} d={`M${x} ${y} l${8 + (i % 3) * 2} ${-10 + (i % 4) * 5}`} stroke={i % 2 ? '#4E6B53' : '#6F8C6F'} strokeWidth="2.2" strokeLinecap="round" />;
-        })}
-      </svg>
-      {baubles.map((b, i) => (
-        <span key={i} className="bauble" style={{ left: b.x + '%', animationDelay: `-${b.d * 2}s`, ['--c' as string]: b.c, ['--len' as string]: `${18 + (i % 3) * 12}px` }}>
-          <i />
-        </span>
-      ))}
-    </div>
-  );
-}
-
-/** Stékající med (okraj sekce). */
-export function HoneyDrip({ className = '' }: { className?: string }) {
-  return (
-    <svg className={'honey-drip ' + className} viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
-      <defs>
-        <linearGradient id="hd" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#E3A93B" />
-          <stop offset="1" stopColor="#B87818" />
-        </linearGradient>
-      </defs>
-      <path fill="url(#hd)" d="M0 0h1440v26c-40 0-52 10-60 28-6 14-24 14-28 0-8-26-30-30-70-30-60 0-70 6-86 36-10 20-34 20-40 0-10-30-36-36-110-36-90 0-120 4-140 24-10 10-26 10-30-2-8-20-40-22-130-22-80 0-110 8-122 40-8 22-34 22-40 0-8-34-40-40-150-40-70 0-96 6-110 22-8 10-24 8-28-4-8-18-40-18-150-18-60 0-70 8-80 26-8 16-26 16-32 0-10-26-40-26-114-26Z" />
-      <circle className="drop d1" cx="300" cy="62" r="6" fill="#C98822" />
-      <circle className="drop d2" cx="964" cy="70" r="5" fill="#C98822" />
-      <circle className="drop d3" cx="1352" cy="58" r="5" fill="#C98822" />
-    </svg>
-  );
-}
-
-/** Jemné sněžení na plátně – v tmavých sekcích. */
+/** Jemné sněžení na plátně (bílé a medové vločky na světlém pozadí). */
 export function Snow({ count = 70 }: { count?: number }) {
   const ref = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
@@ -93,7 +25,7 @@ export function Snow({ count = 70 }: { count?: number }) {
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     let w = 0, h = 0, raf = 0;
     const dpr = Math.min(2, window.devicePixelRatio || 1);
-    const flakes = Array.from({ length: count }, () => ({ x: Math.random(), y: Math.random(), r: 0.6 + Math.random() * 2.2, s: 0.15 + Math.random() * 0.5, d: Math.random() * Math.PI * 2, g: Math.random() < 0.25 }));
+    const flakes = Array.from({ length: count }, () => ({ x: Math.random(), y: Math.random(), r: 0.8 + Math.random() * 2.4, s: 0.12 + Math.random() * 0.4, d: Math.random() * Math.PI * 2, g: Math.random() < 0.45 }));
     const resize = () => {
       w = c.clientWidth; h = c.clientHeight;
       c.width = w * dpr; c.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -106,6 +38,7 @@ export function Snow({ count = 70 }: { count?: number }) {
       raf = requestAnimationFrame(tick);
       if (!visible || document.hidden) return;
       ctx.clearRect(0, 0, w, h);
+      ctx.shadowColor = 'rgba(150, 106, 57, .35)'; ctx.shadowBlur = 3;
       for (const f of flakes) {
         if (!reduce) {
           f.y += f.s / h * 1.4 * 60 / 60;
@@ -113,7 +46,7 @@ export function Snow({ count = 70 }: { count?: number }) {
           if (f.y > 1.02) { f.y = -0.02; f.x = Math.random(); }
         }
         ctx.beginPath();
-        ctx.fillStyle = f.g ? 'rgba(236, 196, 120, .75)' : 'rgba(255, 250, 240, .8)';
+        ctx.fillStyle = f.g ? 'rgba(214, 176, 106, .55)' : 'rgba(255, 255, 255, .95)';
         ctx.arc(f.x * w, f.y * h, f.r, 0, Math.PI * 2);
         ctx.fill();
       }
@@ -136,7 +69,7 @@ export function Celebrate({ burst }: { burst: number }) {
           ['--y' as string]: `${(Math.sin(i * 2.4) * (90 + (i * 53) % 180) - 120).toFixed(0)}px`,
           ['--r' as string]: `${(i * 47) % 360}deg`,
           animationDelay: `${(i % 6) * 0.03}s`,
-          color: ['#E3A93B', '#9E3B2F', '#4E6B53', '#F3D9A4'][i % 4],
+          color: ['#E3A93B', '#C9A36A', '#8FA38C', '#F3D9A4'][i % 4],
         }}>{['⬢', '❄', '✦'][i % 3]}</i>
       ))}
     </div>

@@ -36,7 +36,8 @@ Poznámky k obsahu jsou i přímo v okénkách – v náhledu `?nahled=medovyadv
 - [ ] GitHub → Secrets → `FIREBASE_SERVICE_ACCOUNT` (JSON klíč servisního účtu).
 - [ ] Google Cloud IAM → servisnímu účtu přidat roli **Service Usage Consumer** (kvůli nasazení `firestore.rules`).
 - [ ] Správci: doplnit další Google účty do `ADMIN_EMAILS` (`src/config.ts`) **i** do `isAdmin()` (`firestore.rules`), pokud mají exporty stahovat i další lidé.
-- [ ] GitHub → Settings → Pages → vypnout (stará verze na GitHub Pages už se nepoužívá).
+- [ ] Po spuštění: odebrat náhled na GitHub Pages (job `nahled` v `.github/workflows/deploy.yml`) a Pages vypnout.
+- [ ] Repo přepnout na soukromé (Settings → General → Change visibility), jako Mobil Maják – pak ale GitHub Pages na bezplatném účtu nepoběží.
 
 ## Cloudflare Pages – ostrý web (až na konci, postup v README)
 

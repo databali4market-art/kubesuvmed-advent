@@ -15,6 +15,7 @@ Statický web (Vite + React + TypeScript): 24 buněk medové plástve, které se
 | `firebase.json`, `.firebaserc`, `.github/workflows/deploy.yml` | testovací hosting a automatické nasazení |
 | `functions/__/[[path]].js`, `public/_headers` | Cloudflare Pages: proxy přihlášení Google a mezipaměť |
 | `src/fonts.css` | písma (jen latinka + čeština) |
+| `public/assets/botanika/`, `public/assets/vcelka.svg` | brandové kresby (z `kubes_vektory.ai`) a včelka; včelka je i v `src/components/Decor.tsx` |
 
 ## Odměny v kalendáři
 
@@ -45,6 +46,7 @@ npm run build    # výstup v dist/
 ## Jak to celé funguje
 
 - **Ostrý web** běží na Cloudflare Pages (`advent.kubesuvmed.cz`, neomezený přenos zdarma). Nasazuje se jen z větve `produkce`.
+- **Náhled ke kontrole** běží na GitHub Pages (https://databali4market-art.github.io/kubesuvmed-advent/), nasazuje se po každém pushi do `main`: vše odemčené, bez přihlášení a bez Firebase, se žlutými poznámkami „K potvrzení“.
 - **Testovací web** běží na Firebase Hosting (`https://kubesuvmed-advent.web.app`), nasazuje se po každém pushi do `main` (spolu s `firestore.rules`).
   Firebase Hosting na bezplatném tarifu má limit 360 MB přenosu denně. Kalendář s fotkami má při první návštěvě 1–2 MB, takže by stačil jen na pár stovek návštěvníků denně – proto na něm neběží ostrý provoz.
 - **Přihlášení** jen přes Google. Bez přihlášení se okénka neotevřou (`DEMO_MODE = false`).
@@ -69,7 +71,7 @@ Workflow `.github/workflows/deploy.yml` po každém pushi do `main` sestaví web
 
 1. **Secrets** → `FIREBASE_SERVICE_ACCOUNT` = JSON klíč: Firebase Console → Project settings → *Service accounts* → **Generate new private key** → obsah souboru vložit do secretu, soubor smazat.
 2. Aby se nasazovala i pravidla databáze, potřebuje tento účet (`firebase-adminsdk-…@kubesuvmed-advent.iam.gserviceaccount.com`) navíc roli **Service Usage Consumer**: [Google Cloud → IAM](https://console.cloud.google.com/iam-admin/iam?project=kubesuvmed-advent) → u účtu tužka → *Add another role* → Service Usage Consumer → Save. Bez ní se nasadí jen web.
-3. Původní GitHub Pages už se nepoužívají: v repu *Settings → Pages* lze vypnout.
+3. GitHub Pages slouží jen pro náhled ke kontrole (job `nahled`). Po spuštění kampaně ho lze z workflow odebrat a Pages vypnout.
 
 Ruční nasazení z počítače: `npm run build && npx firebase-tools deploy --only hosting,firestore:rules --project kubesuvmed-advent`.
 

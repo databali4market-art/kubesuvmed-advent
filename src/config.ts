@@ -1,4 +1,10 @@
 /**
+ * Náhledový build pro GitHub Pages (VITE_NAHLED=1, viz deploy.yml): vše odemčené, bez přihlášení,
+ * bez Firebase (data jen v prohlížeči) a se žlutými poznámkami „K potvrzení“.
+ */
+export const NAHLED_BUILD = import.meta.env.VITE_NAHLED === '1';
+
+/**
  * NASTAVENÍ WEBU
  *
  * 1) Firebase – zkopírujte z Firebase Console → Project settings → Your apps → Web app.
@@ -28,14 +34,14 @@ export const CONTENT_MODE: 'draft' | 'live' = 'draft';
  */
 export const PREVIEW_KEY = 'medovyadvent';
 
-export const firebaseEnabled = () => !!FIREBASE.apiKey && !!FIREBASE.projectId;
+export const firebaseEnabled = () => !NAHLED_BUILD && !!FIREBASE.apiKey && !!FIREBASE.projectId;
 
 /**
  * UKÁZKOVÁ VERZE PRO PREZENTACI
  * true = vše je odemčené a dá se proklikat bez přihlášení (postup se ukládá jen v prohlížeči).
  * Před ostrým spuštěním kampaně přepněte na false.
  */
-export const DEMO_MODE = false;
+export const DEMO_MODE = false || NAHLED_BUILD;
 
 /**
  * Kdo smí na stránce /?admin stahovat e-maily a soutěžní odpovědi (Google účty, malými písmeny).
