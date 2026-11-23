@@ -53,8 +53,11 @@ jobs:
       - name: Ostrý web (live)
         if: env.HAS_KEY == 'true' && github.ref_name == 'produkce'
         run: npx --yes firebase-tools@15 deploy --only hosting --project "$PROJECT" --non-interactive
+      # Pravidla databáze: klíč potřebuje roli „Firebase Rules Admin“ (a Service Usage Consumer).
+      # Bez ní tenhle krok jen upozorní – pravidla se pak vkládají ručně: Firestore Database → Rules → Publish.
       - name: Pravidla databáze (firestore.rules)
         if: env.HAS_KEY == 'true'
+        continue-on-error: true
         run: npx --yes firebase-tools@15 deploy --only firestore:rules --project "$PROJECT" --non-interactive
 
   # Náhled ke kontrole bez přihlášení (vše odemčené, žluté poznámky). Po spuštění kampaně lze smazat.
