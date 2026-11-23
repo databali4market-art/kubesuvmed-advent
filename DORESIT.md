@@ -36,7 +36,7 @@ Musí udělat majitel účtu (cca 5 minut), zbytek zařídí automatické nasaze
 - [ ] **Klíč pro GitHub:** Project settings → Service accounts → Generate new private key → obsah souboru vložit v GitHubu (repo → Settings → Secrets and variables → Actions → New repository secret) jako `FIREBASE_SERVICE_ACCOUNT`, soubor smazat.
 - [ ] **Role:** Google Cloud → IAM → účet `firebase-adminsdk-…@kubesuvmed-advent-91953.iam.gserviceaccount.com` → přidat roli **Service Usage Consumer**.
 - [x] Databáze Firestore založená, pravidla `firestore.rules` vložená ručně (23. 11.). **Při změně `firestore.rules` je vložte znovu ručně** (Firestore Database → Rules → Publish), nebo klíči přidejte roli **Firebase Rules Admin** a nasazení je nahraje samo.
-- [ ] Authentication → Settings → Authorized domains → přidat doménu testovacího kanálu `kubesuvmed-advent-91953--test-hkesmnzj.web.app`.
+- [ ] Authentication → Settings → Authorized domains → přidat testovací doménu `kubesuvmed-test.web.app`.
 - [ ] Vyzkoušet na testovacím webu: přihlášení Google, otevření okénka, `/?admin` → stažení CSV.
 - [ ] Napsat Claudovi → spustí nasazení: založí databázi Firestore (eur3), nahraje pravidla a testovací web (preview kanál `test`). Průvodce Hostingem ani `npm install -g firebase-tools` není potřeba.
 - [ ] Google Cloud → OAuth consent screen / Branding: název „Kubešova medová manufaktura“, logo, odkaz na zásady (nepovinné, ale hezčí přihlašovací okno).

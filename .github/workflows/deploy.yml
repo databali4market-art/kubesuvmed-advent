@@ -1,5 +1,5 @@
 # Nasazení – stejně jako u Mobil Maják (Firebase Hosting, tarif Spark, projekt kubesuvmed-advent-91953):
-#   push do main      → TESTOVACÍ web (preview kanál „test“, adresa kubesuvmed-advent-91953--test-….web.app, platí 30 dní)
+#   push do main      → TESTOVACÍ web https://kubesuvmed-test.web.app (druhý web v projektu)
 #                       + NÁHLED bez přihlášení na GitHub Pages (https://databali4market-art.github.io/kubesuvmed-advent/)
 #   push do produkce  → OSTRÝ web (advent.kubesuvmed.cz)
 # firestore.rules se nasazují v obou případech (testovací i ostrý web sdílí jednu databázi).
@@ -23,6 +23,7 @@ jobs:
     env:
       HAS_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT != '' }}
       PROJECT: ${{ vars.FIREBASE_PROJECT_ID || 'kubesuvmed-advent-91953' }}
+      TEST_SITE: ${{ vars.FIREBASE_TEST_SITE || 'kubesuvmed-test' }}
     steps:
       - if: env.HAS_KEY != 'true'
         run: echo "::warning::Chybí secret FIREBASE_SERVICE_ACCOUNT – nasazení na Firebase se přeskakuje (viz README)."
@@ -47,9 +48,15 @@ jobs:
           else
             npx --yes firebase-tools@15 firestore:databases:create "(default)" --location eur3 --project "$PROJECT" --non-interactive
           fi
-      - name: Testovací web (preview kanál „test“)
+      # Testovací web má vlastní hezkou adresu https://kubesuvmed-test.web.app (druhý web ve stejném projektu,
+      # na tarifu Spark zdarma). Při prvním nasazení se sám založí.
+      - name: Testovací web (kubesuvmed-test.web.app)
         if: env.HAS_KEY == 'true' && github.ref_name != 'produkce'
-        run: npx --yes firebase-tools@15 hosting:channel:deploy test --expires 30d --project "$PROJECT" --non-interactive
+        run: |
+          npx --yes firebase-tools@15 hosting:sites:get "$TEST_SITE" --project "$PROJECT" --non-interactive >/dev/null 2>&1 \
+            || npx --yes firebase-tools@15 hosting:sites:create "$TEST_SITE" --project "$PROJECT" --non-interactive
+          jq --arg s "$TEST_SITE" '.hosting.site = $s' firebase.json > firebase.test.json
+          npx --yes firebase-tools@15 deploy --only hosting --config firebase.test.json --project "$PROJECT" --non-interactive
       - name: Ostrý web (live)
         if: env.HAS_KEY == 'true' && github.ref_name == 'produkce'
         run: npx --yes firebase-tools@15 deploy --only hosting --project "$PROJECT" --non-interactive
