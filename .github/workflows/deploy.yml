@@ -1,7 +1,7 @@
 # Po každém pushi do main:
 #  1) NÁHLED ke kontrole na GitHub Pages (https://databali4market-art.github.io/kubesuvmed-advent/)
 #     – vše odemčené, bez přihlášení, bez Firebase, se žlutými poznámkami „K potvrzení“ (VITE_NAHLED=1).
-#  2) TESTOVACÍ web na Firebase Hosting (kubesuvmed-advent.web.app) včetně firestore.rules – jen když je nastavený
+#  2) TESTOVACÍ web na Firebase Hosting (kubesuvmed-advent-91953.web.app) včetně firestore.rules – jen když je nastavený
 #     secret FIREBASE_SERVICE_ACCOUNT (JSON klíč servisního účtu). Postup je v README v sekci Nasazení.
 # Ostrý web (advent.kubesuvmed.cz) nasazuje Cloudflare Pages z větve produkce – viz README.
 name: Nasazení
@@ -63,9 +63,9 @@ jobs:
           credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
       - name: Nasazení webu (Hosting)
         if: env.HAS_KEY == 'true'
-        run: npx --yes firebase-tools@15 deploy --only hosting --project "${{ vars.FIREBASE_PROJECT_ID || 'kubesuvmed-advent' }}" --non-interactive
+        run: npx --yes firebase-tools@15 deploy --only hosting --project "${{ vars.FIREBASE_PROJECT_ID || 'kubesuvmed-advent-91953' }}" --non-interactive
       # Pravidla databáze: servisní účet potřebuje navíc roli „Service Usage Consumer“ (viz README).
       - name: Nasazení pravidel databáze (firestore.rules)
         if: env.HAS_KEY == 'true'
         continue-on-error: true
-        run: npx --yes firebase-tools@15 deploy --only firestore:rules --project "${{ vars.FIREBASE_PROJECT_ID || 'kubesuvmed-advent' }}" --non-interactive
+        run: npx --yes firebase-tools@15 deploy --only firestore:rules --project "${{ vars.FIREBASE_PROJECT_ID || 'kubesuvmed-advent-91953' }}" --non-interactive
