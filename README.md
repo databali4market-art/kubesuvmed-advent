@@ -113,4 +113,4 @@ Podrobný seznam otevřených bodů je v [DORESIT.md](DORESIT.md).
 
 ## Hudba
 
-`public/audio/vanoce.mp3` je vlastní syntetizované aranžmá dvou volných děl – *Rolničky* (J. Pierpont, 1857) a *Tichá noc* (F. X. Gruber, 1818) – se zvonkohrou, celestou a rolničkami. Bez autorských práv třetích stran.
+`public/audio/vanoce.mp3` je vlastní syntetizované aranžmá volného díla *Rolničky* (J. Pierpont, 1857) se zvonkohrou, celestou a rolničkami – 66 s ve smyčce, mono 48 kb/s (390 kB). Bez autorských práv třetích stran. Původní delší verze (i s *Tichou nocí*) je v historii gitu.
