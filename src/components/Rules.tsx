@@ -10,7 +10,7 @@ export function Rules() {
   return (
     <main className="rules-page wrap">
       <article className="rules-card">
-        <a href="./" className="rules-logo"><img src={BASE + 'assets/foto/logo.webp'} alt="Kubešova medová manufaktura" /></a>
+        <a href="./" className="rules-logo"><img src={BASE + 'media/foto/logo.webp'} alt="Kubešova medová manufaktura" /></a>
         <h1>Pravidla soutěže Medového adventu 2026</h1>
 
         <h2>1. Pořadatel</h2>

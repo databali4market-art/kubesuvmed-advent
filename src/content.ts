@@ -12,8 +12,8 @@ import type { Door } from './types';
 export const YEAR = 2026;
 
 export const BASE = import.meta.env.BASE_URL;
-const F = BASE + 'assets/foto/';
-const A = BASE + 'assets/';
+const F = BASE + 'media/foto/';
+const A = BASE + 'media/';
 const PDF = BASE + 'pdf/';
 const SHOP = 'https://www.kubesuvmed.cz/';
 

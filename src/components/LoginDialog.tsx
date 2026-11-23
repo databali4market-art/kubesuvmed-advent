@@ -59,7 +59,7 @@ export function LoginDialog({ open, reason, onClose, onSignedIn }: Props) {
       <div className="login-card">
         <button className="modal-close" aria-label="Zavřít" onClick={onClose}><X size={20} /></button>
         <Botany plant="borovice" className="login-pine" />
-        <img className="login-logo" src={BASE + 'assets/foto/logo.webp'} alt="Kubešova medová manufaktura" />
+        <img className="login-logo" src={BASE + 'media/foto/logo.webp'} alt="Kubešova medová manufaktura" />
         <div className="eyebrow center">Váš medový advent</div>
         <h2 id="login-title">{reason || 'Přihlaste se a otevírejte okénka'}</h2>
         <p className="login-lead">Otevřená okénka, recepty i slevové kódy si pamatujeme za vás – najdete je v sekci Moje dárky na mobilu i počítači.</p>
