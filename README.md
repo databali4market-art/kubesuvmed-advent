@@ -46,7 +46,7 @@ npm run build    # výstup v dist/
 ## Jak to celé funguje
 
 - **Ostrý web**: Firebase Hosting, `https://advent.kubesuvmed.cz` (technicky i `https://kubesuvmed-advent-91953.web.app`). Nasazuje se jen z větve **`produkce`**.
-- **Testovací web**: preview kanál Firebase `test` (`https://kubesuvmed-advent-91953--test-….web.app`, přesná adresa je v logu GitHub Actions). Nasazuje se po každém pushi do **`main`**.
+- **Testovací web**: `https://kubesuvmed-test.web.app` (druhý web ve stejném Firebase projektu, zdarma). Nasazuje se po každém pushi do **`main`**.
 - **Náhled bez přihlášení** na GitHub Pages (https://databali4market-art.github.io/kubesuvmed-advent/), také z `main` – vše odemčené, se žlutými poznámkami „K potvrzení“.
 - Tarif **Spark (zdarma)**: hosting 360 MB přenosu denně. Při blížícím se limitu (Firebase → Hosting → Usage) přepnout projekt na Blaze – web se nevypne, platí se 0,15 $/GB navíc.
 - **Přihlášení** jen přes Google. Bez přihlášení se okénka neotevřou (`DEMO_MODE = false`).
@@ -81,7 +81,7 @@ Postup práce (jako u Mobil Maják): změny → `main` → vyzkoušet na testova
 
 Jednorázové nastavení domény `advent.kubesuvmed.cz`:
 1. Firebase → Hosting → *Add custom domain* → `advent.kubesuvmed.cz` → DNS záznamy, které Firebase ukáže, přidat u správce DNS (na Cloudflare: **DNS only / šedý mráček**, jinak se nevydá certifikát).
-2. Firebase → Authentication → Settings → *Authorized domains* → přidat `advent.kubesuvmed.cz` (a doménu testovacího kanálu `kubesuvmed-advent-91953--test-….web.app`).
+2. Firebase → Authentication → Settings → *Authorized domains* → přidat `advent.kubesuvmed.cz` (a testovací `kubesuvmed-test.web.app`).
 3. Google Cloud → APIs & Services → Credentials → OAuth klient „Web client (auto created by Google Service)“ → *Authorized redirect URIs* → přidat `https://advent.kubesuvmed.cz/__/auth/handler`.
 
 `authDomain` se v `src/config.ts` přepíná podle domény: na `advent.kubesuvmed.cz` běží přihlašovací stránka přímo na doméně webu (spolehlivé v Safari / na iPhonu, a návštěvníci nikde neuvidí technický název projektu).
