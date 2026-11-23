@@ -55,6 +55,15 @@ export const ADMIN_EMAILS: string[] = [
  * Znění souhlasu s newsletterem. Ukládá se ke každému kontaktu spolu s datem souhlasu (kvůli GDPR).
  * Když text změníte, zvyšte verzi – u kontaktu pak uvidíte, s jakým zněním souhlasil.
  */
+/**
+ * Právní stránky se neřeší tady – odkazujeme na hlavní web kubesuvmed.cz.
+ * (Adresu ochrany osobních údajů ověřte v patičce e-shopu; ve Shoptetu bývá /podminky-ochrany-osobnich-udaju/.)
+ */
+export const LEGAL = {
+  privacy: 'https://www.kubesuvmed.cz/podminky-ochrany-osobnich-udaju/',
+  terms: 'https://www.kubesuvmed.cz/obchodni-podminky/',
+};
+
 export const NEWSLETTER_CONSENT = {
   version: 'v1-2026-11',
   text: 'Chci dostávat e-mailem medové novinky a nabídky Kubešovy medové manufaktury. Souhlas mohu kdykoli odvolat.',

@@ -106,7 +106,7 @@ Podrobný seznam otevřených bodů je v [DORESIT.md](DORESIT.md).
 - [ ] Vyřešit všechny poznámky `confirm` v `src/content.ts` (vidíte je v náhledu jako žluté rámečky), pak `CONTENT_MODE = 'live'`.
 - [ ] 15. 12.: nahradit pracovní otázky typového kvízu zněním z Google Docu.
 - [ ] Nahradit provizorní PDF v `public/pdf/` grafikou (stejné názvy souborů).
-- [ ] Zkontrolovat odkaz na zásady ochrany osobních údajů ve footeru (`src/App.tsx`, sekce `#soukromi`).
+- [ ] Ochrana osobních údajů, cookies a obchodní podmínky se neřeší tady – patička a přihlášení odkazují na kubesuvmed.cz (`LEGAL` v `src/config.ts`). Ověřit adresu.
 
 > Web je statický, takže obsah budoucích okének (včetně kódů) je technicky součástí stránky. Kódy proto mají v Shoptetu platit jen ve svých dnech.
 
