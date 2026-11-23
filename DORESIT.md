@@ -35,27 +35,25 @@ Musí udělat majitel účtu (cca 5 minut), zbytek zařídí automatické nasaze
 - [ ] **Přihlášení Google:** Firebase Console → Build → Authentication → Get started → Google → Enable → e-mail podpory → Save.
 - [ ] **Klíč pro GitHub:** Project settings → Service accounts → Generate new private key → obsah souboru vložit v GitHubu (repo → Settings → Secrets and variables → Actions → New repository secret) jako `FIREBASE_SERVICE_ACCOUNT`, soubor smazat.
 - [ ] **Role:** Google Cloud → IAM → účet `firebase-adminsdk-…@kubesuvmed-advent-91953.iam.gserviceaccount.com` → přidat roli **Service Usage Consumer**.
-- [ ] Napsat Claudovi → spustí nasazení: založí databázi Firestore (eur3), nahraje pravidla a web na `kubesuvmed-advent-91953.web.app`. Průvodce Hostingem ani `npm install -g firebase-tools` není potřeba.
-- [ ] Authorized domains: `advent.kubesuvmed.cz` přidat až při přechodu na Cloudflare.
+- [ ] Napsat Claudovi → spustí nasazení: založí databázi Firestore (eur3), nahraje pravidla a testovací web (preview kanál `test`). Průvodce Hostingem ani `npm install -g firebase-tools` není potřeba.
 - [ ] Google Cloud → OAuth consent screen / Branding: název „Kubešova medová manufaktura“, logo, odkaz na zásady (nepovinné, ale hezčí přihlašovací okno).
 - [ ] Správci: další Google účty do `ADMIN_EMAILS` (`src/config.ts`) **i** do `isAdmin()` (`firestore.rules`).
 - [ ] Po spuštění: odebrat náhled na GitHub Pages (job `nahled` v `.github/workflows/deploy.yml`) a Pages vypnout.
 - [ ] Repo přepnout na soukromé (Settings → General → Change visibility), jako Mobil Maják – pak ale GitHub Pages na bezplatném účtu nepoběží.
 
-## Cloudflare Pages – ostrý web (až na konci, postup v README)
+## Ostrý web a doména (před spuštěním, postup v README)
 
-- [ ] Cloudflare → Pages → Connect to Git → repo `kubesuvmed-advent`, production branch `produkce`, build `npm run build`, output `dist`, `NODE_VERSION=22`.
-- [ ] Preview deployments → None.
-- [ ] Custom domain `advent.kubesuvmed.cz` + CNAME u správce DNS.
+- [ ] Firebase → Hosting → Add custom domain `advent.kubesuvmed.cz` + DNS záznamy u správce domény (na Cloudflare šedý mráček).
+- [ ] Firebase → Authentication → Authorized domains: `advent.kubesuvmed.cz` a doména testovacího kanálu.
 - [ ] Google Cloud → OAuth klient → redirect URI `https://advent.kubesuvmed.cz/__/auth/handler`.
-- [ ] Založit větev `produkce` z hotového `main`.
+- [ ] Založit větev `produkce` z hotového `main` (tím se nasadí ostrý web).
 
 ## Spuštění
 
 - [ ] Vyzkoušet přihlášení přes Google na ostré doméně (i na iPhonu / v Safari).
 - [ ] Vyzkoušet `/?admin` – stažení CSV pro newsletter, všech přihlášených a soutěžních odpovědí.
 - [ ] Po vyřešení všech bodů výše přepnout `CONTENT_MODE` na `'live'` v `src/config.ts`.
-- [ ] Mergnout do `main` → vyzkoušet na `kubesuvmed-advent-91953.web.app` → sloučit `main` do `produkce` → Cloudflare nasadí ostrý web.
+- [ ] Mergnout do `main` → vyzkoušet na testovacím webu → sloučit `main` do `produkce` → nasadí se ostrý web.
 
 ## Během adventu
 
