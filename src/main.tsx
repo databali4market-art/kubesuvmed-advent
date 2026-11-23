@@ -1,13 +1,10 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import '@fontsource/playfair-display/400.css';
-import '@fontsource/playfair-display/400-italic.css';
-import '@fontsource/playfair-display/600.css';
-import '@fontsource/playfair-display/700-italic.css';
-import '@fontsource/source-sans-3/400.css';
-import '@fontsource/source-sans-3/600.css';
-import '@fontsource/source-sans-3/700.css';
+import './fonts.css';
 import './styles.css';
 import App from './App';
+import { Admin } from './components/Admin';
 
-createRoot(document.getElementById('root')!).render(<StrictMode><App /></StrictMode>);
+const isAdmin = new URLSearchParams(location.search).has('admin');
+
+createRoot(document.getElementById('root')!).render(<StrictMode>{isAdmin ? <Admin /> : <App />}</StrictMode>);

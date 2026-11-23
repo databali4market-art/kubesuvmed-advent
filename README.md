@@ -1,63 +1,118 @@
 # Medový advent 2026 – Kubešova medová manufaktura
 
-Adventní kalendář pro [kubesuvmed.cz](https://www.kubesuvmed.cz/): 24 buněk medové plástve, které se odemykají každý den o půlnoci (Europe/Prague). Přihlášení přes **Google** nebo **odkazem do e-mailu** (Firebase Authentication), otevřená okénka, slevové kódy a soutěžní odpovědi se ukládají k účtu ve **Firestore**. Web je statický a běží na **GitHub Pages**.
-
-🌐 https://morgenster95.github.io/kubesuvmed-advent/
+Statický web (Vite + React + TypeScript): 24 buněk medové plástve, které se odemykají každý den o půlnoci (Europe/Prague). Přihlášení jen přes **Google** (Firebase Authentication), data (otevřená okénka, soutěžní odpovědi, souhlas s newsletterem) ve **Firestore**. Ostrý web běží na **Cloudflare Pages** (`advent.kubesuvmed.cz`), testovací na **Firebase Hosting** (`kubesuvmed-advent.web.app`). Obsah vychází z tabulky „Kubeš advent“. Postup nasazení je stejný jako u kalendáře Mobil Maják.
 
 ## Co kde je
 
 | Soubor | Co obsahuje |
 | --- | --- |
-| `src/content.ts` | **obsah všech 24 okének** (texty, recepty, fotky, slevové kódy, odkazy) |
-| `src/config.ts` | Firebase konfigurace, režim `draft`/`live`, klíč pro náhled |
-| `src/App.tsx` | rozložení stránky |
-| `src/styles.css` | vzhled (barvy a písmo podle kubesuvmed.cz) |
-| `src/backend.ts` | přihlášení a ukládání (Firebase / ukázkový režim) |
-| `firestore.rules` | bezpečnostní pravidla pro Firestore |
-| `public/assets/` | fotky (z e-shopu kubesuvmed.cz), `public/audio/vanoce.mp3` hudba |
+| `src/content.ts` | **obsah všech 24 okének** (texty, kódy, kvízy, soutěž, PDF, odkazy); `confirm` = co je ještě potřeba potvrdit |
+| `src/config.ts` | Firebase, `DEMO_MODE`, `CONTENT_MODE`, `PREVIEW_KEY`, `ADMIN_EMAILS`, znění souhlasu `NEWSLETTER_CONSENT` |
+| `src/components/Games.tsx` | kvíz (6. 12.) a typový kvíz „Jaký med je vám nejbližší“ (15. 12.) |
+| `src/components/Admin.tsx` | stránka `/?admin` – stažení e-mailů a soutěžních odpovědí do CSV |
+| `public/pdf/` | PDF ke stažení: recept na perníčky (7.), jmenovky (10.), přání (19.) |
+| `firestore.rules` | pravidla Firestore (soutěž ve dni 13, přístup správců) |
+| `firebase.json`, `.firebaserc`, `.github/workflows/deploy.yml` | testovací hosting a automatické nasazení |
+| `functions/__/[[path]].js`, `public/_headers` | Cloudflare Pages: proxy přihlášení Google a mezipaměť |
+| `src/fonts.css` | písma (jen latinka + čeština) |
+| `public/assets/botanika/`, `public/assets/vcelka.svg` | brandové kresby (z `kubes_vektory.ai`) a včelka; včelka je i v `src/components/Decor.tsx` |
 
-## Nastavení Firebase (jednorázově)
+## Odměny v kalendáři
 
-1. [Firebase Console](https://console.firebase.google.com/) → vytvořte projekt (nebo použijte existující) → **Add app → Web**.
-2. Zkopírujte `apiKey`, `authDomain`, `projectId`, `appId` do `src/config.ts` a pushněte.
-3. **Authentication → Sign-in method**: zapněte **Google** a **Email/Password** včetně volby **Email link (passwordless sign-in)**.
-4. **Authentication → Settings → Authorized domains**: přidejte `morgenster95.github.io` (případně vlastní doménu).
-5. **Firestore Database → Create database** (region `eur3` / `europe-west`) → záložka **Rules** → vložte obsah `firestore.rules` → Publish.
+| Den | Odměna | Jak funguje na webu |
+| --- | --- | --- |
+| 2. | **ADVENT15** – 15 % nad 1 500 Kč | kód ke zkopírování, po 4. 12. se ukáže jako neplatný |
+| 5. | **MIKULAS** – doprava zdarma do One Boxu nad 500 Kč | kód, platnost nastavena do 6. 12. |
+| 6. | kvíz o zimování včel | okamžité vyhodnocení + vysvětlení |
+| 7. | recept na perníčky | + PDF ke stažení |
+| 8. | malá medovina zdarma nad 800 Kč | zvýrazněná odměna (18+) |
+| 10. | jmenovky pod stromeček | PDF ke stažení |
+| 11. | **ADVENT10** – 10 % nad 1 000 Kč | kód, po 13. 12. neplatný |
+| 13. | **soutěž** o set Malé vánoční pohlazení (883 Kč) | odpověď + 18+ + pravidla, přijímá do 14. 12., losování 15. 12. |
+| 15. | typový kvíz „Jaký med je vám nejbližší“ | 5 otázek → doporučený med s odkazem |
+| 18. | heslo „Kubeš mi to dovolil!“ na trzích | heslo (18+, 1 na osobu) |
+| 19. | vánoční přání | PDF ke stažení |
 
-Dokud je `apiKey` prázdný, web běží v **ukázkovém režimu**: přihlášení jen e-mailem bez ověření a postup se ukládá pouze v prohlížeči.
-
-## Náhled před 1. prosincem
-
-Otevřete web s `?nahled=medovyadvent` – všechna okénka se odemknou (vypnutí `?nahled=off` nebo tlačítkem Ukončit). Náhledová otevření a soutěžní odpovědi se ukládají odděleně od ostrých (`openedPreview`, `entries/<uid>_nahled_<den>`).
-
-## Před spuštěním kampaně
-
-- [ ] Ve Shoptetu založte slevové kódy `ADVENT7`, `ADVENT14`, `ADVENT21` (nebo je v `src/content.ts` přepište) a doplňte `codeNote` s výší slevy a platností.
-- [ ] Doplňte výhry a pravidla soutěží (okénka 5, 12, 19).
-- [ ] V `src/config.ts` přepněte `CONTENT_MODE` na `'live'` (zmizí upozornění „ukázkový obsah“).
-- [ ] Zkontrolujte informace o zpracování osobních údajů v patičce (`src/App.tsx`, sekce `#soukromi`).
-
-> Web je statický, takže obsah budoucích okének je technicky součástí stránky. Pokud by slevové kódy musely zůstat do daného dne tajné, je potřeba je přesunout do Firestore s pravidlem podle data.
-
-## Data pro marketing
-
-Ve Firestore:
-- `users/{uid}` – e-mail, jméno, `newsletter` (souhlas se zasíláním novinek), `opened` (den → čas otevření), `entries`
-- `entries/{uid}_{den}` – soutěžní odpovědi (`day`, `answer`, `email`, `name`, `createdAt`)
-
-Export: Firebase Console → Firestore → kolekce → případně přes Google Cloud *Import/Export*, nebo jednoduše filtr `newsletter == true`.
+Kódy a hesla se uživateli ukládají i v sekci **Moje dárky**.
 
 ## Vývoj
 
 ```bash
 npm install
-npm run dev        # http://localhost:5173/kubesuvmed-advent/
-npm run build      # výstup v dist/
+npm run dev      # http://localhost:5173/
+npm run build    # výstup v dist/
 ```
 
-Každý push do `main` se přes GitHub Actions automaticky sestaví a nasadí na GitHub Pages (`.github/workflows/deploy.yml`).
+## Jak to celé funguje
 
-**Vlastní doména** (např. `advent.kubesuvmed.cz`): v GitHubu *Settings → Pages → Custom domain*, v DNS CNAME na `morgenster95.github.io`, a v *Settings → Secrets and variables → Actions → Variables* nastavte `BASE_PATH` = `/`. Doménu přidejte i do Firebase Authorized domains.
+- **Ostrý web** běží na Cloudflare Pages (`advent.kubesuvmed.cz`, neomezený přenos zdarma). Nasazuje se jen z větve `produkce`.
+- **Náhled ke kontrole** běží na GitHub Pages (https://databali4market-art.github.io/kubesuvmed-advent/), nasazuje se po každém pushi do `main`: vše odemčené, bez přihlášení a bez Firebase, se žlutými poznámkami „K potvrzení“.
+- **Testovací web** běží na Firebase Hosting (`https://kubesuvmed-advent.web.app`), nasazuje se po každém pushi do `main` (spolu s `firestore.rules`).
+  Firebase Hosting na bezplatném tarifu má limit 360 MB přenosu denně. Kalendář s fotkami má při první návštěvě 1–2 MB, takže by stačil jen na pár stovek návštěvníků denně – proto na něm neběží ostrý provoz.
+- **Přihlášení** jen přes Google. Bez přihlášení se okénka neotevřou (`DEMO_MODE = false`).
+- **Data** ve Firestore: `users/{uid}` (e-mail, jméno, otevřená okénka, souhlas s newsletterem vč. data a znění), `entries` (soutěžní odpovědi).
+- **E-maily** stahuje správce na `https://advent.kubesuvmed.cz/?admin` jako CSV (newsletter / všichni přihlášení / soutěžní odpovědi).
+
+Stačí bezplatný tarif Firebase (Spark) – přihlášení a databáze mají vlastní, dostatečné limity. Projekt: `kubesuvmed-advent`.
+
+## Nastavení Firebase (jednorázově, cca 15 minut)
+
+1. **Projekt** (hotovo: `kubesuvmed-advent`) a **webová aplikace** (hotovo – konfigurace je v `src/config.ts`).
+2. **Přihlášení**: Build → *Authentication* → Get started → *Google* → Enable → vyplnit e-mail podpory → Save.
+   *Settings → Authorized domains*: přidat `advent.kubesuvmed.cz`.
+   Na stránce souhlasu Googlu (Google Cloud Console → APIs & Services → OAuth consent screen / Branding) nastavit název „Kubešova medová manufaktura“, logo a odkaz na zásady ochrany osobních údajů.
+3. **Databáze**: Build → *Firestore Database* → Create database → lokace `eur3 (europe-west)` → *production mode*.
+4. **Správci**: Google e-mail (malými písmeny) zapsat do `ADMIN_EMAILS` v `src/config.ts` **a** do funkce `isAdmin()` ve `firestore.rules`.
+5. **Hosting** (testovací web): Build → *Hosting* → Get started (stačí proklikat). Vlastní doména se tu nepřipojuje – ta patří Cloudflare (viz níže).
+
+## Nasazení (GitHub → Firebase)
+
+Workflow `.github/workflows/deploy.yml` po každém pushi do `main` sestaví web a nasadí ho i s `firestore.rules` do projektu `kubesuvmed-advent`. Potřebuje jedno nastavení v GitHubu (repo → Settings → Secrets and variables → Actions). Dokud chybí, nasazení se přeskočí.
+
+1. **Secrets** → `FIREBASE_SERVICE_ACCOUNT` = JSON klíč: Firebase Console → Project settings → *Service accounts* → **Generate new private key** → obsah souboru vložit do secretu, soubor smazat.
+2. Aby se nasazovala i pravidla databáze, potřebuje tento účet (`firebase-adminsdk-…@kubesuvmed-advent.iam.gserviceaccount.com`) navíc roli **Service Usage Consumer**: [Google Cloud → IAM](https://console.cloud.google.com/iam-admin/iam?project=kubesuvmed-advent) → u účtu tužka → *Add another role* → Service Usage Consumer → Save. Bez ní se nasadí jen web.
+3. GitHub Pages slouží jen pro náhled ke kontrole (job `nahled`). Po spuštění kampaně ho lze z workflow odebrat a Pages vypnout.
+
+Ruční nasazení z počítače: `npm run build && npx firebase-tools deploy --only hosting,firestore:rules --project kubesuvmed-advent`.
+
+## Ostrý web na Cloudflare Pages
+
+Řeší se až na konci, před spuštěním. Postup práce: změny → `main` → vyzkoušet na `kubesuvmed-advent.web.app` → až je vše hotové, sloučit `main` do `produkce` → Cloudflare nasadí ostrý web. Každé nasazení ostrého webu = jedno sestavení na Cloudflare (limit 500 / měsíc / účet – sdílí se s Mobil Majákem, pokud je na stejném účtu).
+
+Jednorázové nastavení:
+1. Cloudflare → Workers & Pages → Create → Pages → *Connect to Git* → repo `kubesuvmed-advent`.
+2. Production branch **`produkce`**, framework *None*, build command `npm run build`, output directory `dist`, proměnná `NODE_VERSION=22`.
+3. Settings → Builds → *Preview deployments* → **None** (testuje se na Firebase, šetří sestavení).
+4. Custom domains → `advent.kubesuvmed.cz` (u správce DNS CNAME `advent` → `<projekt>.pages.dev`).
+5. Firebase → Authentication → Settings → Authorized domains → přidat `advent.kubesuvmed.cz`.
+6. Google Cloud → APIs & Services → Credentials → OAuth klient „Web client (auto created by Google Service)“ → *Authorized redirect URIs* → přidat `https://advent.kubesuvmed.cz/__/auth/handler`.
+
+Přihlašovací stránka Firebase se na ostré doméně podává přes `functions/__/[[path]].js` (proxy na `kubesuvmed-advent.firebaseapp.com`), takže přihlášení přes Google funguje i v Safari / na iPhonu. `authDomain` se v `src/config.ts` přepíná podle domény automaticky.
+
+## Newsletter a e-maily
+
+- Na `/?admin` se přihlaste Google účtem správce → **E-maily pro newsletter (CSV)** → importovat do nástroje na newsletter (Ecomail, Mailchimp, Shoptet…). CSV má středníky a UTF-8, v Excelu se otevře správně.
+- Do newsletteru patří **jen** tento soubor – lidé, kteří zaškrtli souhlas. U každého je datum a znění souhlasu (kvůli GDPR). Znění je v `src/config.ts` (`NEWSLETTER_CONSENT`).
+- Soubor „Všichni přihlášení“ slouží jen pro kalendář a kontakt s výhercem, ne pro marketing.
+- Kdo souhlas v sekci *Moje dárky* odškrtne, v CSV pro newsletter už nebude (export dělejte až před rozesláním).
+- Soutěž 13. 12.: „Soutěžní odpovědi (CSV)“ → vyfiltrovat správné odpovědi → vylosovat 15. 12.
+
+## Před spuštěním (1. 12.)
+
+Podrobný seznam otevřených bodů je v [DORESIT.md](DORESIT.md).
+
+- [ ] Firebase nastavený (viz výše), vyzkoušené přihlášení přes Google a export na `/?admin`.
+- [ ] Ve Shoptetu založit kódy **ADVENT15** (2.–4. 12., nad 1 500 Kč), **MIKULAS** (One Box, nad 500 Kč), **ADVENT10** (11.–13. 12., nad 1 000 Kč) a nastavit dárek k nákupu nad 800 Kč (8. 12.).
+- [ ] Vyřešit všechny poznámky `confirm` v `src/content.ts` (vidíte je v náhledu jako žluté rámečky), pak `CONTENT_MODE = 'live'`.
+- [ ] 15. 12.: nahradit pracovní otázky typového kvízu zněním z Google Docu.
+- [ ] Nahradit provizorní PDF v `public/pdf/` grafikou (stejné názvy souborů).
+- [ ] Zkontrolovat odkaz na zásady ochrany osobních údajů ve footeru (`src/App.tsx`, sekce `#soukromi`).
+
+> Web je statický, takže obsah budoucích okének (včetně kódů) je technicky součástí stránky. Kódy proto mají v Shoptetu platit jen ve svých dnech.
+
+## Náhled před 1. prosincem
+
+`?nahled=medovyadvent` odemkne všechna okénka (vypnutí `?nahled=off`). Náhledová otevření a soutěžní odpovědi se ukládají odděleně od ostrých a do exportu se nepočítají.
 
 ## Hudba
 

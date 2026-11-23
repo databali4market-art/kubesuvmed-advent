@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowRight, ArrowUpRight, Eye, Gift, Music, Share2, Sparkles, Volume2, VolumeX, LogIn, Heart, Leaf, Truck, Award } from 'lucide-react';
 import { availableDay, BASE, CONTEST_DAYS, doors as ALL_DOORS } from './content';
-import { CONTENT_MODE, DEMO_MODE, PREVIEW_KEY } from './config';
+import { CONTENT_MODE, DEMO_MODE, NAHLED_BUILD, PREVIEW_KEY } from './config';
 import { backend } from './backend';
 import type { Door, Progress, User } from './types';
 import { Honeycomb } from './components/Honeycomb';
 import { DoorModal } from './components/DoorModal';
 import { LoginDialog } from './components/LoginDialog';
 import { GiftsDrawer } from './components/GiftsDrawer';
-import { Bee, Celebrate, Garland, HoneyDrip, Pine, Snow } from './components/Decor';
+import { Bee, Botany, Celebrate, Snow } from './components/Decor';
 
 const A = BASE + 'assets/';
 const F = A + 'foto/';
@@ -77,7 +77,6 @@ export default function App() {
   // přihlášení
   useEffect(() => {
     let off: (() => void) | undefined;
-    backend.completeEmailLink().then((ok) => ok && notify('Jste přihlášeni. Krásný advent!')).catch((e) => notify((e as Error).message));
     backend.watch((u) => { setUser(u); setAuthReady(true); }).then((f) => { off = f; });
     return () => off?.();
   }, [notify]);
@@ -193,15 +192,16 @@ export default function App() {
     <>
       {preview && (
         <div className="preview-bar">
-          <Eye size={15} /> {DEMO_MODE ? 'Ukázková verze pro prezentaci – všechna okénka lze proklikat bez přihlášení' : 'Náhled: všechna okénka odemčená'}{draft && !DEMO_MODE ? ' · obsah je ukázkový' : ''}
+          <Eye size={15} /> {NAHLED_BUILD ? 'Náhled ke kontrole – vše odemčené, bez přihlášení. Žluté rámečky = k potvrzení' : DEMO_MODE ? 'Ukázková verze pro prezentaci – všechna okénka lze proklikat bez přihlášení' : 'Náhled: všechna okénka odemčená'}{draft && !DEMO_MODE ? ' · žluté poznámky „K potvrzení“ vidí jen náhled' : ''}
           {!DEMO_MODE && <button onClick={() => { try { sessionStorage.removeItem('kmed-nahled'); } catch { /* */ } setPreview(false); }}>Ukončit</button>}
         </div>
       )}
 
       {/* ------------------------------------------------------------- HERO */}
       <div className="night">
-        <Snow />
-        <Garland />
+        <Snow count={46} />
+        <Botany plant="lipa" className="bt-hero-l" />
+        <Botany plant="louka" className="bt-hero-r" />
         <header className="topbar wrap">
           <a href={SHOP} className="brand" target="_blank" rel="noreferrer" aria-label="Kubešova medová manufaktura – e-shop">
             <img src={F + 'logo.webp'} alt="Kubešova medová manufaktura" />
@@ -223,9 +223,9 @@ export default function App() {
 
         <section className="hero wrap">
           <div className="hero-copy">
-            <div className="eyebrow light"><span className="line" /> Adventní kalendář 2026</div>
+            <div className="eyebrow"><span className="line" /> Adventní kalendář 2026</div>
             <h1>Vánoce, které<br /><em>chutnají po medu.</em></h1>
-            <p>24 dní, 24 malých radostí z naší rodinné včelí farmy. Recepty, tipy, slevy i soutěže – každý den o půlnoci se odemkne jedna buňka medové plástve.</p>
+            <p>24 dní, 24 malých radostí z naší rodinné včelí farmy. Recepty, slevy, kvízy i soutěž o medoviny – každý den o půlnoci se odemkne jedna buňka medové plástve.</p>
             <div className="hero-cta">
               <a href="#kalendar" className="btn primary big">{user ? 'Otevřít kalendář' : 'Vstoupit do kalendáře'} <ArrowRight size={18} /></a>
               {!user && <button className="btn ghost" onClick={() => setLogin({ open: true })}><LogIn size={17} /> Přihlásit se</button>}
@@ -238,7 +238,7 @@ export default function App() {
             <div className="round r2"><img src={F + 'ig_vcelin.webp'} alt="" /></div>
             <img className="bottle" src={A + 'medovina-aronie-cut.webp'} alt="" />
             <div className="seal"><span>sladké čekání</span><strong>24</strong><span>dní do Vánoc</span></div>
-            <Pine className="hero-pine" />
+            <Botany plant="borovice" className="hero-pine" />
             <Bee className="fly f1" />
             <Bee className="fly f2" />
           </div>
@@ -254,17 +254,18 @@ export default function App() {
           <div className="cd-note"><Sparkles size={18} /> To nejhezčí je někdy samotné těšení.</div>
         </section>
       </div>
-      <HoneyDrip />
 
       {/* --------------------------------------------------------- CALENDAR */}
       <main>
+        <Botany plant="malina" className="bt-cal-l" />
+        <Botany plant="akat" className="bt-cal-r" />
         <section id="kalendar" className="calendar wrap">
           <div className="cal-head">
             <div>
               <div className="eyebrow">Malé radosti, den za dnem</div>
               <h2>Medová plástev <em>plná překvapení</em></h2>
             </div>
-            <p>Za každou buňkou se skrývá recept, tip na dárek, příběh ze včelína nebo sleva do e-shopu. Vše, co otevřete, si pamatujeme u vašeho účtu.</p>
+            <p>Za každou buňkou se skrývá recept, tip na dárek, kvíz, dárek ke stažení nebo sleva do e-shopu. Vše, co otevřete, si pamatujeme u vašeho účtu.</p>
           </div>
           <div className="cal-bar">
             <div className="progress">
@@ -287,6 +288,7 @@ export default function App() {
 
         {/* ----------------------------------------------------- STORY */}
         <section className="story wrap">
+          <Botany plant="javor" className="bt-story" />
           <div className="story-photos" aria-hidden="true">
             <img className="sp1" src={F + 'onas1.webp'} alt="" loading="lazy" />
             <img className="sp2" src={F + 'efa3348.webp'} alt="" loading="lazy" />
@@ -333,7 +335,8 @@ export default function App() {
         </section>
 
         <section className="closing">
-          <Pine className="closing-pine" />
+          <Botany plant="rebricek" className="closing-l" />
+          <Botany plant="lipa" className="closing-r" />
           <Bee className="closing-bee" />
           <h2>Ať mají ty nejhezčí chvíle <em>chuť medu.</em></h2>
           <p>Krásný advent přeje Kubešova medová manufaktura.</p>
@@ -350,7 +353,7 @@ export default function App() {
           </div>
           <div id="soukromi" className="privacy">
             <h3>Soukromí</h3>
-            <p>Pro přihlášení používáme službu Firebase (Google). Ukládáme váš e-mail, případně jméno z účtu Google, která okénka jste otevřeli, soutěžní odpovědi a to, zda chcete dostávat novinky. Údaje slouží jen k provozu adventního kalendáře, vyhodnocení soutěží a – pokud jste o to požádali – k zasílání novinek. Podrobnosti o zpracování osobních údajů najdete na <a href={SHOP + 'gdpr/'} target="_blank" rel="noreferrer">kubesuvmed.cz</a>.</p>
+            <p>Pro přihlášení účtem Google používáme službu Firebase (Google). Ukládáme váš e-mail, případně jméno z účtu Google, která okénka jste otevřeli, soutěžní odpovědi a to, zda chcete dostávat novinky (včetně data a znění souhlasu). Údaje slouží jen k provozu adventního kalendáře, vyhodnocení soutěže a – pokud jste o to požádali – k zasílání novinek. Souhlas s novinkami můžete kdykoli odvolat v sekci Moje dárky nebo odkazem v každém e-mailu. Podrobnosti o zpracování osobních údajů najdete na <a href={SHOP + 'gdpr/'} target="_blank" rel="noreferrer">kubesuvmed.cz</a>.</p>
           </div>
           <small>© 2026 Kubešova medová manufaktura · Okénka se otevírají o půlnoci (Europe/Prague) · Hudba: vlastní aranžmá lidových koled</small>
         </div>
@@ -359,22 +362,25 @@ export default function App() {
       {/* ---------------------------------------------------------- LAYERS */}
       {gate && (
         <div className="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
-          <Snow count={90} />
+          <Snow count={60} />
+          <Botany plant="lipa" className="bt-gate-l" />
+          <Botany plant="louka" className="bt-gate-r" />
           <div className="gate-card">
             <img className="gate-logo" src={F + 'logo.webp'} alt="Kubešova medová manufaktura" />
             <div className="gate-comb" aria-hidden="true">{Array.from({ length: 7 }, (_, i) => <i key={i} />)}<Bee className="gate-bee" /></div>
-            <div className="eyebrow light center">Malá radost. Každý den.</div>
+            <div className="eyebrow center">Malá radost. Každý den.</div>
             <h2 id="gate-title">Vítejte v našem<br /><em>medovém adventu</em></h2>
             <p>Na chvíli zpomalte. Vánoční kouzlo už na vás čeká.</p>
             <button className="btn primary big" onClick={() => enter(true)} autoFocus><Music size={18} /> Vstoupit s vánoční hudbou</button>
-            <button className="btn link light" onClick={() => enter(false)}>Vstoupit bez hudby</button>
+            <button className="btn link" onClick={() => enter(false)}>Vstoupit bez hudby</button>
           </div>
         </div>
       )}
 
       <DoorModal
         door={door}
-        draft={draft}
+        showConfirm={draft && preview && (!DEMO_MODE || NAHLED_BUILD)}
+        today={today}
         entered={!!door && progress.entries.includes(door.day)}
         canPrev={!!door && door.day > 1}
         canNext={!!door && door.day < max}
@@ -383,9 +389,12 @@ export default function App() {
         onClose={closeModal}
         onShare={share}
         onCopy={copy}
+        onWin={() => setBurst((b) => b + 1)}
         onEnter={async (day, answer) => {
           if (!user && !DEMO_MODE) throw new Error('Nejste přihlášeni.');
           if (!CONTEST_DAYS.includes(day)) throw new Error('Soutěž v tomto okénku neprobíhá.');
+          const until = ALL_DOORS[day - 1]?.contest?.until ?? 0;
+          if (!preview && today > until) throw new Error('Soutěž už skončila.');
           const a = answer.trim();
           if (a.length < 3) throw new Error('Odpověď prosím napište alespoň třemi znaky.');
           if (user) await backend.submitEntry(user, day, a, preview);
