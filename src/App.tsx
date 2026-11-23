@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowRight, ArrowUpRight, Eye, Gift, Music, Share2, Sparkles, Volume2, VolumeX, LogIn, Heart, Leaf, Truck, Award } from 'lucide-react';
 import { availableDay, BASE, CONTEST_DAYS, doors as ALL_DOORS } from './content';
-import { CONTENT_MODE, DEMO_MODE, LEGAL, NAHLED_BUILD, PREVIEW_KEY } from './config';
+import { CONTENT_MODE, DEMO_MODE, LEGAL, NAHLED_BUILD, OPERATOR, PREVIEW_KEY, RULES_URL } from './config';
 import { backend } from './backend';
 import type { Door, Progress, User } from './types';
 import { Honeycomb } from './components/Honeycomb';
@@ -354,8 +354,9 @@ export default function App() {
           <nav id="soukromi" className="legal-links" aria-label="Právní informace">
             <a href={LEGAL.privacy} target="_blank" rel="noreferrer">Ochrana osobních údajů a cookies ↗</a>
             <a href={LEGAL.terms} target="_blank" rel="noreferrer">Obchodní podmínky ↗</a>
+            <a href={RULES_URL} target="_blank" rel="noreferrer">Pravidla soutěže</a>
           </nav>
-          <small>© 2026 Kubešova medová manufaktura · Okénka se otevírají o půlnoci (Europe/Prague) · Hudba: vlastní aranžmá lidových koled</small>
+          <small>© 2026 Kubešova medová manufaktura · Provozovatel: {OPERATOR.name}, IČ {OPERATOR.ico} · Okénka se otevírají o půlnoci (Europe/Prague) · Hudba: vlastní aranžmá lidových koled</small>
         </div>
       </footer>
 
@@ -390,6 +391,12 @@ export default function App() {
         onShare={share}
         onCopy={copy}
         onWin={() => setBurst((b) => b + 1)}
+        offerNewsletter={(!!user || DEMO_MODE) && !progress.newsletter && !progress.newsletterAsked}
+        onNewsletterOffer={(v) => {
+          setProgress((p) => { const n = { ...p, newsletter: p.newsletter || v, newsletterAsked: true }; if (!user) saveGuest(n); return n; });
+          notify(v ? 'Děkujeme! Medové novinky vám budeme posílat e-mailem.' : 'Dobře, nebudeme otravovat.');
+          if (user) backend.answerNewsletterOffer(user, v).catch(() => notify('Nastavení se nepodařilo uložit.'));
+        }}
         onEnter={async (day, answer) => {
           if (!user && !DEMO_MODE) throw new Error('Nejste přihlášeni.');
           if (!CONTEST_DAYS.includes(day)) throw new Error('Soutěž v tomto okénku neprobíhá.');
@@ -417,7 +424,7 @@ export default function App() {
         onPick={(d) => { setDrawer(false); void openDoor(d); }}
         onCopy={copy}
         onLogout={logout}
-        onNewsletter={(v) => { if (!user) return; setProgress((p) => ({ ...p, newsletter: v })); backend.setNewsletter(user, v).catch(() => notify('Nastavení se nepodařilo uložit.')); }}
+        onNewsletter={(v) => { if (!user) return; setProgress((p) => ({ ...p, newsletter: v, newsletterAsked: true })); backend.setNewsletter(user, v).catch(() => notify('Nastavení se nepodařilo uložit.')); }}
       />
       <Celebrate burst={burst} />
       {toast && <div className="toast" role="status">{toast}</div>}

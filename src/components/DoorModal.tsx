@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowRight, ArrowUpRight, Check, ChevronLeft, ChevronRight, Copy, Download, Gift, KeyRound, Printer, Share2, X } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Check, ChevronLeft, ChevronRight, Copy, Download, Gift, KeyRound, Mail, Printer, Share2, X } from 'lucide-react';
 import type { Door } from '../types';
 import { typeIcon } from './Honeycomb';
 import { Bee } from './Decor';
 import { GameView } from './Games';
+import { NEWSLETTER_CONSENT, RULES_URL } from '../config';
 
 export const LABELS: Record<string, string> = {
   tip: 'Malá radost', recipe: 'Z medové kuchyně', gift: 'Tip na dárek', discount: 'Adventní nadílka', contest: 'Vánoční soutěž', story: 'Adventní výzva', quiz: 'Medový kvíz', download: 'Dárek ke stažení',
@@ -25,9 +26,12 @@ interface Props {
   onCopy: (code: string) => void;
   onEnter: (day: number, answer: string) => Promise<void>;
   onWin: () => void;
+  /** ukázat jednorázovou nabídku newsletteru */
+  offerNewsletter: boolean;
+  onNewsletterOffer: (v: boolean) => void;
 }
 
-export function DoorModal({ door, showConfirm, today, entered, canPrev, canNext, onPrev, onNext, onClose, onShare, onCopy, onEnter, onWin }: Props) {
+export function DoorModal({ door, showConfirm, today, entered, canPrev, canNext, onPrev, onNext, onClose, onShare, onCopy, onEnter, onWin, offerNewsletter, onNewsletterOffer }: Props) {
   const ref = useRef<HTMLDialogElement>(null);
   const [more, setMore] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -131,12 +135,12 @@ export function DoorModal({ door, showConfirm, today, entered, canPrev, canNext,
                       <label htmlFor="answer">{c.question}</label>
                       <textarea id="answer" name="answer" required minLength={3} maxLength={1000} rows={3} placeholder={c.placeholder || 'Napište nám…'} />
                       {c.adult && <label className="check"><input type="checkbox" required /> <span>Je mi více než 18 let.</span></label>}
-                      <label className="check"><input type="checkbox" required /> <span>Souhlasím s pravidly soutěže a se zpracováním e-mailu a odpovědi pro její vyhodnocení.</span></label>
+                      <label className="check"><input type="checkbox" required /> <span>Souhlasím s <a href={RULES_URL} target="_blank" rel="noreferrer">pravidly soutěže</a> a se zpracováním e-mailu a odpovědi pro její vyhodnocení.</span></label>
                       {formError && <div className="form-error" role="alert">{formError}</div>}
                       <button className="btn primary" disabled={busy}>{busy ? 'Odesílám…' : 'Odeslat odpověď'} <ArrowRight size={17} /></button>
                     </form>
                   )}
-                  <details className="rules"><summary>Pravidla soutěže</summary><p>{c.rules}</p></details>
+                  <details className="rules"><summary>Pravidla soutěže</summary><p>{c.rules} <a href={RULES_URL} target="_blank" rel="noreferrer">Úplná pravidla</a></p></details>
                 </div>
               );
             })()}
@@ -145,6 +149,21 @@ export function DoorModal({ door, showConfirm, today, entered, canPrev, canNext,
               <div className="cta-row">
                 <a className="btn primary" href={door.url} target="_blank" rel="noreferrer">{door.urlLabel || 'Do e-shopu'} <ArrowUpRight size={16} /></a>
                 {door.adult && <small className="adult">Alkoholické nápoje prodáváme pouze osobám starším 18 let.</small>}
+              </div>
+            )}
+
+            {offerNewsletter && (
+              <div className="nl-offer" role="region" aria-label="Novinky e-mailem">
+                <div className="nl-offer-icon" aria-hidden="true"><Mail size={20} /></div>
+                <div>
+                  <strong>Chcete vědět o medových novinkách a slevách dřív než ostatní?</strong>
+                  <p>{NEWSLETTER_CONSENT.text}</p>
+                  <div className="nl-offer-actions">
+                    <button className="btn primary" onClick={() => onNewsletterOffer(true)}>Ano, chci novinky</button>
+                    <button className="btn ghost-dark" onClick={() => onNewsletterOffer(false)}>Teď ne</button>
+                  </div>
+                  <small>Dárky z kalendáře dostanete tak jako tak. Nastavení změníte kdykoli v sekci Moje dárky.</small>
+                </div>
               </div>
             )}
 

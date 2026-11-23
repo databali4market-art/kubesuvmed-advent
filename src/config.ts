@@ -64,6 +64,19 @@ export const LEGAL = {
   terms: 'https://www.kubesuvmed.cz/obchodni-podminky/',
 };
 
+/**
+ * Provozovatel kalendáře, pořadatel soutěže a správce osobních údajů (pravidla /?pravidla, patička).
+ * DOPLNIT před spuštěním – hodnoty v [hranatých závorkách] jsou zástupné. Kontakt je z kubesuvmed.cz.
+ */
+export const OPERATOR = {
+  name: '[doplnit: název firmy / jméno podnikatele]',
+  address: '[doplnit: sídlo]',
+  ico: '[doplnit]',
+  email: 'info@kubesuvmed.cz',
+  phone: '+420 605 159 173',
+};
+export const RULES_URL = '?pravidla';
+
 export const NEWSLETTER_CONSENT = {
   version: 'v1-2026-11',
   text: 'Chci dostávat e-mailem medové novinky a nabídky Kubešovy medové manufaktury. Souhlas mohu kdykoli odvolat.',
