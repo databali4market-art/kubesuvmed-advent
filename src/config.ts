@@ -13,8 +13,8 @@ export const NAHLED_BUILD = import.meta.env.VITE_NAHLED === '1';
  */
 export const FIREBASE = {
   apiKey: 'AIzaSyD8D8mY-_tU6nFx6f5kyNb1kZYs1Ibhj_A',
-  // Na ostré doméně běží přihlašovací stránka přes proxy na stejné doméně (functions/__/[[path]].js),
-  // jinde (test na kubesuvmed-advent-91953.web.app, localhost) přímo na Firebase.
+  // Na ostré doméně (Firebase Hosting s vlastní doménou) běží přihlašovací stránka přímo na doméně webu,
+  // jinde (testovací kanál, localhost) na Firebase.
   authDomain: typeof location !== 'undefined' && location.hostname === 'advent.kubesuvmed.cz' ? 'advent.kubesuvmed.cz' : 'kubesuvmed-advent-91953.firebaseapp.com',
   projectId: 'kubesuvmed-advent-91953',
   storageBucket: 'kubesuvmed-advent-91953.firebasestorage.app',

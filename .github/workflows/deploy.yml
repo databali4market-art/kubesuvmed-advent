@@ -1,22 +1,65 @@
-# Po každém pushi do main:
-#  1) NÁHLED ke kontrole na GitHub Pages (https://databali4market-art.github.io/kubesuvmed-advent/)
-#     – vše odemčené, bez přihlášení, bez Firebase, se žlutými poznámkami „K potvrzení“ (VITE_NAHLED=1).
-#  2) TESTOVACÍ web na Firebase Hosting (kubesuvmed-advent-91953.web.app) včetně firestore.rules – jen když je nastavený
-#     secret FIREBASE_SERVICE_ACCOUNT (JSON klíč servisního účtu). Postup je v README v sekci Nasazení.
-# Ostrý web (advent.kubesuvmed.cz) nasazuje Cloudflare Pages z větve produkce – viz README.
+# Nasazení – stejně jako u Mobil Maják (Firebase Hosting, tarif Spark, projekt kubesuvmed-advent-91953):
+#   push do main      → TESTOVACÍ web (preview kanál „test“, adresa kubesuvmed-advent-91953--test-….web.app, platí 30 dní)
+#                       + NÁHLED bez přihlášení na GitHub Pages (https://databali4market-art.github.io/kubesuvmed-advent/)
+#   push do produkce  → OSTRÝ web (advent.kubesuvmed.cz)
+# firestore.rules se nasazují v obou případech (testovací i ostrý web sdílí jednu databázi).
+# Potřebuje v GitHubu (Settings → Secrets and variables → Actions):
+#   - secret FIREBASE_SERVICE_ACCOUNT = JSON klíč servisního účtu (viz README, sekce Nasazení)
+#   - (volitelně) proměnnou FIREBASE_PROJECT_ID, výchozí je kubesuvmed-advent-91953
 name: Nasazení
 
 on:
   push:
-    branches: [main]
+    branches: [main, produkce]
   workflow_dispatch:
 
 concurrency:
-  group: deploy
+  group: deploy-${{ github.ref_name }}
   cancel-in-progress: true
 
 jobs:
+  firebase:
+    runs-on: ubuntu-latest
+    env:
+      HAS_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT != '' }}
+      PROJECT: ${{ vars.FIREBASE_PROJECT_ID || 'kubesuvmed-advent-91953' }}
+    steps:
+      - if: env.HAS_KEY != 'true'
+        run: echo "::warning::Chybí secret FIREBASE_SERVICE_ACCOUNT – nasazení na Firebase se přeskakuje (viz README)."
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - if: env.HAS_KEY == 'true'
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+      # Databázi Firestore (eur3) založí nasazení samo, pokud ještě neexistuje.
+      - name: Založení databáze Firestore (jen poprvé)
+        if: env.HAS_KEY == 'true'
+        continue-on-error: true
+        run: |
+          if npx --yes firebase-tools@15 firestore:databases:get "(default)" --project "$PROJECT" --non-interactive >/dev/null 2>&1; then
+            echo "Databáze už existuje."
+          else
+            npx --yes firebase-tools@15 firestore:databases:create "(default)" --location eur3 --project "$PROJECT" --non-interactive
+          fi
+      - name: Testovací web (preview kanál „test“)
+        if: env.HAS_KEY == 'true' && github.ref_name != 'produkce'
+        run: npx --yes firebase-tools@15 hosting:channel:deploy test --expires 30d --project "$PROJECT" --non-interactive
+      - name: Ostrý web (live)
+        if: env.HAS_KEY == 'true' && github.ref_name == 'produkce'
+        run: npx --yes firebase-tools@15 deploy --only hosting --project "$PROJECT" --non-interactive
+      - name: Pravidla databáze (firestore.rules)
+        if: env.HAS_KEY == 'true'
+        run: npx --yes firebase-tools@15 deploy --only firestore:rules --project "$PROJECT" --non-interactive
+
+  # Náhled ke kontrole bez přihlášení (vše odemčené, žluté poznámky). Po spuštění kampaně lze smazat.
   nahled:
+    if: github.ref_name == 'main'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -42,41 +85,3 @@ jobs:
           path: dist
       - id: deployment
         uses: actions/deploy-pages@v4
-
-  firebase:
-    runs-on: ubuntu-latest
-    env:
-      HAS_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT != '' }}
-    steps:
-      - if: env.HAS_KEY != 'true'
-        run: echo "::warning::Chybí secret FIREBASE_SERVICE_ACCOUNT – nasazení na Firebase se přeskakuje (viz README)."
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
-      - run: npm run build
-      - if: env.HAS_KEY == 'true'
-        uses: google-github-actions/auth@v2
-        with:
-          credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-      # Databázi Firestore (lokace eur3) založí nasazení samo, pokud ještě neexistuje – v konzoli ji zakládat nemusíte.
-      - name: Založení databáze Firestore (jen poprvé)
-        if: env.HAS_KEY == 'true'
-        continue-on-error: true
-        run: |
-          P="${{ vars.FIREBASE_PROJECT_ID || 'kubesuvmed-advent-91953' }}"
-          if npx --yes firebase-tools@15 firestore:databases:get "(default)" --project "$P" --non-interactive >/dev/null 2>&1; then
-            echo "Databáze už existuje."
-          else
-            npx --yes firebase-tools@15 firestore:databases:create "(default)" --location eur3 --project "$P" --non-interactive
-          fi
-      - name: Nasazení webu (Hosting)
-        if: env.HAS_KEY == 'true'
-        run: npx --yes firebase-tools@15 deploy --only hosting --project "${{ vars.FIREBASE_PROJECT_ID || 'kubesuvmed-advent-91953' }}" --non-interactive
-      # Pravidla databáze: servisní účet potřebuje navíc roli „Service Usage Consumer“ (viz README).
-      - name: Nasazení pravidel databáze (firestore.rules)
-        if: env.HAS_KEY == 'true'
-        continue-on-error: true
-        run: npx --yes firebase-tools@15 deploy --only firestore:rules --project "${{ vars.FIREBASE_PROJECT_ID || 'kubesuvmed-advent-91953' }}" --non-interactive
