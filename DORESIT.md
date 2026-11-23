@@ -34,7 +34,7 @@ Poznámky k obsahu jsou i přímo v okénkách – v náhledu `?nahled=medovyadv
 - [ ] Authentication → Authorized domains → přidat `advent.kubesuvmed.cz`.
 - [ ] Google Cloud → OAuth consent screen / Branding: název „Kubešova medová manufaktura“, logo, odkaz na zásady.
 - [ ] Firestore Database → vytvořit (`eur3`, production mode).
-- [ ] Hosting → Get started (testovací web `kubesuvmed-advent.web.app`, bez vlastní domény).
+- [ ] Hosting → Get started (testovací web `kubesuvmed-advent-91953.web.app`, bez vlastní domény).
 - [ ] GitHub → Secrets → `FIREBASE_SERVICE_ACCOUNT` (JSON klíč servisního účtu).
 - [ ] Google Cloud IAM → servisnímu účtu přidat roli **Service Usage Consumer** (kvůli nasazení `firestore.rules`).
 - [ ] Správci: doplnit další Google účty do `ADMIN_EMAILS` (`src/config.ts`) **i** do `isAdmin()` (`firestore.rules`), pokud mají exporty stahovat i další lidé.
@@ -54,7 +54,7 @@ Poznámky k obsahu jsou i přímo v okénkách – v náhledu `?nahled=medovyadv
 - [ ] Vyzkoušet přihlášení přes Google na ostré doméně (i na iPhonu / v Safari).
 - [ ] Vyzkoušet `/?admin` – stažení CSV pro newsletter, všech přihlášených a soutěžních odpovědí.
 - [ ] Po vyřešení všech bodů výše přepnout `CONTENT_MODE` na `'live'` v `src/config.ts`.
-- [ ] Mergnout do `main` → vyzkoušet na `kubesuvmed-advent.web.app` → sloučit `main` do `produkce` → Cloudflare nasadí ostrý web.
+- [ ] Mergnout do `main` → vyzkoušet na `kubesuvmed-advent-91953.web.app` → sloučit `main` do `produkce` → Cloudflare nasadí ostrý web.
 
 ## Během adventu
 

@@ -12,14 +12,14 @@ export const NAHLED_BUILD = import.meta.env.VITE_NAHLED === '1';
  *    Dokud je apiKey prázdný, web běží v UKÁZKOVÉM režimu (přihlášení jen e-mailem, data jen v prohlížeči).
  */
 export const FIREBASE = {
-  apiKey: 'AIzaSyCX8rTyVYunrnZS7vMC58d2eqQTs3aiABk',
+  apiKey: 'AIzaSyD8D8mY-_tU6nFx6f5kyNb1kZYs1Ibhj_A',
   // Na ostré doméně běží přihlašovací stránka přes proxy na stejné doméně (functions/__/[[path]].js),
-  // jinde (test na kubesuvmed-advent.web.app, localhost) přímo na Firebase.
-  authDomain: typeof location !== 'undefined' && location.hostname === 'advent.kubesuvmed.cz' ? 'advent.kubesuvmed.cz' : 'kubesuvmed-advent.firebaseapp.com',
-  projectId: 'kubesuvmed-advent',
-  storageBucket: 'kubesuvmed-advent.firebasestorage.app',
-  messagingSenderId: '285914020856',
-  appId: '1:285914020856:web:93073dad155c693f94f40d',
+  // jinde (test na kubesuvmed-advent-91953.web.app, localhost) přímo na Firebase.
+  authDomain: typeof location !== 'undefined' && location.hostname === 'advent.kubesuvmed.cz' ? 'advent.kubesuvmed.cz' : 'kubesuvmed-advent-91953.firebaseapp.com',
+  projectId: 'kubesuvmed-advent-91953',
+  storageBucket: 'kubesuvmed-advent-91953.firebasestorage.app',
+  messagingSenderId: '180001847164',
+  appId: '1:180001847164:web:0c5eb1239f3aba077116f9',
 };
 
 /**
