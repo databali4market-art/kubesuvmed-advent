@@ -28,16 +28,17 @@ Poznámky k obsahu jsou i přímo v okénkách – v náhledu `?nahled=medovyadv
 - [ ] Založit kód **ADVENT10** – 10 % nad 1 000 Kč, platnost 11.–13. 12.
 - [ ] Nastavit dárek (malá medovina) k nákupu nad 800 Kč na 8. 12.
 
-## Firebase a nasazení (postup v README)
+## Firebase a nasazení (projekt `kubesuvmed-advent-91953`)
 
-- [ ] Authentication → zapnout **Google**, vyplnit e-mail podpory.
-- [ ] Authentication → Authorized domains → přidat `advent.kubesuvmed.cz`.
-- [ ] Google Cloud → OAuth consent screen / Branding: název „Kubešova medová manufaktura“, logo, odkaz na zásady.
-- [ ] Firestore Database → vytvořit (`eur3`, production mode).
-- [ ] Hosting → Get started (testovací web `kubesuvmed-advent-91953.web.app`, bez vlastní domény).
-- [ ] GitHub → Secrets → `FIREBASE_SERVICE_ACCOUNT` (JSON klíč servisního účtu).
-- [ ] Google Cloud IAM → servisnímu účtu přidat roli **Service Usage Consumer** (kvůli nasazení `firestore.rules`).
-- [ ] Správci: doplnit další Google účty do `ADMIN_EMAILS` (`src/config.ts`) **i** do `isAdmin()` (`firestore.rules`), pokud mají exporty stahovat i další lidé.
+Musí udělat majitel účtu (cca 5 minut), zbytek zařídí automatické nasazení:
+
+- [ ] **Přihlášení Google:** Firebase Console → Build → Authentication → Get started → Google → Enable → e-mail podpory → Save.
+- [ ] **Klíč pro GitHub:** Project settings → Service accounts → Generate new private key → obsah souboru vložit v GitHubu (repo → Settings → Secrets and variables → Actions → New repository secret) jako `FIREBASE_SERVICE_ACCOUNT`, soubor smazat.
+- [ ] **Role:** Google Cloud → IAM → účet `firebase-adminsdk-…@kubesuvmed-advent-91953.iam.gserviceaccount.com` → přidat roli **Service Usage Consumer**.
+- [ ] Napsat Claudovi → spustí nasazení: založí databázi Firestore (eur3), nahraje pravidla a web na `kubesuvmed-advent-91953.web.app`. Průvodce Hostingem ani `npm install -g firebase-tools` není potřeba.
+- [ ] Authorized domains: `advent.kubesuvmed.cz` přidat až při přechodu na Cloudflare.
+- [ ] Google Cloud → OAuth consent screen / Branding: název „Kubešova medová manufaktura“, logo, odkaz na zásady (nepovinné, ale hezčí přihlašovací okno).
+- [ ] Správci: další Google účty do `ADMIN_EMAILS` (`src/config.ts`) **i** do `isAdmin()` (`firestore.rules`).
 - [ ] Po spuštění: odebrat náhled na GitHub Pages (job `nahled` v `.github/workflows/deploy.yml`) a Pages vypnout.
 - [ ] Repo přepnout na soukromé (Settings → General → Change visibility), jako Mobil Maják – pak ale GitHub Pages na bezplatném účtu nepoběží.
 
