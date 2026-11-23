@@ -62,9 +62,9 @@ Stačí bezplatný tarif Firebase (Spark) – přihlášení a databáze mají v
 2. **Přihlášení**: Build → *Authentication* → Get started → *Google* → Enable → vyplnit e-mail podpory → Save.
    *Settings → Authorized domains*: přidat `advent.kubesuvmed.cz`.
    Na stránce souhlasu Googlu (Google Cloud Console → APIs & Services → OAuth consent screen / Branding) nastavit název „Kubešova medová manufaktura“, logo a odkaz na zásady ochrany osobních údajů.
-3. **Databáze**: Build → *Firestore Database* → Create database → lokace `eur3 (europe-west)` → *production mode*.
+3. **Databáze**: založí ji automaticky nasazení (krok „Založení databáze Firestore“, lokace `eur3`). Ručně: Build → *Firestore Database* → Create database → `eur3 (europe-west)` → *production mode*.
 4. **Správci**: Google e-mail (malými písmeny) zapsat do `ADMIN_EMAILS` v `src/config.ts` **a** do funkce `isAdmin()` ve `firestore.rules`.
-5. **Hosting** (testovací web): Build → *Hosting* → Get started (stačí proklikat). Vlastní doména se tu nepřipojuje – ta patří Cloudflare (viz níže).
+5. **Hosting** (testovací web): nic není potřeba – web nahraje nasazení z GitHubu. Průvodce *Get started* (včetně `npm install -g firebase-tools`) lze přeskočit. Vlastní doména se tu nepřipojuje – ta patří Cloudflare (viz níže).
 
 ## Nasazení (GitHub → Firebase)
 

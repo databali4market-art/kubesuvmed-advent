@@ -61,6 +61,17 @@ jobs:
         uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+      # Databázi Firestore (lokace eur3) založí nasazení samo, pokud ještě neexistuje – v konzoli ji zakládat nemusíte.
+      - name: Založení databáze Firestore (jen poprvé)
+        if: env.HAS_KEY == 'true'
+        continue-on-error: true
+        run: |
+          P="${{ vars.FIREBASE_PROJECT_ID || 'kubesuvmed-advent-91953' }}"
+          if npx --yes firebase-tools@15 firestore:databases:get "(default)" --project "$P" --non-interactive >/dev/null 2>&1; then
+            echo "Databáze už existuje."
+          else
+            npx --yes firebase-tools@15 firestore:databases:create "(default)" --location eur3 --project "$P" --non-interactive
+          fi
       - name: Nasazení webu (Hosting)
         if: env.HAS_KEY == 'true'
         run: npx --yes firebase-tools@15 deploy --only hosting --project "${{ vars.FIREBASE_PROJECT_ID || 'kubesuvmed-advent-91953' }}" --non-interactive
