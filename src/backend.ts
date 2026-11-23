@@ -68,7 +68,7 @@ function localBackend(): Backend {
 /* --------------------------------------------------------------- firebase */
 function firebaseBackend(): Backend {
   const sdk = (async () => {
-    const [{ initializeApp, getApps }, auth, fs] = await Promise.all([import('firebase/app'), import('firebase/auth'), import('firebase/firestore')]);
+    const [{ initializeApp, getApps }, auth, fs] = await Promise.all([import('firebase/app'), import('firebase/auth'), import('firebase/firestore/lite')]);
     const app = getApps()[0] || initializeApp(FIREBASE);
     const a = auth.getAuth(app);
     a.languageCode = 'cs';

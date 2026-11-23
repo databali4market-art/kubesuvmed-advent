@@ -10,7 +10,9 @@ import { LoginDialog } from './components/LoginDialog';
 import { GiftsDrawer } from './components/GiftsDrawer';
 import { Bee, Botany, Celebrate, Snow } from './components/Decor';
 
-const A = BASE + 'assets/';
+const A = BASE + 'media/';
+/** zmenšené verze fotek pro malé náhledy (plné rozlišení je jen v okénkách) */
+const M = A + 'mini/';
 const F = A + 'foto/';
 const SHOP = 'https://www.kubesuvmed.cz/';
 const EVE = Date.parse('2026-12-24T00:00:00+01:00');
@@ -234,8 +236,8 @@ export default function App() {
           </div>
           <div className="hero-art" aria-hidden="true">
             <div className="arch"><img src={F + 'ig_med.webp'} alt="" /></div>
-            <div className="round r1"><img src={F + 'onas2.webp'} alt="" /></div>
-            <div className="round r2"><img src={F + 'ig_vcelin.webp'} alt="" /></div>
+            <div className="round r1"><img src={M + 'onas2.webp'} alt="" /></div>
+            <div className="round r2"><img src={M + 'ig_vcelin.webp'} alt="" /></div>
             <img className="bottle" src={A + 'medovina-aronie-cut.webp'} alt="" />
             <div className="seal"><span>sladké čekání</span><strong>24</strong><span>dní do Vánoc</span></div>
             <Botany plant="borovice" className="hero-pine" />
@@ -290,8 +292,8 @@ export default function App() {
         <section className="story wrap">
           <Botany plant="javor" className="bt-story" />
           <div className="story-photos" aria-hidden="true">
-            <img className="sp1" src={F + 'onas1.webp'} alt="" loading="lazy" />
-            <img className="sp2" src={F + 'efa3348.webp'} alt="" loading="lazy" />
+            <img className="sp1" src={M + 'onas1.webp'} alt="" loading="lazy" />
+            <img className="sp2" src={M + 'efa3348.webp'} alt="" loading="lazy" />
             <img className="sp3" src={A + 'plastve.jpg'} alt="" loading="lazy" />
           </div>
           <div className="story-copy">
@@ -319,10 +321,10 @@ export default function App() {
             </div>
             <div className="products">
               {[
-                { img: A + 'med-pastovany-cut.webp', tag: 'Pro sladká rána', name: 'Květový pastovaný med', url: SHOP + 'med/' },
-                { img: F + 'zimniset.webp', tag: 'Dárkové sady · 18+', name: 'Zimní set medovin', url: SHOP + 'medovina/' },
-                { img: F + 'degust.webp', tag: 'Ochutnávka · 18+', name: 'Degustační set medovin', url: SHOP + 'medovina/' },
-                { img: F + 'luxset.webp', tag: 'Pro znalce · 18+', name: 'Luxusní set medovin', url: SHOP + 'medovina/' },
+                { img: M + 'med-pastovany-cut.webp', tag: 'Pro sladká rána', name: 'Květový pastovaný med', url: SHOP + 'med/' },
+                { img: M + 'zimniset.webp', tag: 'Dárkové sady · 18+', name: 'Zimní set medovin', url: SHOP + 'medovina/' },
+                { img: M + 'degust.webp', tag: 'Ochutnávka · 18+', name: 'Degustační set medovin', url: SHOP + 'medovina/' },
+                { img: M + 'luxset.webp', tag: 'Pro znalce · 18+', name: 'Luxusní set medovin', url: SHOP + 'medovina/' },
               ].map((p) => (
                 <a className="product" href={p.url} target="_blank" rel="noreferrer" key={p.name}>
                   <div className="product-img"><img src={p.img} alt={p.name} loading="lazy" /></div>

@@ -81,7 +81,7 @@ export function Admin() {
   return (
     <main className="admin wrap">
       <div className="admin-card">
-        <img className="admin-logo" src={BASE + 'assets/foto/logo.webp'} alt="Kubešova medová manufaktura" />
+        <img className="admin-logo" src={BASE + 'media/foto/logo.webp'} alt="Kubešova medová manufaktura" />
         <h1>Správa kalendáře</h1>
 
         {!ready ? <p className="muted">Načítám…</p>
