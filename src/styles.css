@@ -35,7 +35,7 @@ body {
   font-size: 17px;
   line-height: 1.6;
   color: var(--ink);
-  background: var(--paper) url('/assets/pozadi_eshop_light.jpg') repeat-y center top / 100% auto;
+  background: var(--paper);
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
 }
@@ -105,14 +105,14 @@ h1 em, h2 em { font-style: italic; font-weight: 700; color: var(--honey); }
 }
 .snow { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
 .night > *:not(.snow):not(.botany) { position: relative; z-index: 1; }
-.botany { position: absolute; pointer-events: none; user-select: none; z-index: 0; height: auto; opacity: .55; }
-.bt-hero-l { width: 300px; left: -70px; top: -30px; transform: rotate(8deg); opacity: .5; }
-.bt-hero-r { width: 190px; right: -30px; bottom: 40px; opacity: .4; }
-.bt-cal-l { width: 300px; left: -90px; top: 380px; opacity: .45; }
-.bt-cal-r { width: 280px; right: -80px; top: 60px; transform: scaleX(-1) rotate(-6deg); opacity: .4; }
-.bt-story { width: 260px; right: -60px; top: -40px; opacity: .45; }
-.closing-l { width: 170px; left: 6%; bottom: 20px; opacity: .5; }
-.closing-r { width: 210px; right: 5%; top: 30px; transform: scaleX(-1); opacity: .45; }
+.botany { position: absolute; pointer-events: none; user-select: none; z-index: 0; height: auto; /* SVG z kubes_vektory.ai */ opacity: .19; }
+.bt-hero-l { width: 300px; left: -70px; top: -30px; transform: rotate(8deg); opacity: .17; }
+.bt-hero-r { width: 190px; right: -30px; bottom: 40px; opacity: .14; }
+.bt-cal-l { width: 300px; left: -90px; top: 380px; opacity: .15; }
+.bt-cal-r { width: 280px; right: -80px; top: 60px; transform: scaleX(-1) rotate(-6deg); opacity: .14; }
+.bt-story { width: 260px; right: -60px; top: -40px; opacity: .15; }
+.closing-l { width: 170px; left: 6%; bottom: 20px; opacity: .17; }
+.closing-r { width: 210px; right: 5%; top: 30px; transform: scaleX(-1); opacity: .15; }
 
 .topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 0 8px; }
 .brand img { height: 54px; width: auto; }
@@ -141,7 +141,7 @@ h1 em, h2 em { font-style: italic; font-weight: 700; color: var(--honey); }
   transform: rotate(-10deg); }
 .seal span { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; }
 .seal strong { font-family: var(--serif); font-size: 44px; line-height: 1; font-style: italic; }
-.hero-pine { position: absolute; width: 230px; right: -40px; top: -40px; transform: rotate(-18deg); opacity: .5; z-index: 0; }
+.hero-pine { position: absolute; width: 230px; right: -40px; top: -40px; transform: rotate(-18deg); opacity: .17; z-index: 0; }
 
 /* bees in flight (CSS motion path) */
 .bee { width: 52px; height: auto; overflow: visible; color: var(--ink); }
@@ -351,7 +351,7 @@ textarea:focus, input[type='email']:focus { outline: none; border-color: var(--h
 .login { width: min(470px, 100% - 24px); margin: auto; max-height: calc(100dvh - 24px); overflow-y: auto; overscroll-behavior: contain; border-radius: 28px; }
 .login-card { position: relative; overflow: hidden; background: var(--paper); border-radius: 28px; padding: 40px 34px 30px; box-shadow: 0 40px 100px -30px rgba(0,0,0,.6); text-align: center; }
 .login[open] .login-card { animation: pop .45s cubic-bezier(.2,.9,.3,1.15); }
-.login-pine { position: absolute; width: 240px; top: -20px; left: -40px; color: var(--pine); opacity: .22; transform: rotate(18deg); }
+.login-pine { position: absolute; width: 240px; top: -20px; left: -40px; color: var(--pine); opacity: .07; transform: rotate(18deg); }
 .login-logo { height: 52px; width: auto; margin: 0 auto 18px; }
 .login h2 { font-size: 30px; margin: 8px 0 10px; }
 .login-lead { color: var(--ink-soft); margin: 0 0 22px; font-size: 16px; }

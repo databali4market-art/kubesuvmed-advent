@@ -13,7 +13,7 @@ export function Bee({ className = '', style }: { className?: string; style?: Rea
 /** Botanická kresba z brandových vektorů (public/assets/botanika). */
 export type Plant = 'lipa' | 'javor' | 'louka' | 'rebricek' | 'akat' | 'borovice' | 'malina';
 export function Botany({ plant, className = '' }: { plant: Plant; className?: string }) {
-  return <img className={'botany ' + className} src={`${import.meta.env.BASE_URL}assets/botanika/${plant}.webp`} alt="" aria-hidden="true" loading="lazy" decoding="async" />;
+  return <img className={'botany ' + className} src={`${import.meta.env.BASE_URL}assets/botanika/${plant}.svg`} alt="" aria-hidden="true" loading="lazy" decoding="async" />;
 }
 
 /** Jemné sněžení na plátně (bílé a medové vločky na světlém pozadí). */
