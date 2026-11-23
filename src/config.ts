@@ -4,12 +4,12 @@
  * 1) Firebase – zkopírujte z Firebase Console → Project settings → Your apps → Web app.
  *    Tyto hodnoty nejsou tajné (jsou vidět v každém webu, který Firebase používá).
  *    Dokud je apiKey prázdný, web běží v UKÁZKOVÉM režimu (přihlášení jen e-mailem, data jen v prohlížeči).
- *    authDomain: po připojení vlastní domény na Firebase Hosting přepište na 'advent.kubesuvmed.cz'
- *    (přihlášení přes Google pak spolehlivě funguje i v Safari / na iPhonu).
  */
 export const FIREBASE = {
   apiKey: 'AIzaSyCX8rTyVYunrnZS7vMC58d2eqQTs3aiABk',
-  authDomain: 'kubesuvmed-advent.firebaseapp.com',
+  // Na ostré doméně běží přihlašovací stránka přes proxy na stejné doméně (functions/__/[[path]].js),
+  // jinde (test na kubesuvmed-advent.web.app, localhost) přímo na Firebase.
+  authDomain: typeof location !== 'undefined' && location.hostname === 'advent.kubesuvmed.cz' ? 'advent.kubesuvmed.cz' : 'kubesuvmed-advent.firebaseapp.com',
   projectId: 'kubesuvmed-advent',
   storageBucket: 'kubesuvmed-advent.firebasestorage.app',
   messagingSenderId: '285914020856',

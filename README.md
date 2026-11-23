@@ -1,6 +1,6 @@
 # Medový advent 2026 – Kubešova medová manufaktura
 
-Statický web (Vite + React + TypeScript): 24 buněk medové plástve, které se odemykají každý den o půlnoci (Europe/Prague). Přihlášení jen přes **Google** (Firebase Authentication), data (otevřená okénka, soutěžní odpovědi, souhlas s newsletterem) ve **Firestore**. Web běží na **Firebase Hosting** (`advent.kubesuvmed.cz`). Obsah vychází z tabulky „Kubeš advent“. Postup nasazení je stejný jako u kalendáře Mobil Maják.
+Statický web (Vite + React + TypeScript): 24 buněk medové plástve, které se odemykají každý den o půlnoci (Europe/Prague). Přihlášení jen přes **Google** (Firebase Authentication), data (otevřená okénka, soutěžní odpovědi, souhlas s newsletterem) ve **Firestore**. Ostrý web běží na **Cloudflare Pages** (`advent.kubesuvmed.cz`), testovací na **Firebase Hosting** (`kubesuvmed-advent.web.app`). Obsah vychází z tabulky „Kubeš advent“. Postup nasazení je stejný jako u kalendáře Mobil Maják.
 
 ## Co kde je
 
@@ -12,7 +12,9 @@ Statický web (Vite + React + TypeScript): 24 buněk medové plástve, které se
 | `src/components/Admin.tsx` | stránka `/?admin` – stažení e-mailů a soutěžních odpovědí do CSV |
 | `public/pdf/` | PDF ke stažení: recept na perníčky (7.), jmenovky (10.), přání (19.) |
 | `firestore.rules` | pravidla Firestore (soutěž ve dni 13, přístup správců) |
-| `firebase.json`, `.firebaserc`, `.github/workflows/deploy.yml` | hosting a automatické nasazení |
+| `firebase.json`, `.firebaserc`, `.github/workflows/deploy.yml` | testovací hosting a automatické nasazení |
+| `functions/__/[[path]].js`, `public/_headers` | Cloudflare Pages: proxy přihlášení Google a mezipaměť |
+| `src/fonts.css` | písma (jen latinka + čeština) |
 
 ## Odměny v kalendáři
 
@@ -42,12 +44,14 @@ npm run build    # výstup v dist/
 
 ## Jak to celé funguje
 
-- **Web** běží na Firebase Hosting (doména `advent.kubesuvmed.cz`), nasazuje se automaticky po každém pushi do `main`.
+- **Ostrý web** běží na Cloudflare Pages (`advent.kubesuvmed.cz`, neomezený přenos zdarma). Nasazuje se jen z větve `produkce`.
+- **Testovací web** běží na Firebase Hosting (`https://kubesuvmed-advent.web.app`), nasazuje se po každém pushi do `main` (spolu s `firestore.rules`).
+  Firebase Hosting na bezplatném tarifu má limit 360 MB přenosu denně. Kalendář s fotkami má při první návštěvě 1–2 MB, takže by stačil jen na pár stovek návštěvníků denně – proto na něm neběží ostrý provoz.
 - **Přihlášení** jen přes Google. Bez přihlášení se okénka neotevřou (`DEMO_MODE = false`).
 - **Data** ve Firestore: `users/{uid}` (e-mail, jméno, otevřená okénka, souhlas s newsletterem vč. data a znění), `entries` (soutěžní odpovědi).
 - **E-maily** stahuje správce na `https://advent.kubesuvmed.cz/?admin` jako CSV (newsletter / všichni přihlášení / soutěžní odpovědi).
 
-Stačí bezplatný tarif Firebase (Spark). Projekt: `kubesuvmed-advent`.
+Stačí bezplatný tarif Firebase (Spark) – přihlášení a databáze mají vlastní, dostatečné limity. Projekt: `kubesuvmed-advent`.
 
 ## Nastavení Firebase (jednorázově, cca 15 minut)
 
@@ -57,7 +61,7 @@ Stačí bezplatný tarif Firebase (Spark). Projekt: `kubesuvmed-advent`.
    Na stránce souhlasu Googlu (Google Cloud Console → APIs & Services → OAuth consent screen / Branding) nastavit název „Kubešova medová manufaktura“, logo a odkaz na zásady ochrany osobních údajů.
 3. **Databáze**: Build → *Firestore Database* → Create database → lokace `eur3 (europe-west)` → *production mode*.
 4. **Správci**: Google e-mail (malými písmeny) zapsat do `ADMIN_EMAILS` v `src/config.ts` **a** do funkce `isAdmin()` ve `firestore.rules`.
-5. **Hosting**: Build → *Hosting* → Get started (stačí proklikat). Pak *Add custom domain* → `advent.kubesuvmed.cz` → u správce DNS přidat záznamy, které Firebase ukáže. Po ověření domény přepsat v `src/config.ts` `authDomain` na `advent.kubesuvmed.cz` (spolehlivé přihlášení v Safari / na iPhonu).
+5. **Hosting** (testovací web): Build → *Hosting* → Get started (stačí proklikat). Vlastní doména se tu nepřipojuje – ta patří Cloudflare (viz níže).
 
 ## Nasazení (GitHub → Firebase)
 
@@ -68,6 +72,20 @@ Workflow `.github/workflows/deploy.yml` po každém pushi do `main` sestaví web
 3. Původní GitHub Pages už se nepoužívají: v repu *Settings → Pages* lze vypnout.
 
 Ruční nasazení z počítače: `npm run build && npx firebase-tools deploy --only hosting,firestore:rules --project kubesuvmed-advent`.
+
+## Ostrý web na Cloudflare Pages
+
+Řeší se až na konci, před spuštěním. Postup práce: změny → `main` → vyzkoušet na `kubesuvmed-advent.web.app` → až je vše hotové, sloučit `main` do `produkce` → Cloudflare nasadí ostrý web. Každé nasazení ostrého webu = jedno sestavení na Cloudflare (limit 500 / měsíc / účet – sdílí se s Mobil Majákem, pokud je na stejném účtu).
+
+Jednorázové nastavení:
+1. Cloudflare → Workers & Pages → Create → Pages → *Connect to Git* → repo `kubesuvmed-advent`.
+2. Production branch **`produkce`**, framework *None*, build command `npm run build`, output directory `dist`, proměnná `NODE_VERSION=22`.
+3. Settings → Builds → *Preview deployments* → **None** (testuje se na Firebase, šetří sestavení).
+4. Custom domains → `advent.kubesuvmed.cz` (u správce DNS CNAME `advent` → `<projekt>.pages.dev`).
+5. Firebase → Authentication → Settings → Authorized domains → přidat `advent.kubesuvmed.cz`.
+6. Google Cloud → APIs & Services → Credentials → OAuth klient „Web client (auto created by Google Service)“ → *Authorized redirect URIs* → přidat `https://advent.kubesuvmed.cz/__/auth/handler`.
+
+Přihlašovací stránka Firebase se na ostré doméně podává přes `functions/__/[[path]].js` (proxy na `kubesuvmed-advent.firebaseapp.com`), takže přihlášení přes Google funguje i v Safari / na iPhonu. `authDomain` se v `src/config.ts` přepíná podle domény automaticky.
 
 ## Newsletter a e-maily
 

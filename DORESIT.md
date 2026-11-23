@@ -32,19 +32,26 @@ Poznámky k obsahu jsou i přímo v okénkách – v náhledu `?nahled=medovyadv
 - [ ] Authentication → Authorized domains → přidat `advent.kubesuvmed.cz`.
 - [ ] Google Cloud → OAuth consent screen / Branding: název „Kubešova medová manufaktura“, logo, odkaz na zásady.
 - [ ] Firestore Database → vytvořit (`eur3`, production mode).
-- [ ] Hosting → Get started → Add custom domain `advent.kubesuvmed.cz` → DNS záznamy u správce domény.
-- [ ] Po ověření domény přepsat `authDomain` v `src/config.ts` na `advent.kubesuvmed.cz`.
+- [ ] Hosting → Get started (testovací web `kubesuvmed-advent.web.app`, bez vlastní domény).
 - [ ] GitHub → Secrets → `FIREBASE_SERVICE_ACCOUNT` (JSON klíč servisního účtu).
 - [ ] Google Cloud IAM → servisnímu účtu přidat roli **Service Usage Consumer** (kvůli nasazení `firestore.rules`).
 - [ ] Správci: doplnit další Google účty do `ADMIN_EMAILS` (`src/config.ts`) **i** do `isAdmin()` (`firestore.rules`), pokud mají exporty stahovat i další lidé.
 - [ ] GitHub → Settings → Pages → vypnout (stará verze na GitHub Pages už se nepoužívá).
+
+## Cloudflare Pages – ostrý web (až na konci, postup v README)
+
+- [ ] Cloudflare → Pages → Connect to Git → repo `kubesuvmed-advent`, production branch `produkce`, build `npm run build`, output `dist`, `NODE_VERSION=22`.
+- [ ] Preview deployments → None.
+- [ ] Custom domain `advent.kubesuvmed.cz` + CNAME u správce DNS.
+- [ ] Google Cloud → OAuth klient → redirect URI `https://advent.kubesuvmed.cz/__/auth/handler`.
+- [ ] Založit větev `produkce` z hotového `main`.
 
 ## Spuštění
 
 - [ ] Vyzkoušet přihlášení přes Google na ostré doméně (i na iPhonu / v Safari).
 - [ ] Vyzkoušet `/?admin` – stažení CSV pro newsletter, všech přihlášených a soutěžních odpovědí.
 - [ ] Po vyřešení všech bodů výše přepnout `CONTENT_MODE` na `'live'` v `src/config.ts`.
-- [ ] Mergnout do `main` → web se automaticky nasadí.
+- [ ] Mergnout do `main` → vyzkoušet na `kubesuvmed-advent.web.app` → sloučit `main` do `produkce` → Cloudflare nasadí ostrý web.
 
 ## Během adventu
 
