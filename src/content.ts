@@ -24,7 +24,7 @@ const DOORS: Door[] = [
   {
     day: 1, type: 'tip', title: 'Vítejte v medovém adventu',
     text: 'Na chvíli se zastavte. Uvařte si oblíbený čaj, přidejte lžičku medu a nechte se vést. První prosincový den patří malým radostem.',
-    image: F + 'ig_med.webp',
+    image: F + 'pripitek.webp',
     more: 'Až do Štědrého dne tu na vás každý den čeká nové okénko. Všechno, co otevřete, se ukládá k vašemu účtu – recepty, tipy i dárky najdete kdykoli v sekci „Moje dárky“. Další okénko se odemyká vždy o půlnoci.',
   },
   {

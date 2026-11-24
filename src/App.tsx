@@ -291,8 +291,8 @@ export default function App() {
           <Botany plant="javor" className="bt-story" />
           <div className="story-photos" aria-hidden="true">
             <img className="sp1" src={M + 'onas1.webp'} alt="" loading="lazy" />
-            <img className="sp2" src={F + 'ig_vcelin.webp'} alt="" loading="lazy" />
-            <img className="sp3" src={A + 'plastve.jpg'} alt="" loading="lazy" />
+            <img className="sp2" src={F + 'farma-plastev.webp'} alt="" loading="lazy" />
+            <img className="sp3" src={F + 'farma-ule.webp'} alt="" loading="lazy" />
           </div>
           <div className="story-copy">
             <div className="eyebrow">Rodinná včelí farma od roku 2002</div>
@@ -319,10 +319,10 @@ export default function App() {
             </div>
             <div className="products">
               {[
-                { img: M + 'med-pastovany-cut.webp', tag: 'Pro sladká rána', name: 'Květový med Rozkvetlá louka', url: SHOP + 'med/' },
-                { img: M + 'zimniset.webp', tag: 'Dárkové sady · 18+', name: 'Zimní set medovin', url: SHOP + 'medovina/' },
-                { img: M + 'efa3348.webp', tag: 'Malé radosti', name: 'Medové dobroty', url: SHOP + 'ostatni-vyrobky-z-medu:kubesuv-med-e-shop/', photo: true },
-                { img: M + 'krabice.webp', tag: 'Ochutnávka · 18+', name: 'Degustační set medovin', url: SHOP + 'degustacni-set-6-x-0-35-l/', photo: true },
+                { img: M + 'louka.webp', tag: 'Pro sladká rána', name: 'Květový med Rozkvetlá louka', url: SHOP + 'med/', photo: true },
+                { img: M + 'zimniset-foto.webp', tag: 'Dárkové sady · 18+', name: 'Zimní set medovin', url: SHOP + 'medovina/', photo: true },
+                { img: M + 'dobroty.webp', tag: 'Malé radosti', name: 'Medové dobroty', url: SHOP + 'ostatni-vyrobky-z-medu:kubesuv-med-e-shop/', photo: true },
+                { img: M + 'degust-krabice.webp', tag: 'Ochutnávka · 18+', name: 'Degustační set medovin', url: SHOP + 'degustacni-set-6-x-0-35-l/', photo: true },
               ].map((p) => (
                 <a className={'product' + (p.photo ? ' photo' : '')} href={p.url} target="_blank" rel="noreferrer" key={p.name}>
                   <div className="product-img"><img src={p.img} alt={p.name} loading="lazy" /></div>
