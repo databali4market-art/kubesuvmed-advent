@@ -7,4 +7,4 @@ Pojmenujte je prosím podle místa (nebo napište do chatu, co kam patří).
 
 Hotovo 24. 11.: úvodní koláž, 1. 12. přípitek, „Od včel až pod stromeček“ (včelaři, plástev, úly) a „Darujte něco dobrého“ (louka, zimní set, dobroty, degustační set).
 
-Ještě chybí: 7. 12. upečené perníčky, 17. 12. zázvor v pastovaném medu (produktová fotka), volitelně fotky k receptům (3., 12., 16., 23. 12.).
+Hotovo 24. 11. odpoledne: fotky do všech okének (soubory den-XX.webp v public/media/foto/).
