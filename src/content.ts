@@ -38,7 +38,7 @@ const DOORS: Door[] = [
   {
     day: 3, type: 'recipe', title: 'Pečená hruška s medem a skořicí',
     text: 'Jednoduchý dezert, který provoní celý domov dřív, než stihnete prostřít.',
-    art: 'javor',
+    image: F + 'den-03.webp',
     download: { url: PDF + 'pecena-hruska-recept.pdf', label: 'Stáhnout recept v PDF' },
     more: 'Na 2 porce: 2 hrušky, 2 lžičky medu, hrst vlašských ořechů, špetka skořice, kousek másla.\n\nHrušky rozpulte a zbavte jádřinců. Vložte do pekáčku, na každou půlku dejte kousek másla a pečte asi 20 minut při 180 °C. Ještě teplé zakápněte medem, posypte ořechy a skořicí. Podávejte s bílým jogurtem.',
   },
@@ -62,7 +62,7 @@ const DOORS: Door[] = [
   {
     day: 6, type: 'quiz', title: 'Včelí hádanka',
     text: 'Zatímco my si v zimě užíváme teplo domova, naše včelky mají vlastní způsob, jak přečkat chladné měsíce. V úlu rozhodně nejsou samy a ani v zimě nemají úplně volno.',
-    image: F + 'ig_vcelin.webp',
+    image: F + 'farma-plastev.webp',
     game: {
       kind: 'quiz',
       questions: [{
@@ -78,14 +78,14 @@ const DOORS: Door[] = [
   {
     day: 7, type: 'recipe', title: 'Voňavé medové perníčky',
     text: 'Dnešní dárek od nás? Recept na ty nejlepší medové perníčky – i s PDF ke stažení, ať ho máte po ruce v kuchyni.',
-    art: 'borovice',
+    image: F + 'den-07.webp',
     more: 'Med, skořice, hřebíček a vůně čerstvě upečených perníčků. Bez toho si snad ani neumíme představit pravý advent. Dnes jsme si pro vás připravili náš osvědčený recept na domácí medové perníčky. Vytáhněte vykrajovátka, přizvěte malé i velké pomocníky a užijte si společně trochu toho vánočního pečení.\n\nCo budete potřebovat\n• 400 g hladké mouky\n• 100 g tekutého medu\n• 100 g moučkového cukru\n• 100 g vlahého rozpuštěného másla\n• 2 vejce\n• 2 lžičky perníkového koření\n• 1 lžička jedlé sody\n• 1 lžička kakaa (volitelně)\n\nJak na to\n1. Mouku a cukr prosejte, přidejte koření, sodu a případně kakao. Vmíchejte vejce, máslo a med a vypracujte hladké těsto.\n2. Těsto zakryjte a nechte v lednici odležet alespoň 6 hodin, nejlépe do druhého dne.\n3. Nechte těsto trochu povolit, rozválejte na plát silný asi 5 mm a vykrajujte oblíbené tvary.\n4. Perníčky rozložte na plech s pečicím papírem a pečte při 160 °C přibližně 8 minut. Délku přizpůsobte velikosti tvarů. Po vychladnutí je ozdobte podle chuti.\n\nMedový tip: Pokud je med zkrystalizovaný, nechte jej před pečením šetrně ztekutit ve vodní lázni.\n\nAť vám doma krásně voní!',
     download: { url: PDF + 'medove-pernicky-recept.pdf', label: 'Stáhnout recept v PDF' },
   },
   {
     day: 8, type: 'discount', title: 'Malá medovina zdarma',
     text: 'K adventu patří malá překvapení a my jsme si pro vás dnes jedno takové připravili.',
-    image: F + 'degust.webp', product: true, adult: true,
+    image: F + 'den-08.webp', adult: true,
     reward: 'Malá medovina zdarma k nákupu nad 800 Kč',
     more: 'K nákupu nad 800 Kč vám přibalíme malou Kubešovu medovinu jako dárek. Třeba díky ní objevíte chuť, kterou jste od nás ještě neměli možnost ochutnat, nebo uděláte radost někomu ze svých blízkých.\n\nZkrátka malá pozornost od nás, aby byly vaše Vánoce ještě o něco medovější.\n\nNa zdraví a krásný advent vám přejí Kubešovi!\n\nNabídka je určena osobám starším 18 let.',
     url: SHOP, urlLabel: 'Nakoupit v e-shopu',
@@ -94,7 +94,7 @@ const DOORS: Door[] = [
   {
     day: 9, type: 'gift', title: 'Pohlazení pod stromeček',
     text: 'Zimní set medovin je pozvánkou ke společnému ochutnávání. Dárek pro dospělé milovníky medových chutí.',
-    image: F + 'zimniset.webp', product: true, adult: true,
+    image: F + 'den-09.webp', adult: true,
     more: 'Tři lahve, tři různé chutě – od jemné po výrazně kořenitou. Set je ideální pro toho, kdo medovinu teprve objevuje, i pro páry a přátele, kteří rádi ochutnávají spolu a porovnávají, co komu chutná nejvíc.\n\nPro koho? Pro kolegy, rodiče i tchána, o kterém nevíte, jakou chuť má nejradši – v setu si vybere každý. Dárek je už hezky zabalený, stačí ho jen dát pod stromeček.',
     url: SHOP + 'set-medovin-3x-0-75-l:kubesuv-med-e-shop/', urlLabel: 'Set medovin v e-shopu',
   },
@@ -108,7 +108,7 @@ const DOORS: Door[] = [
   {
     day: 11, type: 'discount', title: '10 % na nákup nad 1 000 Kč',
     text: 'Ještě nemáte všechny dárky pod stromeček? Nevadí, máme pro vás další adventní nadílku!',
-    image: F + 'onas3.webp',
+    image: F + 'den-11.webp',
     more: 'Na následující tři dny jsme si pro vás připravili slevu 10 % na nákup nad 1 000 Kč. Potěšte své blízké poctivým medem, medovinou nebo některým z našich dárkových balení.\n\nS objednávkou už ale příliš neotálejte, ať mají vaše medové dárky dostatek času dorazit pod stromeček.\n\nKrásné a pohodové předvánoční dny vám přejí Kubešovi.',
     code: 'ADVENT10', codeNote: 'Sleva 10 % na nákup nad 1 000 Kč. Platí do 13. prosince.', codeUntil: 13,
     url: SHOP, urlLabel: 'Nakoupit v e-shopu',
@@ -116,14 +116,14 @@ const DOORS: Door[] = [
   {
     day: 12, type: 'recipe', title: 'Medovo-hořčičný dresink',
     text: 'Med nemusí končit jen v čaji, na chlebu nebo ve vánočním cukroví. Skvěle si rozumí i se slanými chutěmi.',
-    art: 'louka',
+    image: F + 'den-12.webp',
     download: { url: PDF + 'medovo-horcicny-dresink-recept.pdf', label: 'Stáhnout recept v PDF' },
     more: 'Co budete potřebovat\n• 1 lžíci Kubešova medu\n• 1 lžíci dijonské hořčice\n• 3 lžíce olivového oleje\n• 1 lžíci citronové šťávy\n• špetku soli a čerstvě mletého pepře\n\nVšechny ingredience důkladně promíchejte, dokud se nespojí v hladký dresink. A je hotovo!\n\nSkvěle se hodí do zeleninových salátů, k pečené zelenině nebo ke grilovanému masu. Pro jeho přípravu doporučujeme náš jemný akátový med, který svou chutí nepřebije ostatní suroviny.\n\nDobrou chuť vám přejí Kubešovi',
   },
   {
     day: 13, type: 'contest', title: 'Soutěž o set Malé vánoční pohlazení',
     text: 'Dnes jsme do naší adventní plástve schovali pořádnou medovinovou nadílku!',
-    image: F + 'krabice-medovina.webp', adult: true,
+    image: F + 'den-13.webp', adult: true,
     more: 'Zasoutěžte si o dárkový set Malé vánoční pohlazení, ve kterém najdete tři lahve Kubešovy medoviny o objemu 0,75 l v celkové hodnotě 883 Kč.\n\nStačí správně odpovědět na naši soutěžní otázku. A pokud si s odpovědí nebudete jistí, malou nápovědu najdete na našem e-shopu.\n\nV úterý 15. prosince vylosujeme jednoho šťastlivce a výhru obratem odešleme, aby měla dostatek času dorazit pod stromeček.\n\nDržíme vám palce!',
     contest: {
       question: 'Které tři medoviny najdete v sadě Malé vánoční pohlazení?',
@@ -195,7 +195,7 @@ const DOORS: Door[] = [
   {
     day: 16, type: 'recipe', title: 'Horká medovina s pomerančem',
     text: 'Venku mrzne, doma voní jehličí a vánoční cukroví. Co si takhle zpříjemnit adventní večer voňavou horkou medovinou?',
-    image: F + 'horka-medovina.webp', adult: true,
+    image: F + 'den-16.webp', adult: true,
     download: { url: PDF + 'horka-medovina-recept.pdf', label: 'Stáhnout recept v PDF' },
     more: 'Připravili jsme pro vás jednoduchý recept, díky kterému si kousek atmosféry vánočních trhů přenesete i k sobě domů.\n\nCo budete potřebovat na 2 porce\n• 300 ml Kubešovy Klasické bylinné medoviny\n• 2 plátky pomeranče\n• 1 svitek skořice\n• 2 hřebíčky\n• 1 hvězdičku badyánu\n\nMedovinu nalijte do kastrůlku, přidejte pomeranč a koření a pomalu zahřívejte. Dejte pozor, aby se nezačala vařit. Nechte několik minut rozvinout vůni koření a poté nalijte do oblíbených hrnečků.\n\nA teď už jen najít pohodlné místo, pustit si oblíbené koledy a vychutnat si malou adventní chvilku.\n\nNa zdraví vám přejí Kubešovi!',
     url: SHOP + 'medovina/', urlLabel: 'Medoviny v e-shopu',
@@ -203,7 +203,7 @@ const DOORS: Door[] = [
   {
     day: 17, type: 'gift', title: 'Zázvor v pastovaném medu',
     text: 'Když se venku ochladí, přichází čas na jednu z našich oblíbených medových dobrot – zázvor v pastovaném medu.',
-    art: 'rebricek',
+    image: F + 'den-17.webp',
     more: 'Nejdřív vás pohladí jemná medová sladkost a vzápětí se o slovo přihlásí zázvor se svou typickou štiplavostí. A co se za touhle dobrotou skrývá? Jen dvě suroviny – květový med a jemně mletý zázvor.\n\nSkvěle chutná v čaji, na snídaňové kaši, ale i jen tak na lžičce.\n\nMalý tip od Kubešů: Přidejte lžičku zázvorového medu do teplé vody s citronem. Jednoduchá, voňavá dobrota jako stvořená pro chladné adventní dny.\n\nPro koho? Pro milovníky čaje, otužilce, sportovce i všechny, kdo v zimě rádi zahřejí. Jako malá pozornost se skvěle hodí i k většímu dárku.',
     url: SHOP + 'zazvor-v-pastovanem-medu/', urlLabel: 'Zázvor v medu v e-shopu',
   },
@@ -211,7 +211,7 @@ const DOORS: Door[] = [
     day: 18, type: 'discount', title: 'Horká medovina za heslo',
     text: 'Dnešní adventní překvapení vás zavede přímo na olomoucké vánoční trhy!',
     codeNote: 'Platí do 20. prosince, každý ho může použít jen jednou. Jen pro osoby starší 18 let.',
-    image: F + 'onas2.webp', adult: true,
+    image: F + 'den-18.webp', adult: true,
     password: 'Kubeš mi to dovolil!',
     more: 'Až půjdete kolem našeho stánku na olomouckých vánočních trzích, zastavte se u nás a řekněte obsluze tajné heslo. Za odměnu vám nalijeme malou horkou Kubešovu medovinu úplně zdarma. Žádný háček, žádný nákup, jen malé adventní potěšení od nás.\n\nTak si heslo dobře zapamatujte a přijďte si s námi užít trochu té vánoční atmosféry.\n\nTěšíme se na vás u stánku!\n\nHeslo platí do 20. prosince a každý ho může použít jen jednou. Jen pro osoby starší 18 let.',
   },
@@ -225,34 +225,34 @@ const DOORS: Door[] = [
   {
     day: 20, type: 'tip', title: 'Medová rada',
     text: 'Sáhnete po sklenici medu, ale místo tekuté dobroty vás čeká pořádně ztuhlý obsah? Žádné obavy!',
-    image: A + 'plastve.jpg', product: true,
+    image: F + 'den-20.webp',
     more: 'Krystalizace je přirozenou vlastností medu a rozhodně neznamená, že je med nekvalitní nebo že do něj někdo přidal cukr.\n\nVěděli jste, že každý druh medu krystalizuje jinak rychle? Nebo že i způsob skladování může jeho krystalizaci ovlivnit?\n\nNa našem blogu vám prozradíme, jak med správně skladovat, proč vlastně tuhne a jak mu šetrně vrátit tekutou konzistenci.\n\nProtože i o med je potřeba umět správně pečovat.',
     url: SHOP + 'blog/jak-setrne-ztekutit-zkrystalizovany-med/', urlLabel: 'Přečíst na blogu',
   },
   {
     day: 21, type: 'story', title: 'Pošlete dobro dál',
     text: 'Dnes pro vás nemáme slevu ani recept, ale jednu malou adventní výzvu.',
-    art: 'malina',
+    image: F + 'farma-ule.webp',
     more: 'Zkuste dnes udělat někomu radost. Zavolejte někomu, koho jste dlouho neslyšeli, pozvěte souseda na čaj, podělte se o domácí cukroví nebo někomu jen tak věnujte pár milých slov.\n\nNemusí jít o velká gesta. I včelky nás učí, že z mnoha drobných činů může vzniknout něco krásného.\n\nPojďme si společně osladit nejen Vánoce, ale i svět kolem nás.',
   },
   {
     day: 22, type: 'gift', title: 'Lipový med – vzpomínka na léto',
     text: 'Vlahá letní rána, rozkvetlé lípy a bzukot pilných včel. I uprostřed prosince si můžeme tuhle krásnou atmosféru připomenout díky našemu lipovému medu.',
-    art: 'lipa',
+    image: F + 'den-22.webp', product: true,
     more: 'Patří mezi nejaromatičtější druhové medy a jeho nezaměnitelná vůně potěší především milovníky výraznějších medových chutí.\n\nSkvěle se hodí do čaje, na čerstvé pečivo s máslem nebo k přípravě domácích vánočních dobrot.\n\nMalý tip od Kubešů: Med přidávejte až do mírně vychladlého čaje, abyste co nejlépe zachovali jeho přirozené vlastnosti.\n\nDopřejte si uprostřed zimy malou vzpomínku na rozkvetlé léto.\n\nPro koho? Lipový med se tradičně podává při nachlazení, a tak potěší babičky a dědečky, ale i každého, kdo má rád poctivé, výrazné chutě.',
     url: SHOP + 'lipovy-med:kubesuv-med-e-shop/', urlLabel: 'Lipový med v e-shopu',
   },
   {
     day: 23, type: 'recipe', title: 'Pečené ořechy v medu a skořici',
     text: 'Med, skořice a křupavé oříšky. Někdy stačí jen pár surovin, aby se celým domem rozvoněly Vánoce.',
-    art: 'akat',
+    image: F + 'den-23.webp',
     download: { url: PDF + 'pecene-orechy-recept.pdf', label: 'Stáhnout recept v PDF' },
     more: 'Skvěle se hodí na sváteční stůl, k večernímu mlsání nebo jako vlastnoručně vyrobený dárek pro někoho blízkého.\n\nCo budete potřebovat\n• 250 g oblíbených ořechů (mandle, lískové nebo vlašské)\n• 2 lžíce Kubešova medu\n• 1 lžíci rozpuštěného másla\n• 1 lžičku mleté skořice\n• špetku soli\n\nMed smíchejte s máslem, skořicí a solí. Přidejte ořechy a důkladně promíchejte, aby se všechny krásně obalily.\n\nRozprostřete je na plech vyložený pečicím papírem a pečte při 150 °C přibližně 15–20 minut. Během pečení je několikrát promíchejte a hlídejte, aby se nepřipálily. Poté je nechte úplně vychladnout.\n\nMalý tip od Kubešů: Nasypte oříšky do pěkné skleničky, přidejte mašli a některou z našich vánočních jmenovek. A sladký dárek pod stromeček je na světě!\n\nDobrou chuť a krásný advent',
   },
   {
     day: 24, type: 'tip', title: 'Šťastné a medové Vánoce',
     text: 'Děkujeme, že jste s námi strávili advent. Přejeme vám domov plný pohody, blízkých lidí a drobných sladkých radostí.',
-    image: F + 'onas1.webp',
+    image: F + 'den-24.webp',
     more: 'Ať mají ty nejhezčí chvíle chuť medu. Krásné Vánoce a pokojný nový rok přeje celá Kubešova medová manufaktura.',
   },
 ];
