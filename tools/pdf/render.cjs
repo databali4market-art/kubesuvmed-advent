@@ -4,7 +4,11 @@ const { chromium } = require('playwright');
 const path = require('path');
 
 const files = [
+  ['pecena-hruska-recept', false],
   ['medove-pernicky-recept', false],
+  ['medovo-horcicny-dresink-recept', false],
+  ['horka-medovina-recept', false],
+  ['pecene-orechy-recept', false],
   ['medove-jmenovky', false],
   ['vanocni-prani', true],
 ];

@@ -238,8 +238,6 @@ export default function App() {
             <div className="arch"><img src={F + 'ig_med.webp'} alt="" /></div>
             <div className="round r1"><img src={M + 'onas2.webp'} alt="" /></div>
             <div className="round r2"><img src={M + 'ig_vcelin.webp'} alt="" /></div>
-            <img className="bottle" src={A + 'medovina-aronie-cut.webp'} alt="" />
-            <div className="seal"><span>sladké čekání</span><strong>24</strong><span>dní do Vánoc</span></div>
             <Botany plant="borovice" className="hero-pine" />
             <Bee className="fly f1" />
             <Bee className="fly f2" />
