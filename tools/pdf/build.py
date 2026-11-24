@@ -65,23 +65,62 @@ def page_html(title, size_css, body, extra_css=''):
 {extra_css}</style></head><body>{body}</body></html>"""
 
 
-# ------------------------------------------------------------------ recept
-def recipe():
-    ingr = ['400 g hladké mouky', '100 g tekutého medu', '100 g moučkového cukru', '100 g vlahého rozpuštěného másla',
-            '2 vejce', '2 lžičky perníkového koření', '1 lžička jedlé sody', '1 lžička kakaa (volitelně)']
-    steps = ['Mouku a cukr prosejte, přidejte koření, sodu a případně kakao. Vmíchejte vejce, máslo a med a vypracujte hladké těsto.',
-             'Těsto zakryjte a nechte v lednici odležet alespoň 6 hodin, nejlépe do druhého dne.',
-             'Nechte těsto trochu povolit, rozválejte na plát silný asi 5 mm a vykrajujte oblíbené tvary.',
-             'Perníčky rozložte na plech s pečicím papírem a pečte při 160 °C přibližně 8 minut. Délku přizpůsobte velikosti tvarů. Po vychladnutí je ozdobte podle chuti.']
-    css = """
+# ------------------------------------------------------------------ recepty
+RECIPES = [
+    dict(slug='pecena-hruska-recept', day='3. prosince', title=('Pečená hruška', 's medem a skořicí'),
+         lead='Jednoduchý dezert, který provoní celý domov dřív, než stihnete prostřít.',
+         need='Na 2 porce', ingr=['2 hrušky', '2 lžičky Kubešova medu', 'hrst vlašských ořechů', 'špetka skořice', 'kousek másla', 'bílý jogurt k podávání'],
+         steps=['Hrušky rozpulte a lžičkou zbavte jádřinců.',
+                'Vložte je do pekáčku a na každou půlku dejte kousek másla.',
+                'Pečte asi 20 minut při 180 °C, dokud hrušky nezměknou.',
+                'Ještě teplé zakápněte medem, posypte nasekanými ořechy a skořicí. Podávejte s bílým jogurtem.'],
+         tip=('Medový tip', 'Med přidávejte až na upečené hrušky – vynikne tak jeho vůně i chuť.'),
+         outro='Dobrou chuť!', plants=('javor', 'rebricek')),
+    dict(slug='medove-pernicky-recept', day='7. prosince', title=('Voňavé', 'medové perníčky'),
+         lead='Med, skořice, hřebíček a vůně čerstvě upečených perníčků. Bez toho si snad ani neumíme představit pravý advent.',
+         need='Co budete potřebovat', ingr=['400 g hladké mouky', '100 g tekutého medu', '100 g moučkového cukru', '100 g vlahého rozpuštěného másla',
+               '2 vejce', '2 lžičky perníkového koření', '1 lžička jedlé sody', '1 lžička kakaa (volitelně)'],
+         steps=['Mouku a cukr prosejte, přidejte koření, sodu a případně kakao. Vmíchejte vejce, máslo a med a vypracujte hladké těsto.',
+                'Těsto zakryjte a nechte v lednici odležet alespoň 6 hodin, nejlépe do druhého dne.',
+                'Nechte těsto trochu povolit, rozválejte na plát silný asi 5 mm a vykrajujte oblíbené tvary.',
+                'Perníčky rozložte na plech s pečicím papírem a pečte při 160 °C přibližně 8 minut. Délku přizpůsobte velikosti tvarů. Po vychladnutí je ozdobte podle chuti.'],
+         tip=('Medový tip', 'Pokud je med zkrystalizovaný, nechte jej před pečením šetrně ztekutit ve vodní lázni.'),
+         outro='Ať vám doma krásně voní!', plants=('lipa', 'rebricek')),
+    dict(slug='medovo-horcicny-dresink-recept', day='12. prosince', title=('Medovo-hořčičný', 'dresink'),
+         lead='Med nemusí končit jen v čaji, na chlebu nebo ve vánočním cukroví. Skvěle si rozumí i se slanými chutěmi.',
+         need='Co budete potřebovat', ingr=['1 lžíce Kubešova medu', '1 lžíce dijonské hořčice', '3 lžíce olivového oleje', '1 lžíce citronové šťávy', 'špetka soli', 'čerstvě mletý pepř'],
+         steps=['Všechny ingredience dejte do misky nebo uzavíratelné sklenice.',
+                'Důkladně promíchejte (nebo protřepejte), dokud se nespojí v hladký dresink.',
+                'Podle chuti dosolte a opepřete. A je hotovo!'],
+         tip=('Medový tip', 'Dresink se skvěle hodí do zeleninových salátů, k pečené zelenině i ke grilovanému masu. Doporučujeme jemný akátový med, který nepřebije ostatní suroviny.'),
+         outro='Dobrou chuť vám přejí Kubešovi', plants=('louka', 'akat')),
+    dict(slug='horka-medovina-recept', day='16. prosince', title=('Horká medovina', 's pomerančem a kořením'),
+         lead='Kousek atmosféry vánočních trhů, který si přenesete až domů.',
+         need='Na 2 porce', ingr=['300 ml Kubešovy Klasické bylinné medoviny', '2 plátky pomeranče', '1 svitek skořice', '2 hřebíčky', '1 hvězdička badyánu'],
+         steps=['Medovinu nalijte do kastrůlku a přidejte pomeranč a koření.',
+                'Pomalu zahřívejte – dejte pozor, aby se medovina nezačala vařit.',
+                'Nechte několik minut rozvinout vůni koření a nalijte do oblíbených hrnečků.'],
+         tip=('Malá adventní chvilka', 'Najděte si pohodlné místo, pusťte si oblíbené koledy a vychutnejte si ji pomalu. Jen pro dospělé.'),
+         outro='Na zdraví vám přejí Kubešovi!', plants=('borovice', 'malina')),
+    dict(slug='pecene-orechy-recept', day='23. prosince', title=('Pečené ořechy', 'v medu a skořici'),
+         lead='Med, skořice a křupavé oříšky. Někdy stačí jen pár surovin, aby se celým domem rozvoněly Vánoce.',
+         need='Co budete potřebovat', ingr=['250 g oblíbených ořechů (mandle, lískové nebo vlašské)', '2 lžíce Kubešova medu', '1 lžíce rozpuštěného másla', '1 lžička mleté skořice', 'špetka soli'],
+         steps=['Med smíchejte s máslem, skořicí a solí.',
+                'Přidejte ořechy a důkladně promíchejte, aby se všechny krásně obalily.',
+                'Rozprostřete je na plech s pečicím papírem a pečte při 150 °C přibližně 15–20 minut. Během pečení je několikrát promíchejte a hlídejte, aby se nepřipálily.',
+                'Nechte je úplně vychladnout – teprve pak budou křupavé.'],
+         tip=('Tip od Kubešů', 'Nasypte oříšky do pěkné skleničky, přidejte mašli a některou z našich vánočních jmenovek. A sladký dárek pod stromeček je na světě!'),
+         outro='Dobrou chuť a krásný advent', plants=('akat', 'lipa')),
+]
+
+RECIPE_CSS = """
 .page { width: 210mm; height: 297mm; padding: 22mm 22mm 18mm; }
-.p-lipa { width: 92mm; right: -16mm; top: -10mm; opacity: .16; transform: rotate(-8deg); }
-.p-reb { width: 42mm; left: -6mm; bottom: -4mm; opacity: .16; }
-.p-mal { width: 70mm; right: -8mm; bottom: 8mm; opacity: .12; transform: scaleX(-1); }
+.p-a { width: 92mm; right: -16mm; top: -10mm; opacity: .16; transform: rotate(-8deg); }
+.p-b { width: 42mm; left: -6mm; bottom: -4mm; opacity: .16; }
 header { text-align: center; position: relative; }
 header img { height: 17mm; }
 header .eyebrow { margin-top: 7mm; }
-h1 { font-family: 'Playfair'; font-weight: 400; font-size: 34pt; line-height: 1.1; margin: 4mm 0 0; }
+h1 { font-family: 'Playfair'; font-weight: 400; font-size: 32pt; line-height: 1.1; margin: 4mm 0 0; }
 h1 em { font-style: italic; font-weight: 600; color: var(--honey); }
 .lead { font-family: 'Playfair'; font-style: italic; font-size: 12.5pt; color: var(--ink-soft); max-width: 140mm; margin: 5mm auto 0; text-align: center; line-height: 1.5; }
 .sep { display: flex; align-items: center; justify-content: center; gap: 4mm; margin: 8mm 0 7mm; color: var(--gold); }
@@ -104,23 +143,34 @@ footer .serif { font-style: italic; font-size: 17pt; color: var(--honey-deep); }
 footer small { display: block; margin-top: 3mm; font-size: 8.5pt; letter-spacing: .14em; text-transform: uppercase; color: var(--honey); }
 .page > .bee { position: absolute; width: 11mm; right: 30mm; bottom: 34mm; transform: rotate(-12deg); }
 """
+
+
+def nb(t):
+    """Nezlomitelné mezery jako na webu (číslo + jednotka, jednopísmenné předložky)."""
+    t = re.sub(r'(\d) (?=\d{3}\b)', '\\1\u00a0', t)
+    t = re.sub(r'(\d) (?=(%|Kč|°C|g|ml|l|kg|lžíce|lžičky|lžička|minut)\b)', '\\1\u00a0', t)
+    return re.sub(r'(^|[\s(„])([vkszouaiVKSZOUAI]) ', '\\1\\2\u00a0', t)
+
+
+def recipe(r):
+    a, em = r['title']
     body = f"""<section class="page">
-  {plant('lipa', 'p-lipa')}{plant('rebricek', 'p-reb')}
+  {plant(r['plants'][0], 'p-a')}{plant(r['plants'][1], 'p-b')}
   <header><img src="{LOGO}" alt="">
-    <div class="eyebrow"><span class="line"></span>Medový advent 2026 · 7. prosince<span class="line"></span></div>
-    <h1>Voňavé <em>medové perníčky</em></h1>
-    <p class="lead">Med, skořice, hřebíček a vůně čerstvě upečených perníčků. Bez toho si snad ani neumíme představit pravý advent.</p>
+    <div class="eyebrow"><span class="line"></span>Medový advent 2026 · {r['day']}<span class="line"></span></div>
+    <h1>{a} <em>{em}</em></h1>
+    <p class="lead">{nb(r['lead'])}</p>
   </header>
   <div class="sep"><i></i>{bee()}<i></i></div>
   <div class="grid">
-    <div><h2>Co budete potřebovat</h2><ul>{''.join(f'<li>{x}</li>' for x in ingr)}</ul></div>
-    <div><h2>Jak na to</h2><ol>{''.join(f'<li>{x}</li>' for x in steps)}</ol>
-      <div class="tip"><b>Medový tip</b>Pokud je med zkrystalizovaný, nechte jej před pečením šetrně ztekutit ve vodní lázni.</div></div>
+    <div><h2>{r['need']}</h2><ul>{''.join(f'<li>{nb(x)}</li>' for x in r['ingr'])}</ul></div>
+    <div><h2>Jak na to</h2><ol>{''.join(f'<li>{nb(x)}</li>' for x in r['steps'])}</ol>
+      <div class="tip"><b>{r['tip'][0]}</b>{nb(r['tip'][1])}</div></div>
   </div>
   {bee()}
-  <footer><div class="serif">Ať vám doma krásně voní!</div><small>Kubešova medová manufaktura · kubesuvmed.cz</small></footer>
+  <footer><div class="serif">{r['outro']}</div><small>Kubešova medová manufaktura · kubesuvmed.cz</small></footer>
 </section>"""
-    (OUT / 'medove-pernicky-recept.html').write_text(page_html('Voňavé medové perníčky – recept', 'A4', body, css))
+    (OUT / f"{r['slug']}.html").write_text(page_html(f"{a} {em} – recept", 'A4', body, RECIPE_CSS))
 
 
 # ---------------------------------------------------------------- jmenovky
@@ -204,5 +254,6 @@ def cards():
     (OUT / 'vanocni-prani.html').write_text(page_html('Vánoční přání od srdce', 'A4 landscape', pages, css))
 
 
-recipe(); tags(); cards()
+for r in RECIPES: recipe(r)
+tags(); cards()
 print('HTML hotové:', ', '.join(sorted(p.name for p in OUT.glob('*.html'))))

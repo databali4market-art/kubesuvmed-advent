@@ -62,9 +62,10 @@ export function DoorModal({ door, showConfirm, today, entered, canPrev, canNext,
       {door && (
         <div className="modal-card" key={door.day}>
           <button className="modal-close" aria-label="Zavřít" onClick={onClose}><X size={20} /></button>
-          <div className={'modal-art' + (door.product ? ' product' : '') + (door.image ? '' : ' plain')}>
-            {door.image && <img src={door.image} alt="" />}
-            {!door.image && <div className="modal-glyph">{typeIcon(door.type, 64)}</div>}
+          <div className={'modal-art' + (door.product ? ' product' : '') + (door.art ? ' illu' : door.image ? '' : ' plain')}>
+            {door.art ? <img className="illu-plant" src={`${import.meta.env.BASE_URL}media/botanika/${door.art}.svg`} alt="" />
+              : door.image ? <img src={door.image} alt="" />
+              : <div className="modal-glyph">{typeIcon(door.type, 64)}</div>}
             <div className="modal-day"><strong>{door.day}</strong><span>prosince</span></div>
             <Bee className="modal-bee" />
           </div>
@@ -92,6 +93,7 @@ export function DoorModal({ door, showConfirm, today, entered, canPrev, canNext,
               <div className="coupon password">
                 <div className="coupon-label"><KeyRound size={14} /> Tajné heslo pro náš stánek</div>
                 <div className="coupon-row"><code>„{door.password}“</code></div>
+                {door.codeNote && <small>{door.codeNote}</small>}
                 <small>Řekněte ho obsluze u stánku. Najdete ho i v sekci <b>Moje dárky</b>.</small>
               </div>
             )}
@@ -109,7 +111,7 @@ export function DoorModal({ door, showConfirm, today, entered, canPrev, canNext,
                     </>
                   )}
                 </>
-              ) : <div className={'more' + (door.more.length < 320 ? ' soft' : '')}>{door.more}</div>
+              ) : <div className="more">{door.more}</div>
             )}
 
             {door.download && (
@@ -119,6 +121,7 @@ export function DoorModal({ door, showConfirm, today, entered, canPrev, canNext,
             )}
 
             {door.game && <GameView key={door.day} game={door.game} onDone={onWin} />}
+            {door.note && <p className="game-note">{door.note}</p>}
 
             {door.contest && (() => {
               const c = door.contest;

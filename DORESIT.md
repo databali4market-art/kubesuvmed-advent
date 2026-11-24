@@ -8,6 +8,17 @@ Poznámky k obsahu jsou i přímo v okénkách – v náhledu `?nahled=medovyadv
 - [ ] **15. 12. – typový kvíz „Jaký med je vám nejbližší“**: otázky a výsledky na webu jsou zatím pracovní. Potřebujeme znění z Google Docu (zkopírovat text sem do chatu – dokument se z prostředí nedá otevřít).
 - [ ] **PDF (recept 7. 12., jmenovky 10. 12., přání 19. 12.)**: nová verze ve stylu webu – zkontrolovat vytištěné. Texty a vzhled se mění v `tools/pdf/build.py`, pak `python3 tools/pdf/build.py && node tools/pdf/render.cjs`.
 
+## Fotky – čekáme na dodání (zpětná vazba z testování 24. 11.)
+
+Pošlete je a vyměním je (do té doby jsou v okénkách ilustrace z brandových kreseb):
+- [ ] **Úvod (koláž nahoře)**: fotky místo současných – velká do oblouku (na výšku) a 2 menší do kroužků.
+- [ ] **7. 12. perníčky**: fotka upečených perníčků.
+- [ ] **13. 12. soutěž**: fotka zavřené krabice setu Malé vánoční pohlazení (aby se odpověď nedala opsat z fotky). Teď je tam jen pohár.
+- [ ] **17. 12. zázvor v pastovaném medu**: produktová fotka (ideálně na bílém nebo průhledném pozadí).
+- [ ] **Hlavní stránka – „Od včel až pod stromeček“**: 3 fotky (2 obdélníkové, 1 do kruhu).
+- [ ] **Hlavní stránka – „Pod stromeček od srdce“**: 4 produktové fotky ve stejném stylu (stejné pozadí a výřez).
+- [ ] Volitelně fotky k receptům (3., 12., 16., 23. 12.) – teď ilustrace.
+
 ## Obsah – otázky k potvrzení
 
 - [ ] **Provozovatel / pořadatel soutěže / správce údajů**: doplnit název firmy (nebo jméno podnikatele), sídlo a IČO do `OPERATOR` v `src/config.ts`. Ukazuje se v pravidlech soutěže (`/?pravidla`) a v patičce. Bez toho kalendář nespouštět.

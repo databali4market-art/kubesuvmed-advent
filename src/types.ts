@@ -25,6 +25,10 @@ export interface Door {
   text: string;
   more?: string;
   image?: string;
+  /** ilustrace z brandových kreseb místo fotky (když pro okénko nemáme vlastní fotku) */
+  art?: 'lipa' | 'javor' | 'louka' | 'rebricek' | 'akat' | 'borovice' | 'malina';
+  /** krátká poznámka pod hrou (např. že se odpovědi neukládají) */
+  note?: string;
   /** produktová fotka na bílém/průhledném pozadí (zobrazí se „na podstavci“) */
   product?: boolean;
   url?: string;
