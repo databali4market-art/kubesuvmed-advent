@@ -235,9 +235,9 @@ export default function App() {
             <div className="hero-note"><Heart size={14} /> S láskou od Kubešů z Olomouce</div>
           </div>
           <div className="hero-art" aria-hidden="true">
-            <div className="arch"><img src={F + 'ig_med.webp'} alt="" /></div>
-            <div className="round r1"><img src={M + 'onas2.webp'} alt="" /></div>
-            <div className="round r2"><img src={M + 'ig_vcelin.webp'} alt="" /></div>
+            <div className="arch"><img src={F + 'uvod-krabice.webp'} alt="" /></div>
+            <div className="round r1"><img src={F + 'uvod-vcelar.webp'} alt="" /></div>
+            <div className="round r2"><img src={F + 'uvod-medovina.webp'} alt="" /></div>
             <Botany plant="borovice" className="hero-pine" />
             <Bee className="fly f1" />
             <Bee className="fly f2" />
@@ -291,7 +291,7 @@ export default function App() {
           <Botany plant="javor" className="bt-story" />
           <div className="story-photos" aria-hidden="true">
             <img className="sp1" src={M + 'onas1.webp'} alt="" loading="lazy" />
-            <img className="sp2" src={M + 'efa3348.webp'} alt="" loading="lazy" />
+            <img className="sp2" src={F + 'ig_vcelin.webp'} alt="" loading="lazy" />
             <img className="sp3" src={A + 'plastve.jpg'} alt="" loading="lazy" />
           </div>
           <div className="story-copy">
@@ -319,12 +319,12 @@ export default function App() {
             </div>
             <div className="products">
               {[
-                { img: M + 'med-pastovany-cut.webp', tag: 'Pro sladká rána', name: 'Květový pastovaný med', url: SHOP + 'med/' },
+                { img: M + 'med-pastovany-cut.webp', tag: 'Pro sladká rána', name: 'Květový med Rozkvetlá louka', url: SHOP + 'med/' },
                 { img: M + 'zimniset.webp', tag: 'Dárkové sady · 18+', name: 'Zimní set medovin', url: SHOP + 'medovina/' },
-                { img: M + 'degust.webp', tag: 'Ochutnávka · 18+', name: 'Degustační set medovin', url: SHOP + 'medovina/' },
-                { img: M + 'luxset.webp', tag: 'Pro znalce · 18+', name: 'Luxusní set medovin', url: SHOP + 'medovina/' },
+                { img: M + 'efa3348.webp', tag: 'Malé radosti', name: 'Medové dobroty', url: SHOP + 'ostatni-vyrobky-z-medu:kubesuv-med-e-shop/', photo: true },
+                { img: M + 'krabice.webp', tag: 'Ochutnávka · 18+', name: 'Degustační set medovin', url: SHOP + 'degustacni-set-6-x-0-35-l/', photo: true },
               ].map((p) => (
-                <a className="product" href={p.url} target="_blank" rel="noreferrer" key={p.name}>
+                <a className={'product' + (p.photo ? ' photo' : '')} href={p.url} target="_blank" rel="noreferrer" key={p.name}>
                   <div className="product-img"><img src={p.img} alt={p.name} loading="lazy" /></div>
                   <span>{p.tag}</span>
                   <h3>{p.name} <ArrowUpRight size={16} /></h3>

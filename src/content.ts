@@ -123,7 +123,7 @@ const DOORS: Door[] = [
   {
     day: 13, type: 'contest', title: 'Soutěž o set Malé vánoční pohlazení',
     text: 'Dnes jsme do naší adventní plástve schovali pořádnou medovinovou nadílku!',
-    adult: true,
+    image: F + 'krabice-medovina.webp', adult: true,
     more: 'Zasoutěžte si o dárkový set Malé vánoční pohlazení, ve kterém najdete tři lahve Kubešovy medoviny o objemu 0,75 l v celkové hodnotě 883 Kč.\n\nStačí správně odpovědět na naši soutěžní otázku. A pokud si s odpovědí nebudete jistí, malou nápovědu najdete na našem e-shopu.\n\nV úterý 15. prosince vylosujeme jednoho šťastlivce a výhru obratem odešleme, aby měla dostatek času dorazit pod stromeček.\n\nDržíme vám palce!',
     contest: {
       question: 'Které tři medoviny najdete v sadě Malé vánoční pohlazení?',
@@ -195,7 +195,7 @@ const DOORS: Door[] = [
   {
     day: 16, type: 'recipe', title: 'Horká medovina s pomerančem',
     text: 'Venku mrzne, doma voní jehličí a vánoční cukroví. Co si takhle zpříjemnit adventní večer voňavou horkou medovinou?',
-    image: F + 'luxset.webp', product: true, adult: true,
+    image: F + 'horka-medovina.webp', adult: true,
     download: { url: PDF + 'horka-medovina-recept.pdf', label: 'Stáhnout recept v PDF' },
     more: 'Připravili jsme pro vás jednoduchý recept, díky kterému si kousek atmosféry vánočních trhů přenesete i k sobě domů.\n\nCo budete potřebovat na 2 porce\n• 300 ml Kubešovy Klasické bylinné medoviny\n• 2 plátky pomeranče\n• 1 svitek skořice\n• 2 hřebíčky\n• 1 hvězdičku badyánu\n\nMedovinu nalijte do kastrůlku, přidejte pomeranč a koření a pomalu zahřívejte. Dejte pozor, aby se nezačala vařit. Nechte několik minut rozvinout vůni koření a poté nalijte do oblíbených hrnečků.\n\nA teď už jen najít pohodlné místo, pustit si oblíbené koledy a vychutnat si malou adventní chvilku.\n\nNa zdraví vám přejí Kubešovi!',
     url: SHOP + 'medovina/', urlLabel: 'Medoviny v e-shopu',

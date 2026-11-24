@@ -11,12 +11,12 @@ Poznámky k obsahu jsou i přímo v okénkách – v náhledu `?nahled=medovyadv
 ## Fotky – čekáme na dodání (zpětná vazba z testování 24. 11.)
 
 Pošlete je a vyměním je (do té doby jsou v okénkách ilustrace z brandových kreseb):
-- [ ] **Úvod (koláž nahoře)**: fotky místo současných – velká do oblouku (na výšku) a 2 menší do kroužků.
+- [x] **Úvod (koláž nahoře)**: fotky místo současných – velká do oblouku (na výšku) a 2 menší do kroužků.
 - [ ] **7. 12. perníčky**: fotka upečených perníčků.
-- [ ] **13. 12. soutěž**: fotka zavřené krabice setu Malé vánoční pohlazení (aby se odpověď nedala opsat z fotky). Teď je tam jen pohár.
+- [x] **13. 12. soutěž**: fotka zavřené krabice setu Malé vánoční pohlazení (aby se odpověď nedala opsat z fotky). Teď je tam jen pohár.
 - [ ] **17. 12. zázvor v pastovaném medu**: produktová fotka (ideálně na bílém nebo průhledném pozadí).
-- [ ] **Hlavní stránka – „Od včel až pod stromeček“**: 3 fotky (2 obdélníkové, 1 do kruhu).
-- [ ] **Hlavní stránka – „Pod stromeček od srdce“**: 4 produktové fotky ve stejném stylu (stejné pozadí a výřez).
+- [ ] **Hlavní stránka – „Od včel až pod stromeček“**: rozložení hotové (obdélníky, včelaři největší). Čekáme na soubory: plástev zblízka, úly s létajícími včelami.
+- [ ] **Hlavní stránka – „Darujte něco dobrého“**: karty hotové (Rozkvetlá louka, Zimní set, Medové dobroty, Degustační set s fotkou krabice). Čekáme na soubory: med Rozkvetlá louka, zimní set (lahve s jablky), dobroty na stole.
 - [ ] Volitelně fotky k receptům (3., 12., 16., 23. 12.) – teď ilustrace.
 
 ## Obsah – otázky k potvrzení
