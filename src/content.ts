@@ -7,7 +7,7 @@ import type { Door } from './types';
  * Než kalendář pustíte ven:
  *  - slevové kódy (code) založte v Shoptetu se stejným kódem a platností (codeUntil = poslední den),
  *  - vyřešte poznámky `confirm` (v náhledu ?nahled=… se ukazují, dokud je CONTENT_MODE = 'draft'),
- *  - PDF v public/pdf/ jsou provizorní – nahraďte je grafikou (stejné názvy souborů).
+ *  - PDF v public/pdf/ generuje tools/pdf (python3 tools/pdf/build.py && node tools/pdf/render.cjs).
  */
 export const YEAR = 2026;
 
@@ -100,7 +100,6 @@ export const doors: Door[] = [
     image: F + 'efa3336.webp',
     more: 'Dnes pro vás máme malý dárek od nás. Připravili jsme vánoční jmenovky s ilustracemi včelek, které si můžete stáhnout, vytisknout a přivázat k dárkům pro své blízké.\n\nStačí je jen doplnit o jméno a o něco osobnější štědrovečerní radost je postaráno.\n\nAť jsou vaše dárky letos hezky po medovém.',
     download: { url: PDF + 'medove-jmenovky.pdf', label: 'Stáhnout jmenovky (PDF)' },
-    confirm: 'PDF je provizorní – nahradit grafikou (public/pdf/medove-jmenovky.pdf).',
   },
   {
     day: 11, type: 'discount', title: '10 % na nákup nad 1 000 Kč',
@@ -215,7 +214,6 @@ export const doors: Door[] = [
     image: F + 'efa3348.webp',
     more: 'A protože k Vánocům patří i chvíle, kdy si vzpomeneme na své blízké, připravili jsme pro vás malou kolekci vánočních přání s medovým nádechem.\n\nStačí si vybrat to, které se vám líbí nejvíce, stáhnout ho, vytisknout a připsat pár vlastních slov. Komu letos uděláte radost, už necháme na vás.\n\nAť se dobrá přání rozletí do světa stejně jako naše včelky.',
     download: { url: PDF + 'vanocni-prani.pdf', label: 'Stáhnout přání (PDF)' },
-    confirm: 'PDF je provizorní – nahradit grafikou (public/pdf/vanocni-prani.pdf).',
   },
   {
     day: 20, type: 'tip', title: 'Medová rada',

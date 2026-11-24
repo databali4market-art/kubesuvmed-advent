@@ -6,3 +6,4 @@ dist
 .DS_Store
 .firebase/
 firebase-debug.log
+tools/pdf/html/
