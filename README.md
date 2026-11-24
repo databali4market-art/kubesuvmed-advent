@@ -11,7 +11,7 @@ Statický web (Vite + React + TypeScript): 24 buněk medové plástve, které se
 | `src/components/Games.tsx` | kvíz (6. 12.) a typový kvíz „Jaký med je vám nejbližší“ (15. 12.) |
 | `src/components/Admin.tsx` | stránka `/?admin` – stažení e-mailů (vč. stavu souhlasu) a soutěžních odpovědí do CSV |
 | `src/components/Rules.tsx` | stránka `/?pravidla` – pravidla soutěže (pořadatel = `OPERATOR` v `src/config.ts`) |
-| `public/pdf/` | PDF ke stažení: recept na perníčky (7.), jmenovky (10.), přání (19.) |
+| `public/pdf/`, `tools/pdf/` | PDF ke stažení: recept na perníčky (7.), jmenovky (10.), přání (19.); generátor ve stylu webu: `python3 tools/pdf/build.py && node tools/pdf/render.cjs` |
 | `firestore.rules` | pravidla Firestore (soutěž ve dni 13, přístup správců) |
 | `firebase.json`, `.firebaserc`, `.github/workflows/deploy.yml` | testovací hosting a automatické nasazení |
 | `src/fonts.css` | písma (jen latinka + čeština) |
@@ -102,7 +102,7 @@ Podrobný seznam otevřených bodů je v [DORESIT.md](DORESIT.md).
 - [ ] Ve Shoptetu založit kódy **ADVENT15** (2.–4. 12., nad 1 500 Kč), **MIKULAS** (One Box, nad 500 Kč), **ADVENT10** (11.–13. 12., nad 1 000 Kč) a nastavit dárek k nákupu nad 800 Kč (8. 12.).
 - [ ] Vyřešit všechny poznámky `confirm` v `src/content.ts` (vidíte je v náhledu jako žluté rámečky), pak `CONTENT_MODE = 'live'`.
 - [ ] 15. 12.: nahradit pracovní otázky typového kvízu zněním z Google Docu.
-- [ ] Nahradit provizorní PDF v `public/pdf/` grafikou (stejné názvy souborů).
+- [ ] Zkontrolovat vytištěná PDF (`public/pdf/`, generuje `tools/pdf/`).
 - [ ] Ochrana osobních údajů, cookies a obchodní podmínky se neřeší tady – patička a přihlášení odkazují na kubesuvmed.cz (`LEGAL` v `src/config.ts`). Ověřit adresu.
 
 > Web je statický, takže obsah budoucích okének (včetně kódů) je technicky součástí stránky. Kódy proto mají v Shoptetu platit jen ve svých dnech.
