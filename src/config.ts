@@ -26,13 +26,16 @@ export const FIREBASE = {
  * 'draft' = v náhledu (?nahled=KLÍČ) se u okének ukazují poznámky „K potvrzení“ (pole confirm v content.ts).
  * Běžní návštěvníci je nevidí nikdy. Až budou všechny vyřešené, přepněte na 'live'.
  */
-export const CONTENT_MODE: 'draft' | 'live' = 'draft';
+export const CONTENT_MODE: 'draft' | 'live' = 'live';
 
 /**
  * Klíč pro náhled všech okének před 1. prosincem: otevřete web s ?nahled=KLÍČ
  * (vypnutí: ?nahled=off). Kalendář je statický, takže nejde o zabezpečení – jen o pohodlné testování.
  */
 export const PREVIEW_KEY = 'medovyadvent';
+
+/** Ostrá doména kalendáře. Na ní je náhled (?nahled=…) vypnutý, aby si nikdo neodemkl okénka dopředu. */
+export const LIVE_HOST = 'advent.kubesuvmed.cz';
 
 export const firebaseEnabled = () => !NAHLED_BUILD && !!FIREBASE.apiKey && !!FIREBASE.projectId;
 

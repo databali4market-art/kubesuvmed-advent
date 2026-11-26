@@ -26,7 +26,6 @@ Pošlete je a vyměním je (do té doby jsou v okénkách ilustrace z brandovýc
 
 - [ ] **8. 12. – soutěž**: je odkaz „Nápověda v e-shopu“ na správný set (Malé vánoční pohlazení)? Doplnit do pravidel IČO a adresu pořadatele.
 - [ ] **14. 12. – frizzante**: přímý odkaz na produkt v e-shopu (teď vede na kategorii medovin).
-- [ ] **18. 12. – heslo na trzích**: kde a kdy je stánek (trhy, adresa, dny/hodiny) a do kdy heslo platí.
 - [ ] Ověřit adresu „Podmínky ochrany osobních údajů“ na kubesuvmed.cz (v patičce e-shopu) – kalendář na ni odkazuje z patičky i z přihlášení, teď `/podminky-ochrany-osobnich-udaju/` (`LEGAL` v `src/config.ts`). Ideálně do ní doplnit i adventní kalendář (přihlášení Googlem, soutěž, newsletter).
 
 ## Pravidla databáze – nutné vložit ručně
@@ -67,7 +66,7 @@ Musí udělat majitel účtu (cca 5 minut), zbytek zařídí automatické nasaze
 
 - [ ] Vyzkoušet přihlášení přes Google na ostré doméně (i na iPhonu / v Safari).
 - [ ] Vyzkoušet `/?admin` – stažení CSV pro newsletter, všech přihlášených a soutěžních odpovědí.
-- [ ] Po vyřešení všech bodů výše přepnout `CONTENT_MODE` na `'live'` v `src/config.ts`.
+- [x] `CONTENT_MODE` přepnutý na `'live'` (26. 11.), náhled `?nahled=` je na advent.kubesuvmed.cz vypnutý.
 - [ ] Mergnout do `main` → vyzkoušet na testovacím webu → sloučit `main` do `produkce` → nasadí se ostrý web.
 
 ## Během adventu
