@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowRight, ArrowUpRight, Eye, Gift, Music, Share2, Sparkles, Volume2, VolumeX, LogIn, Heart, Leaf, Truck, Award } from 'lucide-react';
 import { availableDay, BASE, CONTEST_DAYS, doors as ALL_DOORS } from './content';
-import { CONTENT_MODE, DEMO_MODE, LEGAL, NAHLED_BUILD, OPERATOR, PREVIEW_KEY, RULES_URL } from './config';
+import { CONTENT_MODE, DEMO_MODE, LEGAL, LIVE_HOST, NAHLED_BUILD, OPERATOR, PREVIEW_KEY, RULES_URL } from './config';
 import { backend } from './backend';
 import type { Door, Progress, User } from './types';
 import { Honeycomb } from './components/Honeycomb';
@@ -19,6 +19,7 @@ const EVE = Date.parse('2026-12-24T00:00:00+01:00');
 const draft = CONTENT_MODE !== 'live';
 
 function readPreview(): boolean {
+  if (location.hostname === LIVE_HOST) return false; // na ostrém webu se okénka dopředu neotevřou
   try {
     const url = new URL(location.href);
     const q = url.searchParams.get('nahled');
