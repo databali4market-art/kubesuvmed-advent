@@ -22,15 +22,15 @@ Statický web (Vite + React + TypeScript): 24 buněk medové plástve, které se
 | Den | Odměna | Jak funguje na webu |
 | --- | --- | --- |
 | 2. | **ADVENT15** – 15 % nad 1 500 Kč | kód, platí 2 dny – po 3. 12. se ukáže jako neplatný |
-| 5. | **MIKULAS** – doprava zdarma přes Messenger nad 1 000 Kč (do 10 kg) | kód, platnost nastavena do 6. 12. |
+| 5. | **MIKULAS** – doprava zdarma přes Messenger nad 1 000 Kč (do 10 kg) | kód, platí do pondělí 7. 12. |
 | 6. | kvíz o zimování včel | okamžité vyhodnocení + vysvětlení |
 | 7. | recept na perníčky | + PDF ke stažení |
 | 8. | **soutěž** o set Malé vánoční pohlazení (883 Kč) | odpověď + 18+ + pravidla, přijímá do 13. 12., losování v pondělí 14. 12. |
-| 10. | malá medovina zdarma k nákupu nad 1 000 Kč (do 10 kg) | bez kódu, zvýrazněná odměna (18+) |
+| 10. | malá medovina zdarma k nákupu nad 1 000 Kč (do 10 kg) | bez kódu, platí do neděle 13. 12., zvýrazněná odměna (18+) |
 | 11. | jmenovky pod stromeček | PDF ke stažení |
 | 13. | **ADVENT10** – 10 % nad 1 000 Kč | kód, platí 2 dny – po 14. 12. neplatný; poslední šance na doručení do Vánoc |
 | 15. | typový kvíz „Jaký med je vám nejbližší“ | 5 otázek → doporučený med s odkazem |
-| 18. | heslo „Kubeš mi to dovolil!“ na olomouckých trzích | malá horká medovina, 18+, jedna na osobu, do 20. 12. |
+| 18. | heslo „Kubeš mi to dovolil!“ na olomouckých trzích | horká medovina 2 dcl, 18+, jedna na osobu, do 20. 12. |
 | 19. | vánoční přání | PDF ke stažení |
 
 Kódy a hesla se uživateli ukládají i v sekci **Moje dárky**.
@@ -99,7 +99,7 @@ Jednorázové nastavení domény `advent.kubesuvmed.cz`:
 Podrobný seznam otevřených bodů je v [DORESIT.md](DORESIT.md).
 
 - [ ] Firebase nastavený (viz výše), vyzkoušené přihlášení přes Google a export na `/?admin`.
-- [ ] Ve Shoptetu založit kódy **ADVENT15** (2.–3. 12., nad 1 500 Kč), **MIKULAS** (Messenger, nad 1 000 Kč, do 10 kg), **ADVENT10** (13.–14. 12., nad 1 000 Kč) a nastavit dárek k nákupu nad 1 000 Kč (10. 12., bez kódu).
+- [ ] Ve Shoptetu založit kódy **ADVENT15** (2.–3. 12., nad 1 500 Kč), **MIKULAS** (5.–7. 12., Messenger, nad 1 000 Kč, do 10 kg), **ADVENT10** (13.–14. 12., nad 1 000 Kč) a nastavit dárek k nákupu nad 1 000 Kč (10.–13. 12., bez kódu).
 - [ ] Vyřešit všechny poznámky `confirm` v `src/content.ts` (vidíte je v náhledu jako žluté rámečky), pak `CONTENT_MODE = 'live'`.
 - [ ] 15. 12.: nahradit pracovní otázky typového kvízu zněním z Google Docu.
 - [ ] Zkontrolovat vytištěná PDF (`public/pdf/`, generuje `tools/pdf/`).
