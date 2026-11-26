@@ -13,7 +13,7 @@ Poznámky k obsahu jsou i přímo v okénkách – v náhledu `?nahled=medovyadv
 Pošlete je a vyměním je (do té doby jsou v okénkách ilustrace z brandových kreseb):
 - [x] **Úvod (koláž nahoře)**: fotky místo současných – velká do oblouku (na výšku) a 2 menší do kroužků.
 - [x] **7. 12. perníčky**: fotka upečených perníčků.
-- [x] **13. 12. soutěž**: fotka zavřené krabice setu Malé vánoční pohlazení (aby se odpověď nedala opsat z fotky). Teď je tam jen pohár.
+- [x] **8. 12. soutěž**: fotka zavřené krabice setu Malé vánoční pohlazení (aby se odpověď nedala opsat z fotky). Teď je tam jen pohár.
 - [x] **17. 12. zázvor v pastovaném medu**: produktová fotka (ideálně na bílém nebo průhledném pozadí).
 - [x] **Hlavní stránka – „Od včel až pod stromeček“**: včelaři (velká), plástev zblízka, úly s létajícími včelami – vše obdélníky (24. 11.).
 - [x] **Hlavní stránka – „Darujte něco dobrého“**: fotky Rozkvetlá louka, Zimní set, Medové dobroty na stole, Degustační set (krabice) (24. 11.).
@@ -25,18 +25,23 @@ Pošlete je a vyměním je (do té doby jsou v okénkách ilustrace z brandovýc
 - [ ] **Provozovatel / pořadatel soutěže / správce údajů**: doplnit název firmy (nebo jméno podnikatele), sídlo a IČO do `OPERATOR` v `src/config.ts`. Ukazuje se v pravidlech soutěže (`/?pravidla`) a v patičce. Bez toho kalendář nespouštět.
 
 - [ ] **5. 12. – MIKULAS**: do kdy kód platí? Na webu je nastaveno do neděle 6. 12. (`codeUntil` v `src/content.ts`).
-- [ ] **8. 12. – malá medovina zdarma nad 800 Kč**: jak se dárek uplatní (automaticky v Shoptetu / kódem / poznámkou k objednávce) a jak dlouho platí?
-- [ ] **13. 12. – soutěž**: je odkaz „Nápověda v e-shopu“ na správný set (Malé vánoční pohlazení)? Doplnit do pravidel IČO a adresu pořadatele.
+- [ ] **10. 12. – malá medovina zdarma nad 1 000 Kč (do 10 kg, bez kódu)**: platí jen 10. 12., nebo déle?
+- [ ] **18. 12. – objem medoviny**: v podkladu „0,2 deci“, na webu je 0,2 l (2 deci) – potvrdit.
+- [ ] **8. 12. – soutěž**: je odkaz „Nápověda v e-shopu“ na správný set (Malé vánoční pohlazení)? Doplnit do pravidel IČO a adresu pořadatele.
 - [ ] **14. 12. – frizzante**: přímý odkaz na produkt v e-shopu (teď vede na kategorii medovin).
 - [ ] **18. 12. – heslo na trzích**: kde a kdy je stánek (trhy, adresa, dny/hodiny) a do kdy heslo platí.
 - [ ] Ověřit adresu „Podmínky ochrany osobních údajů“ na kubesuvmed.cz (v patičce e-shopu) – kalendář na ni odkazuje z patičky i z přihlášení, teď `/podminky-ochrany-osobnich-udaju/` (`LEGAL` v `src/config.ts`). Ideálně do ní doplnit i adventní kalendář (přihlášení Googlem, soutěž, newsletter).
 
+## Pravidla databáze – nutné vložit ručně
+
+- [ ] **Soutěž se přesunula na 8. 12. → `firestore.rules` se změnila** (povolený den soutěže). Firebase konzole → Firestore Database → Rules → vložit celý obsah `firestore.rules` → Publish. Bez toho nepůjde odeslat soutěžní odpověď.
+
 ## Shoptet
 
-- [ ] Založit kód **ADVENT15** – 15 % nad 1 500 Kč, platnost 2.–4. 12.
-- [ ] Založit kód **MIKULAS** – doprava zdarma jen pro One Box, nad 500 Kč (platnost viz výše).
-- [ ] Založit kód **ADVENT10** – 10 % nad 1 000 Kč, platnost 11.–13. 12.
-- [ ] Nastavit dárek (malá medovina) k nákupu nad 800 Kč na 8. 12.
+- [ ] Založit kód **ADVENT15** – 15 % nad 1 500 Kč, platnost 2.–3. 12. (jen 2 dny)
+- [ ] Založit kód **MIKULAS** – doprava zdarma jen pro Messenger, nad 1 000 Kč, zásilky do 10 kg (platnost: na webu do 6. 12. – potvrdit)
+- [ ] Založit kód **ADVENT10** – 10 % nad 1 000 Kč, platnost 13.–14. 12. (jen 2 dny)
+- [ ] Nastavit dárek (malá medovina) k nákupu nad 1 000 Kč (do 10 kg) na 10. 12. – automaticky, bez kódu
 
 ## Firebase a nasazení (projekt `kubesuvmed-advent-91953`)
 
@@ -70,5 +75,5 @@ Musí udělat majitel účtu (cca 5 minut), zbytek zařídí automatické nasaze
 
 ## Během adventu
 
-- [ ] 15. 12.: export soutěžních odpovědí (`/?admin`), vylosovat výherce ze správných odpovědí, kontaktovat e-mailem, odeslat výhru.
+- [ ] Pondělí 14. 12.: export soutěžních odpovědí (`/?admin`), vylosovat výherce ze správných odpovědí, kontaktovat e-mailem, odeslat výhru.
 - [ ] Před rozesláním newsletteru vždy stáhnout čerstvé CSV (lidé mohou souhlas odvolat).

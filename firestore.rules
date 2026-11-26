@@ -32,7 +32,7 @@ service cloud.firestore {
         && request.resource.data.answer is string
         && request.resource.data.answer.size() >= 3
         && request.resource.data.answer.size() <= 1000
-        && request.resource.data.day in [13];
+        && request.resource.data.day in [8];
       allow read: if isAdmin() || (request.auth != null && resource.data.uid == request.auth.uid);
       allow update, delete: if false;
     }
