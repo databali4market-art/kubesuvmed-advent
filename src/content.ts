@@ -18,7 +18,7 @@ const PDF = BASE + 'pdf/';
 const SHOP = 'https://www.kubesuvmed.cz/';
 
 /** Dny se soutěží (musí sedět s firestore.rules). */
-export const CONTEST_DAYS = [13];
+export const CONTEST_DAYS = [8];
 
 const DOORS: Door[] = [
   {
@@ -31,8 +31,8 @@ const DOORS: Door[] = [
     day: 2, type: 'discount', title: '15 % na nákup nad 1 500 Kč',
     text: 'Vánoce jsou časem obdarovávání, a tak jsme si dnes připravili malý dárek i pro vás.',
     image: F + 'efa3348.webp',
-    more: 'Ať už vybíráte medové dobroty pod stromeček pro své blízké, nebo si chcete doplnit vlastní zásoby na zimu, máme pro vás slevu 15 % na nákup nad 1 500 Kč.\n\nS jeho využitím ale příliš neotálejte. Za tři dny naše adventní nadílka zase zmizí.\n\nUdělejte si radost a užijte si Vánoce hezky po medovém.',
-    code: 'ADVENT15', codeNote: 'Sleva 15 % na nákup nad 1 500 Kč. Platí do 4. prosince.', codeUntil: 4,
+    more: 'Ať už vybíráte medové dobroty pod stromeček pro své blízké, nebo si chcete doplnit vlastní zásoby na zimu, máme pro vás slevu 15 % na nákup nad 1 500 Kč.\n\nS jeho využitím ale příliš neotálejte. Za dva dny naše adventní nadílka zase zmizí.\n\nUdělejte si radost a užijte si Vánoce hezky po medovém.',
+    code: 'ADVENT15', codeNote: 'Sleva 15 % na nákup nad 1 500 Kč. Platí jen 2 dny – do 3. prosince.', codeUntil: 3,
     url: SHOP, urlLabel: 'Nakoupit v e-shopu',
   },
   {
@@ -54,8 +54,8 @@ const DOORS: Door[] = [
     day: 5, type: 'discount', title: 'Mikulášská doprava zdarma',
     text: 'Byli jste letos hodní? Ale co, my to na vás žalovat nebudeme!',
     image: F + 'efa3336.webp',
-    more: 'Do dnešního adventního okénka jsme vám nadělili dopravu zdarma. Udělejte radost sobě nebo svým blízkým a naplňte košík medovými dobrotami za více než 500 Kč. O dopravu se tentokrát postaráme my 🍯\n\nStačí při objednávce zvolit doručení do One Boxu a zadat slevový kód.\n\nKrásného Mikuláše vám přejí Kubešovi',
-    code: 'MIKULAS', codeNote: 'Doprava zdarma při doručení do One Boxu a nákupu nad 500 Kč. Ostatní způsoby dopravy zůstávají placené.', codeUntil: 6,
+    more: 'Do dnešního adventního okénka jsme vám nadělili dopravu zdarma. Udělejte radost sobě nebo svým blízkým a naplňte košík medovými dobrotami za více než 1 000 Kč. O dopravu se tentokrát postaráme my 🍯\n\nStačí při objednávce zvolit doručení přes Messenger (zásilky do 10 kg) a zadat slevový kód.\n\nKrásného Mikuláše vám přejí Kubešovi',
+    code: 'MIKULAS', codeNote: 'Doprava zdarma přes Messenger při nákupu nad 1 000 Kč (zásilka do 10 kg). Ostatní způsoby dopravy zůstávají placené.', codeUntil: 6,
     url: SHOP, urlLabel: 'Nakoupit v e-shopu',
     confirm: 'Do kdy platí kód MIKULAS? Nastaveno do neděle 6. 12.',
   },
@@ -83,13 +83,13 @@ const DOORS: Door[] = [
     download: { url: PDF + 'medove-pernicky-recept.pdf', label: 'Stáhnout recept v PDF' },
   },
   {
-    day: 8, type: 'discount', title: 'Malá medovina zdarma',
+    day: 10, type: 'discount', title: 'Malá medovina zdarma',
     text: 'K adventu patří malá překvapení a my jsme si pro vás dnes jedno takové připravili.',
-    image: F + 'den-08.webp', adult: true,
-    reward: 'Malá medovina zdarma k nákupu nad 800 Kč',
-    more: 'K nákupu nad 800 Kč vám přibalíme malou Kubešovu medovinu jako dárek. Třeba díky ní objevíte chuť, kterou jste od nás ještě neměli možnost ochutnat, nebo uděláte radost někomu ze svých blízkých.\n\nZkrátka malá pozornost od nás, aby byly vaše Vánoce ještě o něco medovější.\n\nNa zdraví a krásný advent vám přejí Kubešovi!\n\nNabídka je určena osobám starším 18 let.',
+    image: F + 'den-10.webp', adult: true,
+    reward: 'Malá medovina zdarma k nákupu nad 1 000 Kč',
+    more: 'K nákupu nad 1 000 Kč (zásilka do 10 kg) vám přibalíme malou Kubešovu medovinu jako dárek – bez kódu, automaticky. Třeba díky ní objevíte chuť, kterou jste od nás ještě neměli možnost ochutnat, nebo uděláte radost někomu ze svých blízkých.\n\nZkrátka malá pozornost od nás, aby byly vaše Vánoce ještě o něco medovější.\n\nNa zdraví a krásný advent vám přejí Kubešovi!\n\nNabídka je určena osobám starším 18 let.',
     url: SHOP, urlLabel: 'Nakoupit v e-shopu',
-    confirm: 'Jak se dárek uplatní (automaticky v Shoptetu / kódem / poznámkou k objednávce) a jak dlouho platí?',
+    confirm: 'Dárek se přibalí bez kódu – jak dlouho nabídka platí (jen 10. 12., nebo déle)?',
   },
   {
     day: 9, type: 'gift', title: 'Pohlazení pod stromeček',
@@ -99,18 +99,18 @@ const DOORS: Door[] = [
     url: SHOP + 'set-medovin-3x-0-75-l:kubesuv-med-e-shop/', urlLabel: 'Set medovin v e-shopu',
   },
   {
-    day: 10, type: 'download', title: 'Medové jmenovky pod stromeček',
+    day: 11, type: 'download', title: 'Medové jmenovky pod stromeček',
     text: 'Dárky jsou nachystané, mašle uvázané… a teď ještě ta poslední tečka v podobě jmenovky.',
     image: A + 'nahledy/jmenovky.webp', product: true,
     more: 'Dnes pro vás máme malý dárek od nás. Připravili jsme vánoční jmenovky s ilustracemi včelek, které si můžete stáhnout, vytisknout a přivázat k dárkům pro své blízké.\n\nStačí je jen doplnit o jméno a o něco osobnější štědrovečerní radost je postaráno.\n\nAť jsou vaše dárky letos hezky po medovém.',
     download: { url: PDF + 'medove-jmenovky.pdf', label: 'Stáhnout jmenovky (PDF)' },
   },
   {
-    day: 11, type: 'discount', title: '10 % na nákup nad 1 000 Kč',
-    text: 'Ještě nemáte všechny dárky pod stromeček? Nevadí, máme pro vás další adventní nadílku!',
-    image: F + 'den-11.webp',
-    more: 'Na následující tři dny jsme si pro vás připravili slevu 10 % na nákup nad 1 000 Kč. Potěšte své blízké poctivým medem, medovinou nebo některým z našich dárkových balení.\n\nS objednávkou už ale příliš neotálejte, ať mají vaše medové dárky dostatek času dorazit pod stromeček.\n\nKrásné a pohodové předvánoční dny vám přejí Kubešovi.',
-    code: 'ADVENT10', codeNote: 'Sleva 10 % na nákup nad 1 000 Kč. Platí do 13. prosince.', codeUntil: 13,
+    day: 13, type: 'discount', title: '10 % na nákup nad 1 000 Kč',
+    text: 'Ještě nemáte všechny dárky pod stromeček? Teď je poslední šance objednat tak, aby dorazily do Vánoc!',
+    image: F + 'den-13.webp',
+    more: 'Na dva dny jsme si pro vás připravili slevu 10 % na nákup nad 1 000 Kč. Potěšte své blízké poctivým medem, medovinou nebo některým z našich dárkových balení.\n\nJe to poslední šance objednat tak, aby vaše medové dárky stihly dorazit pod stromeček – s objednávkou proto neotálejte.\n\nKrásné a pohodové předvánoční dny vám přejí Kubešovi.',
+    code: 'ADVENT10', codeNote: 'Sleva 10 % na nákup nad 1 000 Kč. Platí jen 2 dny – do 14. prosince.', codeUntil: 14,
     url: SHOP, urlLabel: 'Nakoupit v e-shopu',
   },
   {
@@ -121,15 +121,15 @@ const DOORS: Door[] = [
     more: 'Co budete potřebovat\n• 1 lžíci Kubešova medu\n• 1 lžíci dijonské hořčice\n• 3 lžíce olivového oleje\n• 1 lžíci citronové šťávy\n• špetku soli a čerstvě mletého pepře\n\nVšechny ingredience důkladně promíchejte, dokud se nespojí v hladký dresink. A je hotovo!\n\nSkvěle se hodí do zeleninových salátů, k pečené zelenině nebo ke grilovanému masu. Pro jeho přípravu doporučujeme náš jemný akátový med, který svou chutí nepřebije ostatní suroviny.\n\nDobrou chuť vám přejí Kubešovi',
   },
   {
-    day: 13, type: 'contest', title: 'Soutěž o set Malé vánoční pohlazení',
+    day: 8, type: 'contest', title: 'Soutěž o set Malé vánoční pohlazení',
     text: 'Dnes jsme do naší adventní plástve schovali pořádnou medovinovou nadílku!',
-    image: F + 'den-13.webp', adult: true,
-    more: 'Zasoutěžte si o dárkový set Malé vánoční pohlazení, ve kterém najdete tři lahve Kubešovy medoviny o objemu 0,75 l v celkové hodnotě 883 Kč.\n\nStačí správně odpovědět na naši soutěžní otázku. A pokud si s odpovědí nebudete jistí, malou nápovědu najdete na našem e-shopu.\n\nV úterý 15. prosince vylosujeme jednoho šťastlivce a výhru obratem odešleme, aby měla dostatek času dorazit pod stromeček.\n\nDržíme vám palce!',
+    image: F + 'den-08.webp', adult: true,
+    more: 'Zasoutěžte si o dárkový set Malé vánoční pohlazení, ve kterém najdete tři lahve Kubešovy medoviny o objemu 0,75 l v celkové hodnotě 883 Kč.\n\nStačí správně odpovědět na naši soutěžní otázku. A pokud si s odpovědí nebudete jistí, malou nápovědu najdete na našem e-shopu.\n\nV pondělí 14. prosince vylosujeme jednoho šťastlivce a výhru obratem odešleme, aby měla dostatek času dorazit pod stromeček.\n\nDržíme vám palce!',
     contest: {
       question: 'Které tři medoviny najdete v sadě Malé vánoční pohlazení?',
       prize: 'Set Malé vánoční pohlazení (3 × 0,75 l, hodnota 883 Kč)',
-      rules: 'Zapojit se lze do pondělí 14. 12. 2026 23:59, jen jednou, od 18 let a s doručovací adresou v ČR. Ze správných odpovědí vylosujeme v úterý 15. 12. jednoho výherce, napíšeme mu e-mailem a výhru hned odešleme.',
-      until: 14,
+      rules: 'Zapojit se lze do neděle 13. 12. 2026 23:59, jen jednou, od 18 let a s doručovací adresou v ČR. Ze správných odpovědí vylosujeme v pondělí 14. 12. jednoho výherce, napíšeme mu e-mailem a výhru hned odešleme.',
+      until: 13,
       placeholder: 'Např. medovina…, medovina…, medovina…',
       adult: true,
     },
@@ -212,8 +212,9 @@ const DOORS: Door[] = [
     text: 'Dnešní adventní překvapení vás zavede přímo na olomoucké vánoční trhy!',
     codeNote: 'Platí do 20. prosince, každý ho může použít jen jednou. Jen pro osoby starší 18 let.',
     image: F + 'den-18.webp', adult: true,
+    confirm: 'Objem: v podkladu „0,2 deci“ – na webu je 0,2 l (2 deci). Zkontrolovat.',
     password: 'Kubeš mi to dovolil!',
-    more: 'Až půjdete kolem našeho stánku na olomouckých vánočních trzích, zastavte se u nás a řekněte obsluze tajné heslo. Za odměnu vám nalijeme malou horkou Kubešovu medovinu úplně zdarma. Žádný háček, žádný nákup, jen malé adventní potěšení od nás.\n\nTak si heslo dobře zapamatujte a přijďte si s námi užít trochu té vánoční atmosféry.\n\nTěšíme se na vás u stánku!\n\nHeslo platí do 20. prosince a každý ho může použít jen jednou. Jen pro osoby starší 18 let.',
+    more: 'Až půjdete kolem našeho stánku na olomouckých vánočních trzích, zastavte se u nás a řekněte obsluze tajné heslo. Za odměnu vám nalijeme malou horkou Kubešovu medovinu (0,2 l) úplně zdarma. Žádný háček, žádný nákup, jen malé adventní potěšení od nás.\n\nTak si heslo dobře zapamatujte a přijďte si s námi užít trochu té vánoční atmosféry.\n\nTěšíme se na vás u stánku!\n\nHeslo platí do 20. prosince a každý ho může použít jen jednou – jedna medovina na osobu. Jen pro osoby starší 18 let.',
   },
   {
     day: 19, type: 'download', title: 'Vánoční přání od srdce',
@@ -269,7 +270,7 @@ export function tidy(t: string): string {
     .replace(/(^|[\s(„])([vkszouaiVKSZOUAI]) /g, '$1$2\u00a0');
 }
 
-export const doors: Door[] = DOORS.map((d) => ({
+export const doors: Door[] = [...DOORS].sort((a, b) => a.day - b.day).map((d) => ({
   ...d,
   title: tidy(d.title),
   text: tidy(d.text),

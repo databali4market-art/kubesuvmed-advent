@@ -12,7 +12,7 @@ Statický web (Vite + React + TypeScript): 24 buněk medové plástve, které se
 | `src/components/Admin.tsx` | stránka `/?admin` – stažení e-mailů (vč. stavu souhlasu) a soutěžních odpovědí do CSV |
 | `src/components/Rules.tsx` | stránka `/?pravidla` – pravidla soutěže (pořadatel = `OPERATOR` v `src/config.ts`) |
 | `public/pdf/`, `tools/pdf/` | PDF ke stažení: recept na perníčky (7.), jmenovky (10.), přání (19.); generátor ve stylu webu: `python3 tools/pdf/build.py && node tools/pdf/render.cjs` |
-| `firestore.rules` | pravidla Firestore (soutěž ve dni 13, přístup správců) |
+| `firestore.rules` | pravidla Firestore (soutěž ve dni 8, přístup správců) |
 | `firebase.json`, `.firebaserc`, `.github/workflows/deploy.yml` | testovací hosting a automatické nasazení |
 | `src/fonts.css` | písma (jen latinka + čeština) |
 | `public/media/botanika/`, `public/media/vcelka.svg` | brandové vektorové kresby (SVG z `kubes_vektory.ai`) a včelka; včelka je i v `src/components/Decor.tsx` |
@@ -21,16 +21,16 @@ Statický web (Vite + React + TypeScript): 24 buněk medové plástve, které se
 
 | Den | Odměna | Jak funguje na webu |
 | --- | --- | --- |
-| 2. | **ADVENT15** – 15 % nad 1 500 Kč | kód ke zkopírování, po 4. 12. se ukáže jako neplatný |
-| 5. | **MIKULAS** – doprava zdarma do One Boxu nad 500 Kč | kód, platnost nastavena do 6. 12. |
+| 2. | **ADVENT15** – 15 % nad 1 500 Kč | kód, platí 2 dny – po 3. 12. se ukáže jako neplatný |
+| 5. | **MIKULAS** – doprava zdarma přes Messenger nad 1 000 Kč (do 10 kg) | kód, platnost nastavena do 6. 12. |
 | 6. | kvíz o zimování včel | okamžité vyhodnocení + vysvětlení |
 | 7. | recept na perníčky | + PDF ke stažení |
-| 8. | malá medovina zdarma nad 800 Kč | zvýrazněná odměna (18+) |
-| 10. | jmenovky pod stromeček | PDF ke stažení |
-| 11. | **ADVENT10** – 10 % nad 1 000 Kč | kód, po 13. 12. neplatný |
-| 13. | **soutěž** o set Malé vánoční pohlazení (883 Kč) | odpověď + 18+ + pravidla, přijímá do 14. 12., losování 15. 12. |
+| 8. | **soutěž** o set Malé vánoční pohlazení (883 Kč) | odpověď + 18+ + pravidla, přijímá do 13. 12., losování v pondělí 14. 12. |
+| 10. | malá medovina zdarma k nákupu nad 1 000 Kč (do 10 kg) | bez kódu, zvýrazněná odměna (18+) |
+| 11. | jmenovky pod stromeček | PDF ke stažení |
+| 13. | **ADVENT10** – 10 % nad 1 000 Kč | kód, platí 2 dny – po 14. 12. neplatný; poslední šance na doručení do Vánoc |
 | 15. | typový kvíz „Jaký med je vám nejbližší“ | 5 otázek → doporučený med s odkazem |
-| 18. | heslo „Kubeš mi to dovolil!“ na trzích | heslo (18+, 1 na osobu) |
+| 18. | heslo „Kubeš mi to dovolil!“ na olomouckých trzích | malá horká medovina, 18+, jedna na osobu, do 20. 12. |
 | 19. | vánoční přání | PDF ke stažení |
 
 Kódy a hesla se uživateli ukládají i v sekci **Moje dárky**.
@@ -92,14 +92,14 @@ Jednorázové nastavení domény `advent.kubesuvmed.cz`:
 - Do newsletteru patří **jen** tento soubor – lidé, kteří zaškrtli souhlas. U každého je datum a znění souhlasu (kvůli GDPR). Znění je v `src/config.ts` (`NEWSLETTER_CONSENT`).
 - Soubor „Všichni přihlášení“ slouží jen pro kalendář a kontakt s výhercem, ne pro marketing.
 - Kdo souhlas v sekci *Moje dárky* odškrtne, v CSV pro newsletter už nebude (export dělejte až před rozesláním).
-- Soutěž 13. 12.: „Soutěžní odpovědi (CSV)“ → vyfiltrovat správné odpovědi → vylosovat 15. 12.
+- Soutěž 8. 12.: „Soutěžní odpovědi (CSV)“ → vyfiltrovat správné odpovědi → vylosovat v pondělí 14. 12.
 
 ## Před spuštěním (1. 12.)
 
 Podrobný seznam otevřených bodů je v [DORESIT.md](DORESIT.md).
 
 - [ ] Firebase nastavený (viz výše), vyzkoušené přihlášení přes Google a export na `/?admin`.
-- [ ] Ve Shoptetu založit kódy **ADVENT15** (2.–4. 12., nad 1 500 Kč), **MIKULAS** (One Box, nad 500 Kč), **ADVENT10** (11.–13. 12., nad 1 000 Kč) a nastavit dárek k nákupu nad 800 Kč (8. 12.).
+- [ ] Ve Shoptetu založit kódy **ADVENT15** (2.–3. 12., nad 1 500 Kč), **MIKULAS** (Messenger, nad 1 000 Kč, do 10 kg), **ADVENT10** (13.–14. 12., nad 1 000 Kč) a nastavit dárek k nákupu nad 1 000 Kč (10. 12., bez kódu).
 - [ ] Vyřešit všechny poznámky `confirm` v `src/content.ts` (vidíte je v náhledu jako žluté rámečky), pak `CONTENT_MODE = 'live'`.
 - [ ] 15. 12.: nahradit pracovní otázky typového kvízu zněním z Google Docu.
 - [ ] Zkontrolovat vytištěná PDF (`public/pdf/`, generuje `tools/pdf/`).
