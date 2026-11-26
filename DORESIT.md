@@ -24,9 +24,6 @@ Pošlete je a vyměním je (do té doby jsou v okénkách ilustrace z brandovýc
 
 - [ ] **Provozovatel / pořadatel soutěže / správce údajů**: doplnit název firmy (nebo jméno podnikatele), sídlo a IČO do `OPERATOR` v `src/config.ts`. Ukazuje se v pravidlech soutěže (`/?pravidla`) a v patičce. Bez toho kalendář nespouštět.
 
-- [ ] **5. 12. – MIKULAS**: do kdy kód platí? Na webu je nastaveno do neděle 6. 12. (`codeUntil` v `src/content.ts`).
-- [ ] **10. 12. – malá medovina zdarma nad 1 000 Kč (do 10 kg, bez kódu)**: platí jen 10. 12., nebo déle?
-- [ ] **18. 12. – objem medoviny**: v podkladu „0,2 deci“, na webu je 0,2 l (2 deci) – potvrdit.
 - [ ] **8. 12. – soutěž**: je odkaz „Nápověda v e-shopu“ na správný set (Malé vánoční pohlazení)? Doplnit do pravidel IČO a adresu pořadatele.
 - [ ] **14. 12. – frizzante**: přímý odkaz na produkt v e-shopu (teď vede na kategorii medovin).
 - [ ] **18. 12. – heslo na trzích**: kde a kdy je stánek (trhy, adresa, dny/hodiny) a do kdy heslo platí.
@@ -39,9 +36,9 @@ Pošlete je a vyměním je (do té doby jsou v okénkách ilustrace z brandovýc
 ## Shoptet
 
 - [ ] Založit kód **ADVENT15** – 15 % nad 1 500 Kč, platnost 2.–3. 12. (jen 2 dny)
-- [ ] Založit kód **MIKULAS** – doprava zdarma jen pro Messenger, nad 1 000 Kč, zásilky do 10 kg (platnost: na webu do 6. 12. – potvrdit)
+- [ ] Založit kód **MIKULAS** – doprava zdarma jen pro Messenger, nad 1 000 Kč, zásilky do 10 kg, platnost 5.–7. 12.
 - [ ] Založit kód **ADVENT10** – 10 % nad 1 000 Kč, platnost 13.–14. 12. (jen 2 dny)
-- [ ] Nastavit dárek (malá medovina) k nákupu nad 1 000 Kč (do 10 kg) na 10. 12. – automaticky, bez kódu
+- [ ] Nastavit dárek (malá medovina) k nákupu nad 1 000 Kč (do 10 kg) na 10.–13. 12. – automaticky, bez kódu
 
 ## Firebase a nasazení (projekt `kubesuvmed-advent-91953`)
 
