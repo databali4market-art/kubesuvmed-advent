@@ -22,9 +22,9 @@ Pošlete je a vyměním je (do té doby jsou v okénkách ilustrace z brandovýc
 
 ## Obsah – otázky k potvrzení
 
-- [ ] **Provozovatel / pořadatel soutěže / správce údajů**: doplnit název firmy (nebo jméno podnikatele), sídlo a IČO do `OPERATOR` v `src/config.ts`. Ukazuje se v pravidlech soutěže (`/?pravidla`) a v patičce. Bez toho kalendář nespouštět.
+- [x] **Provozovatel / pořadatel soutěže / správce údajů** (doplněno 26. 11.: Jan Kubeš, IČO 64633934): doplnit název firmy (nebo jméno podnikatele), sídlo a IČO do `OPERATOR` v `src/config.ts`. Ukazuje se v pravidlech soutěže (`/?pravidla`) a v patičce. Bez toho kalendář nespouštět.
 
-- [ ] **8. 12. – soutěž**: je odkaz „Nápověda v e-shopu“ na správný set (Malé vánoční pohlazení)? Doplnit do pravidel IČO a adresu pořadatele.
+- [ ] **8. 12. – soutěž**: je odkaz „Nápověda v e-shopu“ na správný set (Malé vánoční pohlazení)? Údaje pořadatele doplněné.
 - [ ] **14. 12. – frizzante**: přímý odkaz na produkt v e-shopu (teď vede na kategorii medovin).
 - [ ] Ověřit adresu „Podmínky ochrany osobních údajů“ na kubesuvmed.cz (v patičce e-shopu) – kalendář na ni odkazuje z patičky i z přihlášení, teď `/podminky-ochrany-osobnich-udaju/` (`LEGAL` v `src/config.ts`). Ideálně do ní doplnit i adventní kalendář (přihlášení Googlem, soutěž, newsletter).
 

@@ -69,12 +69,12 @@ export const LEGAL = {
 
 /**
  * Provozovatel kalendáře, pořadatel soutěže a správce osobních údajů (pravidla /?pravidla, patička).
- * DOPLNIT před spuštěním – hodnoty v [hranatých závorkách] jsou zástupné. Kontakt je z kubesuvmed.cz.
+ * Údaje podle obchodních podmínek kubesuvmed.cz (zemědělský podnikatel, evidence Magistrátu města Olomouce).
  */
 export const OPERATOR = {
-  name: '[doplnit: název firmy / jméno podnikatele]',
-  address: '[doplnit: sídlo]',
-  ico: '[doplnit]',
+  name: 'Jan Kubeš',
+  address: 'Jožky Jabůrkové 2, 779 00 Olomouc – Neředín',
+  ico: '64633934',
   email: 'info@kubesuvmed.cz',
   phone: '+420 605 159 173',
 };
