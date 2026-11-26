@@ -14,7 +14,7 @@ export function Rules() {
         <h1>Pravidla soutěže Medového adventu 2026</h1>
 
         <h2>1. Pořadatel</h2>
-        <p>Pořadatelem soutěže je <b>{o.name}</b>, se sídlem {o.address}, IČ {o.ico} (dále jen „pořadatel“), provozovatel značky Kubešova medová manufaktura. Kontakt: <a href={'mailto:' + o.email}>{o.email}</a>, {o.phone}.</p>
+        <p>Pořadatelem soutěže je <b>{o.name}</b>, se sídlem {o.address}, IČ {o.ico} (zemědělský podnikatel, dále jen „pořadatel“), provozovatel značky Kubešova medová manufaktura. Kontakt: <a href={'mailto:' + o.email}>{o.email}</a>, {o.phone}.</p>
 
         <h2>2. Soutěž a doba konání</h2>
         <p><b>Soutěž o set Malé vánoční pohlazení</b> (okénko 8. prosince): zapojit se lze od 8. 12. 2026 0:00 do 13. 12. 2026 23:59. Výhra: dárkový set Malé vánoční pohlazení – tři lahve Kubešovy medoviny 0,75 l v hodnotě 883 Kč.</p>
